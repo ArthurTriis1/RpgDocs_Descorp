@@ -5,14 +5,22 @@
  */
 package com.descorp.rpgdocs.models;
 
-/**
- *
- * @author arthur
- */
-class Skill {
+import javax.persistence.Column;
+import javax.persistence.Embeddable;
+
+@Embeddable
+public class Skill {
+    
+    @Column(name = "STRONG")
     private Integer strong;
+    
+    @Column(name = "DEXTERITY")
     private Integer dexterity;
+    
+    @Column(name = "INTELLIGENCE")
     private Integer intelligence;
+    
+    @Column(name = "CHARM")
     private Integer charm;
 
     public Integer getStrong() {

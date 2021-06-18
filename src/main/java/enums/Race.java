@@ -10,7 +10,7 @@ package enums;
  *
  * @author arthur
  */
-public enum Races {
+public enum Race {
     Dragon,
     Ork,
     Fate,
