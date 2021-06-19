@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package main;
+package com.ifpe.mavenproject1;
 
 import com.descorp.rpgdocs.models.Sheet;
 import com.descorp.rpgdocs.models.Skill;
@@ -11,17 +6,31 @@ import com.descorp.rpgdocs.models.Tool;
 import com.descorp.rpgdocs.models.User;
 import enums.Race;
 import enums.ToolKind;
+import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.ws.rs.GET;
+import javax.ws.rs.Path;
+import javax.ws.rs.core.Response;
 
-/**
- *
- * @author arthur
- */
-public class TestJPA {
-    public void createData() {
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
+@Path("sample")
+public class SampleResource {
+
+	@Inject
+	@ConfigProperty(name = "message")
+	private String message;
+
+	@GET
+	public Response message() {
+                this.createData();
+		return Response.ok("jsjjsjs").build();
+	}
+        
+        public void createData() {
         User user = new User();
         createUser(user);
         EntityManagerFactory emf = null;
@@ -74,4 +83,5 @@ public class TestJPA {
         user.addSheet(sheet);
 
     }
+
 }
