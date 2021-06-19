@@ -106,4 +106,5 @@
             </plugin>
         </plugins>
     </build>
+    <name>RpgDocs_DescorpProject2</name>
 </project>
