@@ -7,7 +7,7 @@ public interface UserRepository {
     
     User getUserById(Long id);
     
-    User getUserByEmail(String email);
+    User getUserByEmailAndPassword(String email, Integer password);
     
     User saveUser(User user);
     

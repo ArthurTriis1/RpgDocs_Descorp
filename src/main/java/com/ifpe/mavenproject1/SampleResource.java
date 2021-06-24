@@ -23,10 +23,10 @@ public class SampleResource {
 	@Inject
 	@ConfigProperty(name = "message")
 	private String message;
-
+        
 	@GET
 	public Response message() {
-                this.createData();
+                //this.createData();
 		return Response.ok("jsjjsjs").build();
 	}
         

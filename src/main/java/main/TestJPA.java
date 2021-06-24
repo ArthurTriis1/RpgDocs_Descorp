@@ -5,6 +5,7 @@
  */
 package main;
 
+import com.descorp.rpgdocs.connection.DatabaseConnection;
 import com.descorp.rpgdocs.models.Sheet;
 import com.descorp.rpgdocs.models.Skill;
 import com.descorp.rpgdocs.models.Tool;
@@ -27,7 +28,7 @@ public class TestJPA {
     public static void main(String[] args) {
         TestJPA testeJPA = new TestJPA();
         //testeJPA.createData();
-        UserRepository userRepo = new UserRepositoryImpl(Persistence.createEntityManagerFactory("rpg_docs").createEntityManager());
+        UserRepository userRepo = new UserRepositoryImpl(DatabaseConnection.getCurrentInstance().createEntityManager());
         User u = new User();
         
         testeJPA.createUser(u);

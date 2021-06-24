@@ -5,7 +5,6 @@ import com.descorp.rpgdocs.repositories.UserRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
-import org.eclipse.persistence.expressions.spatial.SpatialParameters;
 
 public class UserRepositoryImpl implements UserRepository {
     
@@ -24,9 +23,10 @@ public class UserRepositoryImpl implements UserRepository {
     }
 
     @Override
-    public User getUserByEmail(String email) {
-        TypedQuery<User> q = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
+    public User getUserByEmailAndPassword(String email, Integer password) {
+        TypedQuery<User> q = em.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.password = :password", User.class);
         q.setParameter("email", email);
+        q.setParameter("password", password);
         return q.getSingleResult();
     }
 
