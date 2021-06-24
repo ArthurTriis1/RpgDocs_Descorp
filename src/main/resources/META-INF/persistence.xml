@@ -3,7 +3,7 @@
   <persistence-unit name="rpg_docs" transaction-type="RESOURCE_LOCAL">
     <exclude-unlisted-classes>false</exclude-unlisted-classes>
     <properties>
-      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/rpg_docs"/>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/rpg_docs;create=true"/>
       <property name="javax.persistence.jdbc.user" value="app"/>
       <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
       <property name="javax.persistence.jdbc.password" value="app"/>

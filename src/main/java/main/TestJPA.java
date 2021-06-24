@@ -9,6 +9,8 @@ import com.descorp.rpgdocs.models.Sheet;
 import com.descorp.rpgdocs.models.Skill;
 import com.descorp.rpgdocs.models.Tool;
 import com.descorp.rpgdocs.models.User;
+import com.descorp.rpgdocs.repositories.UserRepository;
+import com.descorp.rpgdocs.repositoriesImpl.UserRepositoryImpl;
 import enums.Race;
 import enums.ToolKind;
 import javax.persistence.EntityManager;
@@ -21,6 +23,17 @@ import javax.persistence.Persistence;
  * @author arthur
  */
 public class TestJPA {
+    
+    public static void main(String[] args) {
+        TestJPA testeJPA = new TestJPA();
+        //testeJPA.createData();
+        UserRepository userRepo = new UserRepositoryImpl(Persistence.createEntityManagerFactory("rpg_docs").createEntityManager());
+        User u = new User();
+        
+        testeJPA.createUser(u);
+        userRepo.saveUser(u);
+    }
+    
     public void createData() {
         User user = new User();
         createUser(user);
