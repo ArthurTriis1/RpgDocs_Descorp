@@ -5,6 +5,7 @@ import com.descorp.rpgdocs.repositories.UserRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
+import org.eclipse.persistence.expressions.spatial.SpatialParameters;
 
 public class UserRepositoryImpl implements UserRepository {
     
@@ -35,7 +36,9 @@ public class UserRepositoryImpl implements UserRepository {
             em.persist(user);
             et.commit();
         } else {
-            user = em.merge(user);
+           em.clear();
+           user = em.merge(user);
+           et.commit();
         }
         return user;
     }
@@ -45,9 +48,7 @@ public class UserRepositoryImpl implements UserRepository {
         if (em.contains(user)) {
             em.remove(user);
         } else {
-            em.clear();
             em.merge(user);
-            et.commit();
         }
     }
     

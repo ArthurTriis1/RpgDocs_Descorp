@@ -8,6 +8,7 @@ package com.descorp.rpgdocs.repositoriesImpl;
 import com.descorp.rpgdocs.models.Tool;
 import com.descorp.rpgdocs.repositories.ToolRepository;
 import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
 
 /**
  *
@@ -16,9 +17,12 @@ import javax.persistence.EntityManager;
 public class ToolRepositoryImpl implements ToolRepository{
     
     private EntityManager em;
+    private EntityTransaction et;
             
     public ToolRepositoryImpl(EntityManager em){
         this.em = em;
+        this.et = em.getTransaction();
+        this.et.begin();
     }
     
     @Override
@@ -30,8 +34,11 @@ public class ToolRepositoryImpl implements ToolRepository{
     public Tool saveTool(Tool tool) {
         if (tool.getId() == null) {
             em.persist(tool);
+            et.commit();
         } else {
-            tool = em.merge(tool);
+           em.clear();
+           tool = em.merge(tool);
+           et.commit();
         }
         return tool;
     }
