@@ -5,11 +5,12 @@
  */
 package com.descorp.rpgdocs.models;
 
+import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 @Embeddable
-public class Skill {
+public class Skill implements Serializable{
     
     @Column(name = "STRONG")
     private Integer strong;

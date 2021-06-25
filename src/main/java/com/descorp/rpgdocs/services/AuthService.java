@@ -7,19 +7,19 @@ import com.descorp.rpgdocs.repositories.UserRepository;
 import com.descorp.rpgdocs.repositoriesImpl.UserRepositoryImpl;
 
 
-public class LoginService {
+public class AuthService {
     
     private UserRepository userRepo;
     
-    private static LoginService loginService;
+    private static AuthService loginService;
     
-    public LoginService(){
+    public AuthService(){
         this.userRepo = UserRepositoryImpl.getInstance();
     }
     
-    public static LoginService getInstance(){
+    public static AuthService getInstance(){
         if(loginService == null){
-            loginService = new LoginService();
+            loginService = new AuthService();
         }
         
         return loginService;

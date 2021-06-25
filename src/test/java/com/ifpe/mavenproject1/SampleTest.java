@@ -5,7 +5,7 @@ import com.descorp.rpgdocs.models.Sheet;
 import com.descorp.rpgdocs.models.Skill;
 import com.descorp.rpgdocs.models.Tool;
 import com.descorp.rpgdocs.models.User;
-import com.descorp.rpgdocs.services.LoginService;
+import com.descorp.rpgdocs.services.AuthService;
 import enums.Race;
 import enums.ToolKind;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -16,7 +16,7 @@ public class SampleTest {
 
     @Test
     public void SignUpValidUserAndSingInTest() {
-        LoginService userControl = new LoginService();
+        AuthService userControl = new AuthService();
         User user = createUser();
         userControl.SignUp(user);
         

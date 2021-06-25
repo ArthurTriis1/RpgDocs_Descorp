@@ -8,27 +8,25 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
 
 public class UserRepositoryImpl implements UserRepository {
-    
+
     private EntityManager em;
     private EntityTransaction et;
     private static UserRepositoryImpl userRepositoryImpl;
-    
-    public UserRepositoryImpl(EntityManager em){
+
+    public UserRepositoryImpl(EntityManager em) {
         this.em = em;
-        this.et = em.getTransaction();
-        this.et.begin();
     }
-    
+
     public static UserRepositoryImpl getInstance() {
         EntityManager em = DatabaseConnection.getCurrentInstance().createEntityManager();
-        
-        if(userRepositoryImpl == null){
+
+        if (userRepositoryImpl == null) {
             userRepositoryImpl = new UserRepositoryImpl(em);
         }
-        
+
         return userRepositoryImpl;
     }
-    
+
     @Override
     public User getUserById(Long id) {
         return em.find(User.class, id);
@@ -44,13 +42,15 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User saveUser(User user) {
+        this.et = em.getTransaction();
+        this.et.begin();
         if (user.getId() == null) {
             em.persist(user);
             et.commit();
         } else {
-           em.clear();
-           user = em.merge(user);
-           et.commit();
+            em.clear();
+            user = em.merge(user);
+            et.commit();
         }
         return user;
     }
@@ -63,5 +63,5 @@ public class UserRepositoryImpl implements UserRepository {
             em.merge(user);
         }
     }
-    
+
 }
