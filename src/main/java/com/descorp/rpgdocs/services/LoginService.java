@@ -1,4 +1,4 @@
-package com.descorp.rpgdocs.controllers;
+package com.descorp.rpgdocs.services;
 
 import com.descorp.rpgdocs.beans.SignInBean;
 import com.descorp.rpgdocs.connection.DatabaseConnection;
@@ -7,12 +7,22 @@ import com.descorp.rpgdocs.repositories.UserRepository;
 import com.descorp.rpgdocs.repositoriesImpl.UserRepositoryImpl;
 
 
-public class UserController {
+public class LoginService {
     
     private UserRepository userRepo;
     
-    public UserController(){
-        this.userRepo = new UserRepositoryImpl(DatabaseConnection.getCurrentInstance().createEntityManager());
+    private static LoginService loginService;
+    
+    public LoginService(){
+        this.userRepo = UserRepositoryImpl.getInstance();
+    }
+    
+    public static LoginService getInstance(){
+        if(loginService == null){
+            loginService = new LoginService();
+        }
+        
+        return loginService;
     }
     
     public User SignIn(SignInBean bean){

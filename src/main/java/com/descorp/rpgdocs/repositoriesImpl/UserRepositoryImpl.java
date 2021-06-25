@@ -1,5 +1,6 @@
 package com.descorp.rpgdocs.repositoriesImpl;
 
+import com.descorp.rpgdocs.connection.DatabaseConnection;
 import com.descorp.rpgdocs.models.User;
 import com.descorp.rpgdocs.repositories.UserRepository;
 import javax.persistence.EntityManager;
@@ -10,11 +11,22 @@ public class UserRepositoryImpl implements UserRepository {
     
     private EntityManager em;
     private EntityTransaction et;
+    private static UserRepositoryImpl userRepositoryImpl;
     
     public UserRepositoryImpl(EntityManager em){
         this.em = em;
         this.et = em.getTransaction();
         this.et.begin();
+    }
+    
+    public static UserRepositoryImpl getInstance() {
+        EntityManager em = DatabaseConnection.getCurrentInstance().createEntityManager();
+        
+        if(userRepositoryImpl == null){
+            userRepositoryImpl = new UserRepositoryImpl(em);
+        }
+        
+        return userRepositoryImpl;
     }
     
     @Override

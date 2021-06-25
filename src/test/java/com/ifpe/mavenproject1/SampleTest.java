@@ -1,11 +1,11 @@
 package com.ifpe.mavenproject1;
 
 import com.descorp.rpgdocs.beans.SignInBean;
-import com.descorp.rpgdocs.controllers.UserController;
 import com.descorp.rpgdocs.models.Sheet;
 import com.descorp.rpgdocs.models.Skill;
 import com.descorp.rpgdocs.models.Tool;
 import com.descorp.rpgdocs.models.User;
+import com.descorp.rpgdocs.services.LoginService;
 import enums.Race;
 import enums.ToolKind;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -16,7 +16,7 @@ public class SampleTest {
 
     @Test
     public void SignUpValidUserAndSingInTest() {
-        UserController userControl = new UserController();
+        LoginService userControl = new LoginService();
         User user = createUser();
         userControl.SignUp(user);
         

@@ -1,5 +1,6 @@
 package com.descorp.rpgdocs.repositoriesImpl;
 
+import com.descorp.rpgdocs.connection.DatabaseConnection;
 import com.descorp.rpgdocs.models.Sheet;
 import com.descorp.rpgdocs.repositories.SheetRepository;
 import javax.persistence.EntityManager;
@@ -8,6 +9,8 @@ import javax.persistence.TypedQuery;
 
 public class SheetRepositoryImpl implements SheetRepository{
     
+    private static SheetRepositoryImpl sheetRepositoryImpl;
+    
     private EntityManager em;
     private EntityTransaction et;
     
@@ -15,6 +18,15 @@ public class SheetRepositoryImpl implements SheetRepository{
         this.em = em;
         this.et = em.getTransaction();
         this.et.begin();
+    }
+    
+    public static SheetRepository getInstance(){
+        EntityManager em = DatabaseConnection.getCurrentInstance().createEntityManager();
+        
+        if(sheetRepositoryImpl == null){
+            sheetRepositoryImpl = new SheetRepositoryImpl(em);
+        }
+        return sheetRepositoryImpl;
     }
     
     @Override
