@@ -17,6 +17,8 @@ public class UserRepositoryImpl implements UserRepository {
 
     public UserRepositoryImpl(EntityManager em) {
         this.em = em;
+        this.et = em.getTransaction();
+        this.et.begin();
     }
 
     public static UserRepositoryImpl getInstance() {
@@ -54,8 +56,6 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User saveUser(User user) {
-        this.et = em.getTransaction();
-        this.et.begin();
         if (user.getId() == null) {
             em.persist(user);
             et.commit();

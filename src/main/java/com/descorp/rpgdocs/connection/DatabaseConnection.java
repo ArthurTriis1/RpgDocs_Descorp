@@ -20,7 +20,7 @@ public class DatabaseConnection {
     private static DatabaseConnection myself = null;
 	
     public DatabaseConnection() {
-        
+ 
         this.emf = Persistence.createEntityManagerFactory("rpg_docs");
     }
 	
