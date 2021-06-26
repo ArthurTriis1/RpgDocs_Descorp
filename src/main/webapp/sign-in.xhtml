@@ -1,14 +1,31 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:decorate xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      template="/templates/template.xhtml">
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="/templates/template.xhtml"
+             xmlns:p="http://primefaces.org/ui">
     <h:head>
-        <title>Facelet Title</title>
+        <title>Login | RpgDocs</title>
     </h:head>
     <h:body>
-        Increva-se
+                <p:growl id="message" showDetail="true"/>
+
+        
+        <h:form>
+            <h:outputLabel value="Email"></h:outputLabel>
+            <p:inputText value="#{signInController.email}"></p:inputText>
+
+            <h:outputLabel value="Senha"></h:outputLabel>
+            <p:password value="#{signInController.password}"></p:password>
+
+            <p:commandButton value="Login" action="#{signInController.login()}"></p:commandButton>
+            
+            <p:dialog id="myDialogID" widgetVar="errLoginVar">
+                <h3>Usuario ou senha incorretos.</h3>
+            </p:dialog>
+        </h:form>
+
     </h:body>
 </ui:decorate>
 

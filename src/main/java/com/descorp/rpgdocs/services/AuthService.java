@@ -5,6 +5,8 @@ import com.descorp.rpgdocs.connection.DatabaseConnection;
 import com.descorp.rpgdocs.models.User;
 import com.descorp.rpgdocs.repositories.UserRepository;
 import com.descorp.rpgdocs.repositoriesImpl.UserRepositoryImpl;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpServletRequest;
 
 
 public class AuthService {
@@ -26,7 +28,15 @@ public class AuthService {
     }
     
     public User SignIn(SignInBean bean){
-        return userRepo.getUserByEmailAndPassword(bean.getEmail(), bean.getPassword());
+        User loggedUser = userRepo.getUserByEmailAndPassword(bean.getEmail(), bean.getPassword());
+        
+        if (loggedUser != null) {
+            FacesContext context = FacesContext.getCurrentInstance();
+            HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+            request.getSession().setAttribute("user", loggedUser);
+        }
+        
+        return loggedUser;
     }
     
     public User SignUp(User user){

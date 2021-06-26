@@ -3,6 +3,7 @@ package com.descorp.rpgdocs.repositoriesImpl;
 import com.descorp.rpgdocs.connection.DatabaseConnection;
 import com.descorp.rpgdocs.models.User;
 import com.descorp.rpgdocs.repositories.UserRepository;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
@@ -37,7 +38,15 @@ public class UserRepositoryImpl implements UserRepository {
         TypedQuery<User> q = em.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.password = :password", User.class);
         q.setParameter("email", email);
         q.setParameter("password", password);
-        return q.getSingleResult();
+        
+        List<User> listUsers = q.getResultList();
+        
+        if(listUsers.isEmpty()){
+            return null;
+        }
+        
+        return listUsers.get(0);
+         
     }
 
     @Override

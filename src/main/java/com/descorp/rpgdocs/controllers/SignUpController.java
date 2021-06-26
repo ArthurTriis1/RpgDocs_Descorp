@@ -10,6 +10,7 @@ import com.descorp.rpgdocs.services.AuthService;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import org.primefaces.PrimeFaces;
 
@@ -18,7 +19,7 @@ import org.primefaces.PrimeFaces;
  * @author arthur
  */
 @ManagedBean(name = "signUpController")
-@SessionScoped
+@ViewScoped
 public class SignUpController {
 
     private String name;
