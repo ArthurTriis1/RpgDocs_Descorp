@@ -33,6 +33,7 @@ public class AuthService {
         if (loggedUser != null) {
             FacesContext context = FacesContext.getCurrentInstance();
             HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+            request.getSession().removeAttribute("user");
             request.getSession().setAttribute("user", loggedUser);
         }
         
@@ -41,6 +42,14 @@ public class AuthService {
     
     public User SignUp(User user){
         return userRepo.saveUser(user);
+    }
+    
+    public String Logout(){
+        FacesContext context = FacesContext.getCurrentInstance();
+        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        request.getSession().removeAttribute("user");
+        
+        return "/index.xhtml?faces-redirect=true";
     }
     
     public User updateUser(User user) {

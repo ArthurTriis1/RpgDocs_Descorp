@@ -11,6 +11,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 @WebFilter(urlPatterns = "/docs/*" ,servletNames = "{Faces Servlet}")
 public class AuthFilter implements Filter{
@@ -19,17 +20,18 @@ public class AuthFilter implements Filter{
         
     }
 
-    public void doFilter(ServletRequest sr, ServletResponse sr1, FilterChain fc) throws IOException, ServletException {
-        HttpServletRequest request = (HttpServletRequest) sr;
+    public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain fc) throws IOException, ServletException {
+        HttpServletRequest request = (HttpServletRequest) servletRequest;
+        
+        HttpServletResponse response = (HttpServletResponse) servletResponse;
         
         User user = (User) request.getSession(true).getAttribute("user");
         
         if(user == null){
-            RequestDispatcher dispatcher = request.getRequestDispatcher("/sign-in.xhtml?faces-redirect=true");
-            dispatcher.forward(request, sr1);
+            response.sendRedirect(request.getContextPath() + "/sign-in.xhtml?faces-redirect=true");
             return;
         }
-        fc.doFilter(sr, sr1);
+        fc.doFilter(servletRequest, servletResponse);
     }
 
     public void destroy() {

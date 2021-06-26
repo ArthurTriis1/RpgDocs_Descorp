@@ -132,6 +132,10 @@ public class Sheet implements Serializable{
         this.owner = owner;
     }
 
+    public void setTools(List<Tool> tools) {
+        this.tools = tools;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 7;

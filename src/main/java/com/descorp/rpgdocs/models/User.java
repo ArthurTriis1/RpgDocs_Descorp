@@ -8,6 +8,7 @@ package com.descorp.rpgdocs.models;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -41,7 +42,7 @@ public class User implements Serializable{
     
     @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY,
             cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Sheet> sheets;
+    private List<Sheet> sheets = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -78,6 +79,41 @@ public class User implements Serializable{
     public List<Sheet> getSheets() {
         return sheets;
     }
+
+    public void setPassword(Integer password) {
+        this.password = password;
+    }
+
+    public void setSheets(List<Sheet> sheets) {
+        this.sheets = sheets;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 73 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final User other = (User) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
 
     public void addSheet(Sheet sheet) {
         if (this.sheets == null){

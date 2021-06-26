@@ -6,6 +6,7 @@ import com.descorp.rpgdocs.repositories.UserRepository;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 public class UserRepositoryImpl implements UserRepository {
@@ -35,7 +36,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public User getUserByEmailAndPassword(String email, Integer password) {
-        TypedQuery<User> q = em.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.password = :password", User.class);
+        Query q = em.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.password = :password", User.class);
         q.setParameter("email", email);
         q.setParameter("password", password);
         
@@ -45,7 +46,9 @@ public class UserRepositoryImpl implements UserRepository {
             return null;
         }
         
-        return listUsers.get(0);
+        User findUser = (User) listUsers.get(0);
+        
+        return findUser;
          
     }
 

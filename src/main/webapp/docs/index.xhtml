@@ -1,15 +1,37 @@
-<?xml version='1.0' encoding='UTF-8' ?>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:p="http://primefaces.org/ui">
-    <h:head>
-        <title>Rpg Docs</title>
-    </h:head>
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="/templates/docsBar.xhtml"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:body>
+        <h1>Bem vindo <h:outputText value="#{docsListController.name}" /> veja suas fichas: </h1>
+        <h:body>
+            <div class="card">
+                <h:form id="form">
+                    <p:dataTable id="sheets" var="sheet" 
+                                 value="#{docsListController.sheets}" 
+                                 rowKey="#{sheet.id}"
+                                 selectionMode="single">
+                        <f:facet name="header">
+                            Suas Fichas                    
+                        </f:facet>
 
-            
-        <h:outputText value="#{docsListController.name}" />
+                        <p:column headerText="Nome">
+                            <h:outputText value="#{sheet.name}" />
+                        </p:column>
+                        <p:column headerText="Descrição">
+                            <h:outputText value="#{sheet.description}" />
+                        </p:column>
+                        <p:column headerText="Idade">
+                            <h:outputText value="#{sheet.age}" />
+                        </p:column>
+                        <p:column headerText="Raça">
+                            <h:outputText value="#{sheet.race}" />
+                        </p:column>
+                    </p:dataTable>
+                </h:form>
+            </div>
+        </h:body>
     </h:body>
-</html>
-
+</ui:decorate>

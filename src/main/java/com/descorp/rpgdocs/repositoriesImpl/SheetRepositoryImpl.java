@@ -2,7 +2,9 @@ package com.descorp.rpgdocs.repositoriesImpl;
 
 import com.descorp.rpgdocs.connection.DatabaseConnection;
 import com.descorp.rpgdocs.models.Sheet;
+import com.descorp.rpgdocs.models.User;
 import com.descorp.rpgdocs.repositories.SheetRepository;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
@@ -33,7 +35,7 @@ public class SheetRepositoryImpl implements SheetRepository{
     public Sheet getSheetById(Long id) {
         return em.find(Sheet.class, id);
     }
-
+    
     @Override
     public Sheet getSheetByName(String name) {
         TypedQuery<Sheet> q = em.createQuery("SELECT s FROM Sheet s WHERE s.name = :name", Sheet.class);
@@ -41,6 +43,13 @@ public class SheetRepositoryImpl implements SheetRepository{
         return q.getSingleResult();
     }
 
+    @Override
+    public List<Sheet> getSheetsByOwner(User owner) {
+        TypedQuery<Sheet> q = em.createQuery("SELECT s FROM Sheet s WHERE s.owner = :owner_id", Sheet.class);
+        q.setParameter("owner_id", owner);
+        return q.getResultList();
+    }
+    
     @Override
     public Sheet saveSheet(Sheet sheet) {
          if (sheet.getId() == null) {
@@ -62,5 +71,6 @@ public class SheetRepositoryImpl implements SheetRepository{
             em.merge(sheet);
         }
     }
+
     
 }
