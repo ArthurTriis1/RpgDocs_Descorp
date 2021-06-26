@@ -12,10 +12,8 @@ import com.descorp.rpgdocs.repositoriesImpl.SheetRepositoryImpl;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 /**
@@ -31,6 +29,8 @@ public class DocsListController {
     SheetRepository sheetRepository;
     
     List<Sheet> sheets = new ArrayList<>();
+    
+    Boolean emptySheetList;
 
     public DocsListController() {
         this.sheetRepository = SheetRepositoryImpl.getInstance();
@@ -46,6 +46,7 @@ public class DocsListController {
         }
         
         this.sheets = this.sheetRepository.getSheetsByOwner(user);
+        this.emptySheetList = this.sheets.size() <= 0;
 
     }
 
@@ -64,4 +65,13 @@ public class DocsListController {
     public void setSheets(List<Sheet> sheets) {
         this.sheets = sheets;
     }
+
+    public Boolean getEmptySheetList() {
+        return emptySheetList;
+    }
+
+    public void setEmptySheetList(Boolean emptySheetList) {
+        this.emptySheetList = emptySheetList;
+    }
+
 }

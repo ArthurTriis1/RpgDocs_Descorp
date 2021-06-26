@@ -5,10 +5,11 @@
              xmlns:p="http://primefaces.org/ui"
              xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:body>
-        <h1>Bem vindo <h:outputText value="#{docsListController.name}" /> veja suas fichas: </h1>
+        <h1>Bem vindo, 
+        <h:outputText value="#{docsListController.name}" /> veja suas fichas: </h1>
         <h:body>
             <div class="card">
-                <h:form id="form">
+                <h:form id="form" rendered="#{docsListController.emptySheetList == false}">
                     <p:dataTable id="sheets" var="sheet" 
                                  value="#{docsListController.sheets}" 
                                  rowKey="#{sheet.id}"
@@ -16,18 +17,18 @@
                         <f:facet name="header">
                             Suas Fichas                    
                         </f:facet>
-
                         <p:column headerText="Nome">
                             <h:outputText value="#{sheet.name}" />
                         </p:column>
-                        <p:column headerText="Descrição">
-                            <h:outputText value="#{sheet.description}" />
-                        </p:column>
-                        <p:column headerText="Idade">
-                            <h:outputText value="#{sheet.age}" />
-                        </p:column>
                         <p:column headerText="Raça">
                             <h:outputText value="#{sheet.race}" />
+                        </p:column>
+                        <p:column headerText="Classe">
+                            <h:outputText value="#{sheet.klass}" />
+                        </p:column>
+                        <p:column headerText="Ações">
+                            <p:commandButton value="Visualizar"></p:commandButton>
+                            <p:commandButton value="Excluir"></p:commandButton>
                         </p:column>
                     </p:dataTable>
                 </h:form>

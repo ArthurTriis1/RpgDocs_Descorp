@@ -6,7 +6,6 @@
 
 package com.descorp.rpgdocs.models;
 
-import enums.Race;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -27,6 +26,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import enums.Klass;
+import enums.Race;
+
 /**
  *
  * @author arthur
@@ -45,6 +47,10 @@ public class Sheet implements Serializable{
     @Enumerated(EnumType.STRING)
     @Column(name = "RACE", nullable = false)
     private Race race;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(name = "KLASS", nullable = false)
+    private Klass klass;
     
     @Column(name = "AGE", nullable = true)
     private Integer age;
@@ -135,6 +141,16 @@ public class Sheet implements Serializable{
     public void setTools(List<Tool> tools) {
         this.tools = tools;
     }
+
+    public Klass getKlass() {
+        return klass;
+    }
+
+    public void setKlass(Klass klass) {
+        this.klass = klass;
+    }
+    
+    
     
     @Override
     public int hashCode() {
