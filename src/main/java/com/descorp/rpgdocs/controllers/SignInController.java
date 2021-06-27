@@ -20,9 +20,9 @@ import org.primefaces.PrimeFaces;
 @ManagedBean(name = "signInController")
 @ViewScoped
 public class SignInController {
-    
+
     private String password;
-    
+
     private String email;
 
     public String getPassword() {
@@ -40,24 +40,24 @@ public class SignInController {
     public void setEmail(String email) {
         this.email = email;
     }
-    
-    public String login (){
+
+    public String login() {
         SignInBean bean = new SignInBean();
-        
+
         bean.setEmail(email);
         bean.setPassword(password.hashCode());
-        
+
         AuthService auth = new AuthService();
-         User user = auth.SignIn(bean);
-         
-         if(user != null){
-             return "docs/index.xhtml?faces-redirect=true";
-         }
-         
-         PrimeFaces current = PrimeFaces.current();
-         current.executeScript("PF('errLoginVar').show();");
-         
-         return "";
+        User user = auth.SignIn(bean);
+
+        if (user != null) {
+            return "docs/index.xhtml?faces-redirect=true";
+        }
+
+        PrimeFaces current = PrimeFaces.current();
+        current.executeScript("PF('errLoginVar').show();");
+
+        return "";
     }
-    
+
 }

@@ -4,12 +4,14 @@
              template="/templates/docsBar.xhtml"
              xmlns:p="http://primefaces.org/ui"
              xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:outputStylesheet name="index.css"></h:outputStylesheet>
     <h:body>
-        <h1>Bem vindo, 
-        <h:outputText value="#{docsListController.name}" /> veja suas fichas: </h1>
+
         <h:body>
             <div class="card">
                 <h:form id="form" rendered="#{docsListController.emptySheetList == false}">
+                    <h1>Bem vindo, 
+                        <h:outputText value="#{docsListController.name}" /> veja suas fichas: </h1>
                     <p:dataTable id="sheets" var="sheet" 
                                  value="#{docsListController.sheets}" 
                                  rowKey="#{sheet.id}"
@@ -32,6 +34,18 @@
                         </p:column>
                     </p:dataTable>
                 </h:form>
+                
+                <div rendered="#{docsListController.emptySheetList == true}">
+                    <div class="ui-g">
+                        <div class="ui-g-12 jcc">
+                            <h2>Você não tem nenhuma ficha cadastrada 😢</h2>
+                        </div>
+                        <div class="ui-g-12 jcc">
+                            <a href="sheet/reg/createSheet.xhtml" >Clique aqui para criar sua primeira ficha</a>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         </h:body>
     </h:body>
