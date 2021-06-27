@@ -3,8 +3,14 @@
     Author     : David
 */
 
+:root{
+    --half: 50%;
+    --padding-containter-x: 3rem;
+    --padding-container-y: 0rem;
+}
+
 .container{
-    padding: 0rem 3rem 0rem 3rem;
+    padding: var(--padding-container-y) var(--padding-containter-x) var(--padding-container-y) var(--padding-containter-x);
 }
 
 .jcc {
@@ -13,57 +19,32 @@
     justify-content: center;
 }
 
-    .box,
-    .sample-layout > div {
-        background-color: #cce4f7;
-        text-align: center;
-        padding-top: 1em;
-        padding-bottom: 1em;
-        border-radius: 4px;
-        color: #30383c;
-    }
+.r {
+    display: flex;
+}
+.r:after {
+  content: "";
+  display: table;
+  clear: both;
+}
 
-    .box-stretched {
-        height: 100%;
-        box-sizing: border-box;
-    }
+.col {
+    flex: var(--half);
+    margin-right: 0.2rem;
+    margin-left: 0.2rem;
+}
 
-    .sample-layout {
-        margin: 0;
-    }
+@media screen and (max-width: 600px) {
+  .col {
+    width: 100%;
+  }
+}
 
-    .sample-layout > div {
-        border: 1px solid #ffffff;
-    }
+input, label {
+    display:block;
+    width: 100%;
+}
 
-    .vertical-container {
-        margin: 0;
-        height: 200px;
-        background: #efefef;
-        border-radius: 4px;
-    }
-
-    .nested-grid .p-col-4 {
-        padding-bottom: 1em;
-    }
-
-    .doc-table {
-        font-family: arial, sans-serif;
-        border-collapse: collapse;
-        width: 100%;
-    }
-
-    .doc-table th {
-        background-color: #cce4f7;
-    }
-
-    .doc-table td,
-    .doc-table th {
-        border: 1px solid #e5ebf0;
-        text-align: left;
-        padding: 8px;
-    }
-
-    .doc-table tr:nth-child(odd) {
-        background-color: #f3f6f9;
-    }
+.mt-2 {
+    margin-top: 0.5rem;
+}
