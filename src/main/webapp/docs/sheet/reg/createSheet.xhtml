@@ -7,56 +7,57 @@
              xmlns:f="http://xmlns.jcp.org/jsf/core">
 
     <h:outputStylesheet name="sheet/createSheet.css"></h:outputStylesheet>
+    <h:outputStylesheet name="sheet/primeflex.css" ></h:outputStylesheet>
     <h:body>
-        <h:body>
             <div class="container">
                 <div class="jcc">
                     <h2>Criação de Personagem 🧙</h2>
                 </div>
                 <div class="">
                     <h:form id="formRegSheet">
-                         <div class="ui-fluid p-formgrid p-grid">
-                            <div class="p-field p-col-12 p-md-12">
-                                <p:outputLabel value="Nome" for="nameSheet" styleClass="p-d-block"/>
-                                <p:inputText id="nameSheet" value="#{SheetBean.name}"/>
+                        <div class="card">
+                            <div class="ui-fluid p-formgrid p-grid">
+                               <div class="p-field p-col">
+                                   <p:outputLabel value="Nome" for="nameSheet" />
+                                   <p:inputText id="nameSheet" value="#{SheetBean.name}"/>
+                               </div>
+                               <div class="p-field p-col">
+                                   <p:outputLabel value="Raça" for="race" />
+                                   <p:inputText id="race" value="#{SheetBean.race}"/>
+                               </div>
+                               <div class="p-field p-col">
+                                   <p:outputLabel value="Idade" for="age" styleClass="p-d-block"/>
+                                   <p:inputText id="age" value="#{SheetBean.age}"/>
+                               </div>
+                               <div class="p-field p-col">
+                                   <p:outputLabel value="Classe" for="klass" styleClass="p-d-block"/>
+                                   <p:inputText id="klass" value="#{SheetBean.klass}"/>
+                               </div>
+                               <div class="p-field p-col">
+                                   <p:outputLabel value="Descrição" for="desc" styleClass="p-d-block"/>
+                                   <p:inputText id="desc" value="#{SheetBean.desc}"/>
+                               </div>
+                               <div class="p-field p-col">
+                                   <p:outputLabel value="Chame" for="charm" styleClass="p-d-block"/>
+                                   <p:inputText id="charm" value="#{SheetBean.charm}"/>
+                               </div>
+                               <div class="p-field p-col">
+                                   <p:outputLabel value="Destreza" for="dexterity" styleClass="p-d-block"/>
+                                   <p:inputText id="dexterity" value="#{SheetBean.dexterity}"/>
+                               </div>
+                               <div class="p-field p-col">
+                                   <p:outputLabel value="Inteligência" for="intelligence" styleClass="p-d-block"/>
+                                   <p:inputText id="intelligence" value="#{SheetBean.intelligence}"/>
+                               </div>
+                               <div class="p-field p-col">
+                                   <p:outputLabel value="Força" for="strength" styleClass="p-d-block"/>
+                                   <p:inputText id="strength" value="#{SheetBean.strength}"/>
+                               </div>
                             </div>
-                            <div class="p-field p-col-6 p-md-6">
-                                <p:outputLabel value="Raça" for="race" styleClass="p-d-block"/>
-                                <p:inputText id="race" value="#{SheetBean.race}"/>
-                            </div>
-                            <div class="p-field p-col-6 p-md-6">
-                                <p:outputLabel value="Idade" for="age" styleClass="p-d-block"/>
-                                <p:inputText id="age" value="#{SheetBean.age}"/>
-                            </div>
-                            <div class="p-field p-col-6 p-md-6">
-                                <p:outputLabel value="Classe" for="klass" styleClass="p-d-block"/>
-                                <p:inputText id="klass" value="#{SheetBean.klass}"/>
-                            </div>
-                            <div class="p-field p-col-12 p-md-12">
-                                <p:outputLabel value="Descrição" for="desc" styleClass="p-d-block"/>
-                                <p:inputText id="desc" value="#{SheetBean.desc}"/>
-                            </div>
-                            <div class="p-field p-col-4 p-md-4">
-                                <p:outputLabel value="Chame" for="charm" styleClass="p-d-block"/>
-                                <p:inputText id="charm" value="#{SheetBean.charm}"/>
-                            </div>
-                            <div class="p-field p-col-4 p-md-4">
-                                <p:outputLabel value="Destreza" for="dexterity" styleClass="p-d-block"/>
-                                <p:inputText id="dexterity" value="#{SheetBean.dexterity}"/>
-                            </div>
-                            <div class="p-field p-col-4 p-md-4">
-                                <p:outputLabel value="Inteligência" for="intelligence" styleClass="p-d-block"/>
-                                <p:inputText id="intelligence" value="#{SheetBean.intelligence}"/>
-                            </div>
-                            <div class="p-field p-col-12 p-md-12">
-                                <p:outputLabel value="Força" for="strength" styleClass="p-d-block"/>
-                                <p:inputText id="strength" value="#{SheetBean.strength}"/>
-                            </div>
-                         </div>
+                        </div>
                     </h:form>
                 </div>
             </div>
-        </h:body>
     </h:body>
      
 </ui:decorate>
