@@ -11,26 +11,34 @@
     <h:body>
         <p:growl id="message" showDetail="true"/>
 
-        <h:form>
-            <h:outputLabel value="Nome"></h:outputLabel>
-            <p:inputText value="#{signUpController.name}"></p:inputText>
+        <main class="sign-in-main">
+            <p:card style="width: 25rem; margin-bottom: 2em;">
+                <h:form style="display: flex; flex-direction: column">
+                    <h:graphicImage name="images/docs.png" style="width: 279px; align-self: center;"  styleClass="mb-2"/>
+                    
+                    <h:outputLabel styleClass="mb-2" value="Nome"></h:outputLabel>
+                    <p:inputText styleClass="mb-2" value="#{signUpController.name}"></p:inputText>
 
-            <h:outputLabel value="Email"></h:outputLabel>
-            <p:inputText value="#{signUpController.email}"></p:inputText>
+                    <h:outputLabel styleClass="mb-2" value="Email"></h:outputLabel>
+                    <p:inputText styleClass="mb-2" value="#{signUpController.email}"></p:inputText>
 
-            <h:outputLabel value="Senha"></h:outputLabel>
-            <p:password value="#{signUpController.password}"></p:password>
+                    <h:outputLabel styleClass="mb-2" value="Senha"></h:outputLabel>
+                    <p:password styleClass="mb-2" value="#{signUpController.password}"></p:password>
 
-            <h:outputLabel value="Confirmar senha"></h:outputLabel>
-            <p:password value="#{signUpController.confirmPassword}"></p:password>
-            
-            <p:commandButton value="Cadastrar" action="#{signUpController.signUP()}"></p:commandButton>
-            
-            <p:dialog id="myDialogID" widgetVar="myDialogVar">
-                <h3>Usuario criado com sucesso!</h3>
-                <p:commandButton value="Faça login para continuar!" action="sign-in?faces-redirect=true"></p:commandButton>
-            </p:dialog>
-        </h:form>
+                    <h:outputLabel styleClass="mb-2" value="Confirmar senha"></h:outputLabel>
+                    <p:password styleClass="mb-2" value="#{signUpController.confirmPassword}"></p:password>
+
+                    <p:commandButton value="Cadastrar" action="#{signUpController.signUP()}" class="custom"></p:commandButton>
+
+                    <p:dialog id="myDialogID" widgetVar="myDialogVar">
+                        <h3>Usuario criado com sucesso!</h3>
+                        <p:commandButton value="Faça login para continuar!" action="sign-in?faces-redirect=true" class="custom"></p:commandButton>
+                    </p:dialog>
+                </h:form>
+            </p:card>
+        </main>
+
+
 
     </h:body>
 </ui:decorate>

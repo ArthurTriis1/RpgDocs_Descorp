@@ -9,23 +9,30 @@
         <title>Login | RpgDocs</title>
     </h:head>
     <h:body>
-                <p:growl id="message" showDetail="true"/>
-
+        <p:growl id="message" showDetail="true"/>
         
-        <h:form>
-            <h:outputLabel value="Email"></h:outputLabel>
-            <p:inputText value="#{signInController.email}"></p:inputText>
+        <main class="sign-in-main">
+            <p:card style="width: 25rem; margin-bottom: 2em;">
+                <h:form style="display: flex; flex-direction: column">
+                    <h:graphicImage name="images/docs.png" style="width: 279px; align-self: center;"  styleClass="mb-2"/>
 
-            <h:outputLabel value="Senha"></h:outputLabel>
-            <p:password value="#{signInController.password}"></p:password>
+                    <h:outputLabel value="Email"  styleClass="mb-2"></h:outputLabel>
+                    <p:inputText value="#{signInController.email}"  styleClass="mb-2"></p:inputText>
 
-            <p:commandButton value="Login" action="#{signInController.login()}"></p:commandButton>
-            
-            <p:dialog id="myDialogID" widgetVar="errLoginVar">
-                <h3>Usuario ou senha incorretos.</h3>
-            </p:dialog>
-        </h:form>
+                    <h:outputLabel value="Senha"  styleClass="mb-2"></h:outputLabel>
 
+                    <p:password value="#{signInController.password}"  styleClass="mb-2"></p:password>
+
+                    <p:commandButton value="Login" action="#{signInController.login()}" class="custom"></p:commandButton>
+
+                </h:form>
+            </p:card>
+        </main>
+        
+
+        <p:dialog id="myDialogID" widgetVar="errLoginVar">
+            <h3>Usuario ou senha incorretos.</h3>
+        </p:dialog>
     </h:body>
 </ui:decorate>
 

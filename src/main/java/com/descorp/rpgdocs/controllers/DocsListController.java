@@ -11,6 +11,7 @@ import com.descorp.rpgdocs.repositories.SheetRepository;
 import com.descorp.rpgdocs.repositoriesImpl.SheetRepositoryImpl;
 import java.util.ArrayList;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -73,5 +74,9 @@ public class DocsListController {
     public void setEmptySheetList(Boolean emptySheetList) {
         this.emptySheetList = emptySheetList;
     }
-
+    
+    public void delete(Sheet sheet) {
+        this.sheetRepository.deleteSheet(sheet);
+        this.sheets.remove(sheet);
+    }
 }

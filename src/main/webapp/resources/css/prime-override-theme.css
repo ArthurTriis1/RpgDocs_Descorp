@@ -1,0 +1,35 @@
+body .ui-menu.ui-menubar {
+    background: #293240 !important;
+    border-radius: 0px !important;
+}
+
+body .ui-menu {
+    padding: 0.25rem 0 !important;
+    background: #ffffff !important;
+    border: 0 !important;
+    border-radius: 0px !important;
+}
+
+body .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link .ui-menuitem-text {
+    float: none !important;
+    vertical-align: middle !important;
+    color: #FFF !important;
+}
+
+.ui-state-hover{
+    color: #293240 !important;
+    background-color: #FFF;
+}
+
+body .ui-menu .ui-menu-list .ui-menuitem .ui-menuitem-link.ui-state-hover span{
+     color: #293240 !important;
+}
+
+body .ui-button.custom {
+    background: #293240 !important;
+        border: 1px solid #FFF !important;
+}
+
+body .ui-button.ui-state-hover.custom span {
+    color: #FFF !important;
+}

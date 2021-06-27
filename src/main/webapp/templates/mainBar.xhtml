@@ -3,14 +3,23 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:head>
         <title>Rpg Docs</title>
+        <h:outputStylesheet name="css/style.css"></h:outputStylesheet>
+        <h:outputStylesheet name="css/primeflex.css"></h:outputStylesheet>
+        <h:outputStylesheet name="css/prime-override-theme.css"></h:outputStylesheet>
+
     </h:head>
     <h:body>
         <h:form>
             <p:menubar>
-                <p:menuitem value="Home" url="index.xhtml"></p:menuitem>
+                <f:facet name="options">
+                    <h:commandLink action="index.xhtml">
+                        <h:graphicImage name="images/logo-branco.png" style="height: 30px; padding-left: 10px; margin-top: 5px"/>
+                    </h:commandLink>
+                </f:facet>
                 <p:menuitem value="Fazer Login" url="sign-in.xhtml"></p:menuitem>
                 <p:menuitem value="Cadastre-se" url="sign-up.xhtml"></p:menuitem>
             </p:menubar>
