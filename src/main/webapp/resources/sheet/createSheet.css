@@ -1,0 +1,14 @@
+/* 
+    Created on : 26 de jun. de 2021, 23:59:56
+    Author     : David
+*/
+
+.container{
+    padding: 0rem 3rem 0rem 3rem;
+}
+
+.jcc {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
