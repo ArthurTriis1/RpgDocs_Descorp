@@ -8,5 +8,6 @@ public enum Klass {
     WARRIOR,
     ARCHER,
     MAGE,
-    ROGUE
+    ROGUE,
+    
 }

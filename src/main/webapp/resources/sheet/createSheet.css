@@ -5,6 +5,7 @@
 
 :root{
     --half: 50%;
+    --all: 100%;
     --padding-containter-x: 3rem;
     --padding-container-y: 0rem;
 }
@@ -28,14 +29,20 @@
   clear: both;
 }
 
-.col {
+.col-5 {
     flex: var(--half);
     margin-right: 0.2rem;
     margin-left: 0.2rem;
 }
 
+.col {
+    flex: var(--all);
+    margin-right: 0.2rem;
+    margin-left: 0.2rem;
+}
+
 @media screen and (max-width: 600px) {
-  .col {
+  .col-5 {
     width: 100%;
   }
 }

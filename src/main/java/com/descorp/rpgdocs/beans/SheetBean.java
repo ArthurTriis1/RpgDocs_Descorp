@@ -2,11 +2,13 @@ package com.descorp.rpgdocs.beans;
 
 import enums.Klass;
 import enums.Race;
+import javax.annotation.ManagedBean;
 
 /**
  *
  * @author David
  */
+@ManagedBean
 public class SheetBean {
     
     private String name;
@@ -90,5 +92,8 @@ public class SheetBean {
     public void setStrength(Integer strength) {
         this.strength = strength;
     }
-
+    
+    public Klass[] getKlasses(){
+        return Klass.values();
+    }
 }
