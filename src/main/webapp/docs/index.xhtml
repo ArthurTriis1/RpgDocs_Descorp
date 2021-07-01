@@ -41,9 +41,7 @@
                                 styleClass="rounded-button ui-button-danger ui-button-flat" 
                                 action="#{docsListController.delete(sheet)}" 
                                 title="Deletar"
-                                update="sheets"
-                               
-                            >
+                                update="sheets" >
                                 <p:confirm header="Confirmação" message="Quer mesmo deletar a ficha #{sheet.name}?" icon="pi pi-info-circle"/>
                             </p:commandButton>
 
