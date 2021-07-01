@@ -5,13 +5,15 @@
  */
 package main;
 
-import com.descorp.rpgdocs.connection.DatabaseConnection;
 import com.descorp.rpgdocs.models.Sheet;
 import com.descorp.rpgdocs.models.Skill;
 import com.descorp.rpgdocs.models.Tool;
 import com.descorp.rpgdocs.models.User;
+import com.descorp.rpgdocs.repositories.SheetRepository;
 import com.descorp.rpgdocs.repositories.UserRepository;
+import com.descorp.rpgdocs.repositoriesImpl.SheetRepositoryImpl;
 import com.descorp.rpgdocs.repositoriesImpl.UserRepositoryImpl;
+import enums.Klass;
 import enums.Race;
 import enums.ToolKind;
 import javax.persistence.EntityManager;
@@ -28,11 +30,16 @@ public class TestJPA {
     public static void main(String[] args) {
         TestJPA testeJPA = new TestJPA();
         //testeJPA.createData();
-        UserRepository userRepo = new UserRepositoryImpl(DatabaseConnection.getCurrentInstance().createEntityManager());
+        UserRepository userRepo = UserRepositoryImpl.getInstance();
         User u = new User();
         
-        testeJPA.createUser(u);
-        userRepo.saveUser(u);
+        //testeJPA.createUser(u);
+        //userRepo.saveUser(u);
+        
+        SheetRepository sr = SheetRepositoryImpl.getInstance();
+        //sr.saveSheet(testeJPA.createSheet());
+        Sheet s = sr.getSheetById(8L);
+        sr.deleteSheet(s);
     }
     
     public void createData() {
@@ -62,6 +69,15 @@ public class TestJPA {
     }
     
     private void createUser(User user) {
+        user.setEmail("lalala@alala.com");
+        user.setName("user");
+        user.setPassword("12345");
+        user.addSheet(createSheet());
+
+    }
+    
+    private Sheet createSheet(){
+        
         Skill skill = new Skill();
         skill.setCharm(10);
         skill.setDexterity(10);
@@ -81,11 +97,8 @@ public class TestJPA {
         sheet.setRace(Race.Fate);
         sheet.setSkill(skill);
         sheet.addTools(tool);
+        sheet.setKlass(Klass.MAGE);
         
-        user.setEmail("lalala@alala.com");
-        user.setName("user");
-        user.setPassword("12345");
-        user.addSheet(sheet);
-
+        return sheet;
     }
 }

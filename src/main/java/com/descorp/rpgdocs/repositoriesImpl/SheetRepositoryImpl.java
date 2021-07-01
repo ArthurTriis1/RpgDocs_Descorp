@@ -5,6 +5,8 @@ import com.descorp.rpgdocs.models.Sheet;
 import com.descorp.rpgdocs.models.User;
 import com.descorp.rpgdocs.repositories.SheetRepository;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import javax.persistence.TypedQuery;
@@ -65,11 +67,10 @@ public class SheetRepositoryImpl implements SheetRepository{
 
     @Override
     public void deleteSheet(Sheet sheet) {
-        if (em.contains(sheet)) {
+        if (sheet.getId() != null) {
             em.remove(sheet);
-        } else {
-            em.merge(sheet);
-        }
+            et.commit();
+        } 
     }
 
     
