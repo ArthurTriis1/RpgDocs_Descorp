@@ -79,8 +79,5 @@ public class DocsListController {
         this.sheetRepository.deleteSheet(sheet);
         this.sheets.remove(sheet);
     }
-    
-    public String gotoSheetreg() {
-        return "/docs/sheet/reg/createSheet.xhtml";
-    }
+
 }

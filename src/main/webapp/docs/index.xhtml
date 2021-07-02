@@ -55,7 +55,12 @@
                             <h2 class="text-center">Oi, #{docsListController.name} você não tem nenhuma ficha cadastrada 😥. <br></br> clique abaixo para criar:️</h2>
                         </div>
                         <div class="ui-g-12 jcc">
-                            <p:commandButton action="#{docsListController.gotoSheetreg()}" value="Nova ficha" class="custom" icon="pi pi-plus" ></p:commandButton>
+                            
+                            
+                            <a href="sheet/reg/createSheet.xhtml" class="btn" icon="pi pi-plus">
+                                <i class="pi pi-plus"></i>
+                                Nova Ficha
+                            </a>
                         </div>
                     </div>
                 </p:card>

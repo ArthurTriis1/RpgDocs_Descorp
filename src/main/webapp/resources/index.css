@@ -16,3 +16,17 @@ and open the template in the editor.
 .text-center{
     text-align: center;
 }
+
+a.btn {
+    width: 10rem;
+    height: 1.5rem;
+    background-color: #293240;
+    border-radius: 5px;
+    padding: 1.1rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-decoration: none;
+    color: white;
+    font-size: larger;
+}

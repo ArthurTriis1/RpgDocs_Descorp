@@ -20,39 +20,42 @@
                         <div class="col">
                             <div class="p-field p-col-12 p-md-4">
                                 <p:outputLabel value="Nome" for="nameSheet" />
-                                <p:inputText id="nameSheet" value="#{SheetBean.name}"/>
+                                <p:inputText id="nameSheet" value="#{sheetBean.name}"/>
                             </div>
                         </div>
                     </div>
                     <div class="r mt-2">
                         <div class="col-5">
                             <div class="p-field">
-                                <p:outputLabel value="Raça" for="race" />
-                                <h:selectOneMenu>
+                                <p:outputLabel value="Raça" for="" />
+                                <p:selectOneMenu>
                                     <f:selectItem itemLabel="Escolha uma raça" noSelectionOption="true"/>
-                                    <f:selectItems value="#{SheetBean.klasses}" />
-                                </h:selectOneMenu>
+                                    <f:selectItems value="#{sheetBean.races}" />
+                                </p:selectOneMenu>
                                 <!--<p:inputText id="race" value="{SheetBean.race}"/>-->
                             </div>
                         </div>
                         <div class="col-5">
                             <div class="p-field">
                                 <p:outputLabel value="Idade" for="age" styleClass="p-d-block"/>
-                                <p:inputText id="age" value="#{SheetBean.age}"/>
+                                <p:inputNumber id="age" value="#{sheetBean.age}"/>
                             </div>
                         </div>
                     </div>
                     <div class="r mt-2">
                         <div class="col-5">
                             <div class="p-field">
-                                <p:outputLabel value="Classe" for="klass" styleClass="p-d-block"/>
-                                <p:inputText id="klass" value="#{SheetBean.klass}"/>
+                                <p:outputLabel value="Classe" for="" styleClass="p-d-block"/>
+                                <p:selectOneMenu>
+                                    <f:selectItem itemLabel="Escolha uma raça" noSelectionOption="true"/>
+                                    <f:selectItems value="#{sheetBean.klasses}" />
+                                </p:selectOneMenu>
                             </div>
                         </div>
                         <div class="col-5">
                             <div class="p-field">
                                 <p:outputLabel value="Descrição" for="desc" styleClass="p-d-block"/>
-                                <p:inputText id="desc" value="#{SheetBean.desc}"/>
+                                <p:inputText id="desc" value="#{sheetBean.desc}"/>
                             </div>
                         </div>
                     </div>
@@ -60,13 +63,13 @@
                         <div class="col-5">
                             <div class="p-field">
                                 <p:outputLabel value="Chame" for="charm" styleClass="p-d-block"/>
-                                <p:inputText id="charm" value="#{SheetBean.charm}"/>
+                                <p:inputText id="charm" value="#{sheetBean.charm}"/>
                             </div>
                         </div>
                         <div class="col-5">
                             <div class="p-field">
                                 <p:outputLabel value="Destreza" for="dexterity" styleClass="p-d-block"/>
-                                <p:inputText id="dexterity" value="#{SheetBean.dexterity}"/>
+                                <p:inputText id="dexterity" value="#{sheetBean.dexterity}"/>
                             </div>
                         </div>
                     </div>
@@ -74,14 +77,23 @@
                         <div class="col-5">
                             <div class="p-field">
                                 <p:outputLabel value="Inteligência" for="intelligence" styleClass="p-d-block"/>
-                                <p:inputText id="intelligence" value="#{SheetBean.intelligence}"/>
+                                <p:inputText id="intelligence" value="#{sheetBean.intelligence}"/>
                             </div>
                         </div>
                         <div class="col-5">
                             <div class="p-field">
                                 <p:outputLabel value="Força" for="strength" styleClass="p-d-block"/>
-                                <p:inputText id="strength" value="#{SheetBean.strength}"/>
+                                <p:inputText id="strength" value="#{sheetBean.strength}"/>
                             </div>
+                        </div>
+                        <div class="jcc">
+                            <p:commandButton 
+                                icon="pi pi-check" 
+                                value="Salvar"
+                                action="#{sheetController.save(sheetBean)}" 
+                                title="Deletar"
+                                >
+                            </p:commandButton>
                         </div>
                     </div>
                 </h:form>
