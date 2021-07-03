@@ -1,7 +1,9 @@
 package com.descorp.rpgdocs.beans;
 
+import com.descorp.rpgdocs.controllers.SheetController;
 import enums.Klass;
 import enums.Race;
+import enums.ToolKind;
 import javax.annotation.ManagedBean;
 import javax.faces.bean.ViewScoped;
 
@@ -23,6 +25,10 @@ public class SheetBean {
     private Integer dexterity;
     private Integer intelligence;
     private Integer strength;
+    
+    private String toolname;
+    private String tooldamage;
+    private ToolKind toolkind;
 
     public String getName() {
         return name;
@@ -102,5 +108,37 @@ public class SheetBean {
     
     public Race[] getRaces(){
         return Race.values();
+    }
+
+    public String getToolname() {
+        return toolname;
+    }
+
+    public void setToolname(String toolname) {
+        this.toolname = toolname;
+    }
+
+    public String getTooldamage() {
+        return tooldamage;
+    }
+
+    public void setTooldamage(String damage) {
+        this.tooldamage = damage;
+    }
+
+    public ToolKind getToolkind() {
+        return toolkind;
+    }
+
+    public void setToolkind(ToolKind kind) {
+        this.toolkind = kind;
+    }
+    
+    public ToolKind[] getToolKinds(){
+        return ToolKind.values();
+    }
+    
+    public void save() {
+        SheetController.save(this);
     }
 }

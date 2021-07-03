@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package main;
 
 import com.descorp.rpgdocs.models.Sheet;
@@ -33,13 +28,13 @@ public class TestJPA {
         UserRepository userRepo = UserRepositoryImpl.getInstance();
         User u = new User();
         
-        //testeJPA.createUser(u);
-        //userRepo.saveUser(u);
+        testeJPA.createUser(u);
+        userRepo.saveUser(u);
         
-        SheetRepository sr = SheetRepositoryImpl.getInstance();
-        //sr.saveSheet(testeJPA.createSheet());
-        Sheet s = sr.getSheetById(8L);
-        sr.deleteSheet(s);
+//        SheetRepository sr = SheetRepositoryImpl.getInstance();
+//        sr.saveSheet(testeJPA.createSheet());
+//        Sheet s = sr.getSheetById(8L);
+//        sr.deleteSheet(s);
     }
     
     public void createData() {

@@ -28,7 +28,7 @@
                         <div class="col-5">
                             <div class="p-field">
                                 <p:outputLabel value="Raça" for="" />
-                                <p:selectOneMenu>
+                                <p:selectOneMenu value="#{sheetBean.race}">
                                     <f:selectItem itemLabel="Escolha uma raça" noSelectionOption="true"/>
                                     <f:selectItems value="#{sheetBean.races}" />
                                 </p:selectOneMenu>
@@ -38,7 +38,7 @@
                         <div class="col-5">
                             <div class="p-field">
                                 <p:outputLabel value="Idade" for="age" styleClass="p-d-block"/>
-                                <p:inputNumber id="age" value="#{sheetBean.age}"/>
+                                <p:inputText id="age" value="#{sheetBean.age}" converterMessage="Só números"/>
                             </div>
                         </div>
                     </div>
@@ -46,7 +46,7 @@
                         <div class="col-5">
                             <div class="p-field">
                                 <p:outputLabel value="Classe" for="" styleClass="p-d-block"/>
-                                <p:selectOneMenu>
+                                <p:selectOneMenu value="#{sheetBean.klass}">
                                     <f:selectItem itemLabel="Escolha uma raça" noSelectionOption="true"/>
                                     <f:selectItems value="#{sheetBean.klasses}" />
                                 </p:selectOneMenu>
@@ -63,13 +63,13 @@
                         <div class="col-5">
                             <div class="p-field">
                                 <p:outputLabel value="Chame" for="charm" styleClass="p-d-block"/>
-                                <p:inputText id="charm" value="#{sheetBean.charm}"/>
+                                <p:inputText converterMessage="Só números" id="charm" value="#{sheetBean.charm}"/>
                             </div>
                         </div>
                         <div class="col-5">
                             <div class="p-field">
                                 <p:outputLabel value="Destreza" for="dexterity" styleClass="p-d-block"/>
-                                <p:inputText id="dexterity" value="#{sheetBean.dexterity}"/>
+                                <p:inputText converterMessage="Só números" id="dexterity" value="#{sheetBean.dexterity}"/>
                             </div>
                         </div>
                     </div>
@@ -77,27 +77,59 @@
                         <div class="col-5">
                             <div class="p-field">
                                 <p:outputLabel value="Inteligência" for="intelligence" styleClass="p-d-block"/>
-                                <p:inputText id="intelligence" value="#{sheetBean.intelligence}"/>
+                                <p:inputText converterMessage="Só números" id="intelligence" value="#{sheetBean.intelligence}"/>
                             </div>
                         </div>
                         <div class="col-5">
                             <div class="p-field">
                                 <p:outputLabel value="Força" for="strength" styleClass="p-d-block"/>
-                                <p:inputText id="strength" value="#{sheetBean.strength}"/>
+                                <p:inputText converterMessage="Só números" id="strength" value="#{sheetBean.strength}"/>
                             </div>
                         </div>
+                    </div>
+                    <hr/>
+                    <h3>Armas</h3>
+                    <div class="r mt-2">
+                        <div class="col-4">
+                            <div class="p-field">
+                                <p:outputLabel value="Tipo" for="" styleClass="p-d-block"/>
+                                <p:selectOneMenu value="#{sheetBean.toolkind}">
+                                    <f:selectItem itemLabel="Escolha um tipo de arma" noSelectionOption="true"/>
+                                    <f:selectItems value="#{sheetBean.toolKinds}" />
+                                </p:selectOneMenu>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="p-field">
+                                <p:outputLabel value="Nome" for="" styleClass="p-d-block"/>
+                                <p:inputText value="#{sheetBean.toolname}"/>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="p-field">
+                                <p:outputLabel value="Dano" for="" styleClass="p-d-block"/>
+                                <p:inputText converterMessage="Só números"  value="#{sheetBean.tooldamage}"/>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="r mt-2">
                         <div class="jcc">
                             <p:commandButton 
                                 icon="pi pi-check" 
                                 value="Salvar"
-                                action="#{sheetController.save(sheetBean)}" 
-                                title="Deletar"
+                                action="#{sheetBean.save}" 
+                                title="Salvar"
                                 >
                             </p:commandButton>
                         </div>
                     </div>
                 </h:form>
             </div>
+            <p:dialog id="createdSheetModal" widgetVar="createdSheetModal">
+                <h3>Ficha criada com sucesso!</h3>
+                <p:commandButton value="Ver minhas fichas" action="docs/index.xhtml?faces-redirect=true" class="custom"></p:commandButton>
+            </p:dialog>
         </div>
     </h:body>
     
