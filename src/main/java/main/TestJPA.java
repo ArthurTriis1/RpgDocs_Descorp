@@ -24,12 +24,12 @@ public class TestJPA {
     
     public static void main(String[] args) {
         TestJPA testeJPA = new TestJPA();
-        //testeJPA.createData();
-        UserRepository userRepo = UserRepositoryImpl.getInstance();
-        User u = new User();
-        
-        testeJPA.createUser(u);
-        userRepo.saveUser(u);
+//        testeJPA.createData();
+//        UserRepository userRepo = UserRepositoryImpl.getInstance();
+//        User u = new User();
+//        
+//        testeJPA.createUser(u);
+//        userRepo.saveUser(u);
         
 //        SheetRepository sr = SheetRepositoryImpl.getInstance();
 //        sr.saveSheet(testeJPA.createSheet());
@@ -49,8 +49,13 @@ public class TestJPA {
             em = emf.createEntityManager(); //Criação do EntityManager.
             et = em.getTransaction(); //Recupera objeto responsável pelo gerenciamento de transação.
             et.begin();
+            System.out.println(et.isActive());
             em.persist(user);
             et.commit();
+            System.out.println(et.isActive());
+            et.begin();
+            System.out.println(et.isActive());
+            
         } catch (Exception ex) {
             ex.printStackTrace();
             if (et != null && et.isActive())

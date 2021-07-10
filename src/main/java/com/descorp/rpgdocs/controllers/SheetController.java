@@ -8,6 +8,7 @@ import com.descorp.rpgdocs.models.Tool;
 import com.descorp.rpgdocs.models.User;
 import com.descorp.rpgdocs.repositories.SheetRepository;
 import com.descorp.rpgdocs.repositoriesImpl.SheetRepositoryImpl;
+import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -23,12 +24,35 @@ import org.primefaces.PrimeFaces;
 @ViewScoped
 public class SheetController {
     
+    private SheetRepository repo;
+    private Sheet sheetView;
+    
+    public SheetController() {
+        this.repo = SheetRepositoryImpl.getInstance();
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map requestParams = context.getExternalContext().getRequestParameterMap();
+        String id = (String) requestParams.get("id");
+        
+        if (id != null) {
+            this.sheetView = this.repo.getSheetById(Long.valueOf(id));
+        }
+    }
+
+    public Sheet getSheetView() {
+        return sheetView;
+    }
+
+    public void setSheetView(Sheet sheetView) {
+        this.sheetView = sheetView;
+    }
+    
+    public void update(){
+        this.repo.saveSheet(sheetView);
+    }
     
     public static void save(SheetBean bean) {
-        String a = "";
         
         SheetRepository repo = SheetRepositoryImpl.getInstance();
-        
         Sheet s = new Sheet();
         
         s.setName(bean.getName());

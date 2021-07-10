@@ -59,10 +59,12 @@ public class UserRepositoryImpl implements UserRepository {
         if (user.getId() == null) {
             em.persist(user);
             et.commit();
+            et.begin();
         } else {
             em.clear();
             user = em.merge(user);
             et.commit();
+            et.begin();
         }
         return user;
     }
@@ -71,8 +73,8 @@ public class UserRepositoryImpl implements UserRepository {
     public void deleteUser(User user) {
         if (em.contains(user)) {
             em.remove(user);
-        } else {
-            em.merge(user);
+            et.commit();
+            et.begin();
         }
     }
 

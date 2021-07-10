@@ -54,22 +54,25 @@ public class SheetRepositoryImpl implements SheetRepository{
     
     @Override
     public Sheet saveSheet(Sheet sheet) {
-         if (sheet.getId() == null) {
+        if (sheet.getId() == null) {
             em.persist(sheet);
             et.commit();
+            et.begin();
         } else {
             em.clear();
             sheet = em.merge(sheet);
             et.commit();
+            et.begin();
         }
         return sheet;
     }
 
     @Override
     public void deleteSheet(Sheet sheet) {
-        if (sheet.getId() != null) {
+        if (sheet.getId()!= null) {
             em.remove(sheet);
             et.commit();
+            et.begin();
         } 
     }
 

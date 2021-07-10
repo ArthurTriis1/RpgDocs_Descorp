@@ -35,10 +35,12 @@ public class ToolRepositoryImpl implements ToolRepository{
         if (tool.getId() == null) {
             em.persist(tool);
             et.commit();
+            et.begin();
         } else {
            em.clear();
            tool = em.merge(tool);
            et.commit();
+           et.begin();
         }
         return tool;
     }
@@ -47,8 +49,8 @@ public class ToolRepositoryImpl implements ToolRepository{
     public void deleteTool(Tool tool) {
         if (em.contains(tool)) {
             em.remove(tool);
-        } else {
-            em.merge(tool);
+            et.commit();
+            et.begin();
         }
     }
 }

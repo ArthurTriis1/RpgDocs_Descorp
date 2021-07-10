@@ -34,8 +34,11 @@
                             <h:outputText value="#{sheet.klass}" />
                         </p:column>
                         <p:column headerText="Ações">
-                            <p:button icon="pi pi-ellipsis-h" styleClass="rounded-button ui-button-secondary ui-button-flat" title="Visualizar"/>
-
+                            <p:button 
+                                icon="pi pi-ellipsis-h" 
+                                styleClass="rounded-button ui-button-danger ui-button-flat"
+                                href="sheet/reg/viewSheet.xhtml?id=#{sheet.id}"
+                                title="Visualizar"></p:button>
                             <p:commandButton 
                                 icon="pi pi-times" 
                                 styleClass="rounded-button ui-button-danger ui-button-flat" 

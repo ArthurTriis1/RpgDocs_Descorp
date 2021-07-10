@@ -4,14 +4,15 @@
              xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
              template="/templates/docsBar.xhtml"
              xmlns:p="http://primefaces.org/ui"
-             xmlns:f="http://xmlns.jcp.org/jsf/core">
+             xmlns:f="http://xmlns.jcp.org/jsf/core"
+             xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
 
     <h:outputStylesheet name="sheet/createSheet.css"></h:outputStylesheet>
     
     <h:body>
         <div class="container">
             <div class="jcc">
-                <h2>Criação de Personagem 🧙</h2>
+                <h2>Tua ficha malandro 🧙</h2>
             </div>
             <div class="card">
                 <h:form id="formRegSheet">
@@ -20,7 +21,7 @@
                         <div class="col">
                             <div class="p-field p-col-12 p-md-4">
                                 <p:outputLabel value="Nome" for="nameSheet" />
-                                <p:inputText id="nameSheet" value="#{sheetBean.name}"/>
+                                <p:inputText id="nameSheet" value="#{sheetController.sheetView.name}"/>
                             </div>
                         </div>
                     </div>
@@ -28,7 +29,7 @@
                         <div class="col-5">
                             <div class="p-field">
                                 <p:outputLabel value="Raça" for="" />
-                                <p:selectOneMenu value="#{sheetBean.race}">
+                                <p:selectOneMenu value="#{sheetController.sheetView.race}">
                                     <f:selectItem itemLabel="Escolha uma raça" noSelectionOption="true"/>
                                     <f:selectItems value="#{sheetBean.races}" />
                                 </p:selectOneMenu>
@@ -38,7 +39,7 @@
                         <div class="col-5">
                             <div class="p-field">
                                 <p:outputLabel value="Idade" for="age" styleClass="p-d-block"/>
-                                <p:inputText id="age" maxlength="5" value="#{sheetBean.age}" converterMessage="Só números"/>       
+                                <p:inputText id="age" maxlength="5" value="#{sheetController.sheetView.age}" converterMessage="Só números"/>       
                             </div>
                         </div>
                     </div>
@@ -46,7 +47,7 @@
                         <div class="col-5">
                             <div class="p-field">
                                 <p:outputLabel value="Classe" for="" styleClass="p-d-block"/>
-                                <p:selectOneMenu value="#{sheetBean.klass}">
+                                <p:selectOneMenu value="#{sheetController.sheetView.klass}">
                                     <f:selectItem itemLabel="Escolha uma raça" noSelectionOption="true"/>
                                     <f:selectItems value="#{sheetBean.klasses}" />
                                 </p:selectOneMenu>
@@ -55,7 +56,7 @@
                         <div class="col-5">
                             <div class="p-field">
                                 <p:outputLabel value="Descrição" for="desc" styleClass="p-d-block"/>
-                                <p:inputText id="desc" value="#{sheetBean.desc}"/>
+                                <p:inputText id="desc" value="#{sheetController.sheetView.description}"/>
                             </div>
                         </div>
                     </div>
@@ -63,7 +64,7 @@
                         <div class="col-5">
                             <div class="p-field">
                                 <p:outputLabel value="Charme(0 - 100)" for="charm" styleClass="p-d-block"/>
-                                <p:inputText converterMessage="Só números" id="charm" value="#{sheetBean.charm}">
+                                <p:inputText converterMessage="Só números" id="charm" value="#{sheetController.sheetView.skill.charm}">
                                     <f:validateLongRange maximum="100" minimum="0" />
                                 </p:inputText>
                             </div>
@@ -71,7 +72,7 @@
                         <div class="col-5">
                             <div class="p-field">
                                 <p:outputLabel value="Destreza(0 - 100)" for="dexterity" styleClass="p-d-block"/>
-                                <p:inputText converterMessage="Só números" id="dexterity" value="#{sheetBean.dexterity}">
+                                <p:inputText converterMessage="Só números" id="dexterity" value="#{sheetController.sheetView.skill.dexterity}">
                                     <f:validateLongRange maximum="100" minimum="0" />
                                 </p:inputText>
                             </div>
@@ -81,7 +82,7 @@
                         <div class="col-5">
                             <div class="p-field">
                                 <p:outputLabel value="Inteligência(0 - 100)" for="intelligence" styleClass="p-d-block"/>
-                                <p:inputText converterMessage="Só números" id="intelligence" value="#{sheetBean.intelligence}">
+                                <p:inputText converterMessage="Só números" id="intelligence" value="#{sheetController.sheetView.skill.intelligence}">
                                     <f:validateLongRange maximum="100" minimum="0" />
                                 </p:inputText>
                             </div>
@@ -89,51 +90,62 @@
                         <div class="col-5">
                             <div class="p-field">
                                 <p:outputLabel value="Força(0 - 100)" for="strength" styleClass="p-d-block"/>
-                                <p:inputText converterMessage="Só números" id="strength" value="#{sheetBean.strength}">
+                                <p:inputText converterMessage="Só números" id="strength" value="#{sheetController.sheetView.skill.strong}">
                                     <f:validateLongRange maximum="100" minimum="0" />
                                 </p:inputText>
                             </div>
                         </div>
                     </div>
                     <hr/>
-                    <h3>Armas</h3>
+<!--                    <h3>Armas</h3>
                     <div class="r mt-2">
                         <div class="col-4">
                             <div class="p-field">
                                 <p:outputLabel value="Tipo" for="" styleClass="p-d-block"/>
-                                <p:selectOneMenu value="#{sheetBean.toolkind}">
+                                <c:forEach >
+                                    
+                                </c:forEach>
+                                <p:selectOneMenu value="{sheetController.sheetView.tools.}">
                                     <f:selectItem itemLabel="Escolha um tipo de arma" noSelectionOption="true"/>
-                                    <f:selectItems value="#{sheetBean.toolKinds}" />
+                                    <f:selectItems value="{sheetBean.toolKinds}" />
                                 </p:selectOneMenu>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="p-field">
                                 <p:outputLabel value="Nome" for="" styleClass="p-d-block"/>
-                                <p:inputText value="#{sheetBean.toolname}"/>
+                                <p:inputText value="{sheetController.sheetView.toolname}"/>
                             </div>
                         </div>
                         <div class="col-4">
                             <div class="p-field">
                                 <p:outputLabel value="Dano(0 - 100)" for="" styleClass="p-d-block"/>
-                                <p:inputText converterMessage="Só números"  value="#{sheetBean.tooldamage}"> 
+                                <p:inputText converterMessage="Só números"  value="{sheetController.sheetView.tooldamage}"> 
                                      <f:validateLongRange maximum="100" minimum="0" />
                                 </p:inputText>
                             </div>
                         </div>
                     </div>
                     
+                    
                     <div class="r mt-2">
                         <div class="jcc">
                             <p:commandButton 
                                 icon="pi pi-check" 
-                                value="Salvar"
-                                action="#{sheetBean.save}" 
-                                title="Salvar"
+                                value="Atualizar"
+                                action="{sheetController.update}" 
+                                title="Atualizar"
                                 >
                             </p:commandButton>
+                            <p:button 
+                                icon="pi pi-angle-left" 
+                                value="Sair"
+                                href="../../index"
+                                title="Sair"
+                                >
+                            </p:button>
                         </div>
-                    </div>
+                    </div>-->
                 </h:form>
             </div>
             <p:dialog id="createdSheetModal" widgetVar="createdSheetModal">
