@@ -1,50 +1,45 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package com.descorp.rpgdocs.controllers;
 
-
-import com.descorp.rpgdocs.beans.SheetBean;
 import com.descorp.rpgdocs.models.Sheet;
-import com.descorp.rpgdocs.models.Skill;
 import com.descorp.rpgdocs.models.Tool;
-import com.descorp.rpgdocs.models.User;
 import com.descorp.rpgdocs.repositories.SheetRepository;
 import com.descorp.rpgdocs.repositoriesImpl.SheetRepositoryImpl;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 import org.primefaces.PrimeFaces;
-
 
 /**
  *
- * @author David
+ * @author arthur
  */
-@ManagedBean(name = "sheetController")
+@ManagedBean(name = "editSheetController")
 @ViewScoped
-public class SheetController {
-    
+public class EditSheetController {
     private SheetRepository repo;
     private Sheet sheet;
+    
     private Tool newTool;
     
-    public SheetController() {
+    public EditSheetController() {
         
         this.newTool = new Tool();
-        this.sheet = new Sheet();
-        this.sheet.setSkill(new Skill());
-        this.sheet.setTools(new ArrayList<>());
         
         this.repo = SheetRepositoryImpl.getInstance();
-//        FacesContext context = FacesContext.getCurrentInstance();
-//        Map requestParams = context.getExternalContext().getRequestParameterMap();
-//        String id = (String) requestParams.get("id");
-//        
-//        if (id != null) {
-//            this.sheetView = this.repo.getSheetById(Long.valueOf(id));
-//        }
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map requestParams = context.getExternalContext().getRequestParameterMap();
+        String id = (String) requestParams.get("id");
+        
+        if (id != null) {
+            Sheet findedSheet = this.repo.getSheetById(Long.valueOf(id));
+            this.sheet = findedSheet;
+        }
     }
 
     public Sheet getSheet() {
@@ -72,18 +67,11 @@ public class SheetController {
         this.newTool = newTool;
     }
     
-    public void save() {
-        
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        User owner = (User) request.getSession().getAttribute("user");
-        sheet.setOwner(owner);
-        
+    public void update() {    
         if(this.repo.saveSheet(this.sheet) != null) {
             PrimeFaces current = PrimeFaces.current();
-            current.executeScript("PF('createdSheetModal').show();");
+            current.executeScript("PF('updateSheetModal').show();");
         }
-        
-        
+
     }
 }
