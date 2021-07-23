@@ -95,7 +95,7 @@
                         </div>
                     </div>
                     <hr/>
-                    <h3>Armas</h3>
+                    <h3>Minhas Armas</h3>
                     <h:panelGroup id="toolsDiv">
                         <ui:repeat var="tool"  value="#{sheetController.sheet.tools}">
                             <div class="r mt-2">
@@ -124,6 +124,11 @@
                                 </div>
                             </div>
                         </ui:repeat>
+                        
+                        <hr/>
+                        
+                        <h3>Nova Arma</h3>
+                        
                         <div class="r mt-2">
                             <div class="col-4">
                                 <div class="p-field">
@@ -155,9 +160,9 @@
                         <div class="jcc">
                             <p:commandButton 
                                 styleClass="ui-button-warning"
-                                value="Adicionar Arma"
+                                value="Adicionar Nova Arma"
                                 action="#{sheetController.addTool}" 
-                                title="Adicionar Arma"
+                                title="Adicionar Nova Arma"
                                 update="toolsDiv"
                                 >
                             </p:commandButton>
