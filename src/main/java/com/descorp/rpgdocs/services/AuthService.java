@@ -3,7 +3,6 @@ package com.descorp.rpgdocs.services;
 import com.descorp.rpgdocs.beans.SignInBean;
 import com.descorp.rpgdocs.connection.DatabaseConnection;
 import com.descorp.rpgdocs.models.User;
-import com.descorp.rpgdocs.repositories.UserRepository;
 import com.descorp.rpgdocs.repositoriesImpl.UserRepositoryImpl;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
@@ -11,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 
 public class AuthService {
     
-    private UserRepository userRepo;
+    private UserRepositoryImpl userRepo;
     
     private static AuthService loginService;
     

@@ -6,7 +6,6 @@ import com.descorp.rpgdocs.models.Sheet;
 import com.descorp.rpgdocs.models.Skill;
 import com.descorp.rpgdocs.models.Tool;
 import com.descorp.rpgdocs.models.User;
-import com.descorp.rpgdocs.repositories.SheetRepository;
 import com.descorp.rpgdocs.repositoriesImpl.SheetRepositoryImpl;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -27,7 +26,7 @@ public class SheetController {
     public static void save(SheetBean bean) {
         String a = "";
         
-        SheetRepository repo = SheetRepositoryImpl.getInstance();
+        SheetRepositoryImpl repo = SheetRepositoryImpl.getInstance();
         
         Sheet s = new Sheet();
         
@@ -64,7 +63,6 @@ public class SheetController {
             PrimeFaces current = PrimeFaces.current();
             current.executeScript("PF('createdSheetModal').show();");
         }
-        
         
     }
 }
