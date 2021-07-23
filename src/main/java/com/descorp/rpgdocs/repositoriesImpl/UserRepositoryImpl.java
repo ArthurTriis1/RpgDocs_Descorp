@@ -5,39 +5,32 @@ import com.descorp.rpgdocs.models.User;
 import com.descorp.rpgdocs.repositories.UserRepository;
 import java.util.List;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
 public class UserRepositoryImpl implements UserRepository {
-
-    private EntityManager em;
-    private EntityTransaction et;
+    
     private static UserRepositoryImpl userRepositoryImpl;
-
-    public UserRepositoryImpl(EntityManager em) {
-        this.em = em;
-        this.et = em.getTransaction();
-        this.et.begin();
+    
+    public UserRepositoryImpl() {
     }
 
-    public static UserRepositoryImpl getInstance() {
-        EntityManager em = DatabaseConnection.getCurrentInstance().createEntityManager();
-
-        if (userRepositoryImpl == null) {
-            userRepositoryImpl = new UserRepositoryImpl(em);
+    public static UserRepository getInstance(){
+        
+        if(userRepositoryImpl == null){
+            userRepositoryImpl = new UserRepositoryImpl();
         }
-
         return userRepositoryImpl;
     }
-
+    
     @Override
     public User getUserById(Long id) {
+        EntityManager em = DatabaseConnection.getCurrentInstance().createEntityManager();
         return em.find(User.class, id);
     }
 
     @Override
     public User getUserByEmailAndPassword(String email, Integer password) {
+        EntityManager em = DatabaseConnection.getCurrentInstance().createEntityManager();
         Query q = em.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.password = :password", User.class);
         q.setParameter("email", email);
         q.setParameter("password", password);
@@ -57,25 +50,37 @@ public class UserRepositoryImpl implements UserRepository {
     @Override
     public User saveUser(User user) {
         if (user.getId() == null) {
+            EntityManager em = DatabaseConnection.getCurrentInstance().createEntityManager();
+            em.getTransaction().begin();
             em.persist(user);
-            et.commit();
-            et.begin();
-        } else {
-            em.clear();
-            user = em.merge(user);
-            et.commit();
-            et.begin();
+            em.getTransaction().commit();
+            return user;
         }
-        return user;
+        return null;
+        
     }
 
     @Override
+    public User updateUser(User user) {
+        EntityManager em = DatabaseConnection.getCurrentInstance().createEntityManager();
+        if (user.getId() != null) {
+            
+            em.detach(user);
+            em.getTransaction().begin();
+            em.merge(user);
+            em.getTransaction().commit();
+            return user;
+        }
+        return null;
+    }
+    
+    @Override
     public void deleteUser(User user) {
-        if (em.contains(user)) {
+        EntityManager em = DatabaseConnection.getCurrentInstance().createEntityManager();
+        if (user.getId() != null) {
+            em.getTransaction().begin();
             em.remove(user);
-            et.commit();
-            et.begin();
+            em.getTransaction().commit();
         }
     }
-
 }

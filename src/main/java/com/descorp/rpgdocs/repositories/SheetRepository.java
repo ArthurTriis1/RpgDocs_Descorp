@@ -6,10 +6,6 @@ import java.util.List;
 
 public interface SheetRepository {
     
-    public static SheetRepository getInstance(){
-        throw new AbstractMethodError();
-    };
-    
     Sheet getSheetById(Long id);
     
     Sheet getSheetByName(String name);
@@ -17,6 +13,8 @@ public interface SheetRepository {
     List<Sheet> getSheetsByOwner(User owner);
     
     Sheet saveSheet(Sheet sheet);
+    
+    Sheet updateSheet(Sheet sheet);
     
     void deleteSheet(Sheet sheet);
 }

@@ -68,7 +68,7 @@ public class EditSheetController {
     }
     
     public void update() {    
-        if(this.repo.saveSheet(this.sheet) != null) {
+        if(this.repo.updateSheet(this.sheet) != null) {
             PrimeFaces current = PrimeFaces.current();
             current.executeScript("PF('updateSheetModal').show();");
         }
