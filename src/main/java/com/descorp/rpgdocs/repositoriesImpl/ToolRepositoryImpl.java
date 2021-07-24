@@ -1,8 +1,8 @@
 package com.descorp.rpgdocs.repositoriesImpl;
 
+import com.descorp.rpgdocs.connection.DatabaseConnection;
 import com.descorp.rpgdocs.models.Tool;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityTransaction;
 
 /**
  *
@@ -10,36 +10,57 @@ import javax.persistence.EntityTransaction;
  */
 public class ToolRepositoryImpl {
     
-    private EntityManager em;
-    private EntityTransaction et;
+    private static ToolRepositoryImpl toolRepositoryImpl;
             
-    public ToolRepositoryImpl(EntityManager em){
-        this.em = em;
-        this.et = em.getTransaction();
-        this.et.begin();
+    public ToolRepositoryImpl(){
+    }
+    
+     public static ToolRepositoryImpl getInstance(){
+        
+        if(toolRepositoryImpl == null){
+            toolRepositoryImpl = new ToolRepositoryImpl();
+        }
+        return toolRepositoryImpl;
     }
     
     public Tool getToolById(Long id) {
+        EntityManager em = DatabaseConnection.getCurrentInstance().createEntityManager();
         return em.find(Tool.class, id);
     }
 
     public Tool saveTool(Tool tool) {
         if (tool.getId() == null) {
+            EntityManager em = DatabaseConnection.getCurrentInstance().createEntityManager();
+            em.getTransaction().begin();
             em.persist(tool);
-            et.commit();
-        } else {
-           em.clear();
-           tool = em.merge(tool);
-           et.commit();
+            em.getTransaction().commit();
+            return tool;
         }
-        return tool;
+        return null;
     }
 
-    public void deleteTool(Tool tool) {
-        if (em.contains(tool)) {
-            em.remove(tool);
-        } else {
+
+    public Tool updateTool(Tool tool) {
+        EntityManager em = DatabaseConnection.getCurrentInstance().createEntityManager();
+        if (tool.getId() != null) {
+            
+            em.detach(tool);
+            em.getTransaction().begin();
             em.merge(tool);
+            em.getTransaction().commit();
+            return tool;
         }
+        return null;
+    }
+    
+    
+    public void deleteTool(Tool tool) { 
+        EntityManager em = DatabaseConnection.getCurrentInstance().createEntityManager();
+        if (tool.getId() != null) {
+            em.getTransaction().begin();
+            em.remove(tool);
+            em.getTransaction().commit();
+        }
+
     }
 }

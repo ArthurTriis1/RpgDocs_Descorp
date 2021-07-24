@@ -49,6 +49,10 @@ public class DocsListController {
         this.emptySheetList = this.sheets.size() <= 0;
 
     }
+    
+//    public void redirectToView(){;
+//        
+//    }
 
     public String getName() {
         return name;

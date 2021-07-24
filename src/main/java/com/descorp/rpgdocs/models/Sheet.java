@@ -121,7 +121,16 @@ public class Sheet implements Serializable{
         this.tools.add(tool);
         tool.setSheet(this);
     }
+    
+    public void removeTools(Tool tool) {
+        if (this.tools == null){
+            this.tools = new ArrayList<Tool>();
+        }
+        
+        this.tools.remove(tool);
+    }
 
+   
     public String getDescription() {
         return description;
     }

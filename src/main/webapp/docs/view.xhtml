@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="/templates/docsBar.xhtml"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:outputStylesheet name="sheet/createSheet.css"></h:outputStylesheet>
+
+    <h:body>
+        <div class="container">
+            <div class="jcc">
+                <h2>Edição de Personagem 🧙</h2>
+            </div>
+            <div class="card">
+                <h:form id="formRegSheet">
+
+                    <div class="row mt-2">
+                        <div class="col">
+                            <div class="p-field p-col-12 p-md-4">
+                                <p:outputLabel value="Nome" for="nameSheet" />
+                                <p:inputText id="nameSheet" value="#{editSheetController.sheet.name}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="r mt-2">
+                        <div class="col-5">
+                            <div class="p-field">
+                                <p:outputLabel value="Raça" for="" />
+                                <p:selectOneMenu value="#{editSheetController.sheet.race}">
+                                    <f:selectItem itemLabel="Escolha uma raça" noSelectionOption="true"/>
+                                    <f:selectItems value="#{sheetBean.races}" />
+                                </p:selectOneMenu>
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <div class="p-field">
+                                <p:outputLabel value="Idade" for="age" styleClass="p-d-block"/>
+                                <p:inputText id="age" maxlength="5" value="#{editSheetController.sheet.age}" converterMessage="Só números"/>       
+                            </div>
+                        </div>
+                    </div>
+                    <div class="r mt-2">
+                        <div class="col-5">
+                            <div class="p-field">
+                                <p:outputLabel value="Classe" for="" styleClass="p-d-block"/>
+                                <p:selectOneMenu value="#{editSheetController.sheet.klass}">
+                                    <f:selectItem itemLabel="Escolha uma raça" noSelectionOption="true"/>
+                                    <f:selectItems value="#{sheetBean.klasses}" />
+                                </p:selectOneMenu>
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <div class="p-field">
+                                <p:outputLabel value="Descrição" for="desc" styleClass="p-d-block"/>
+                                <p:inputText id="desc" value="#{editSheetController.sheet.description}"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="r mt-2">
+                        <div class="col-5">
+                            <div class="p-field">
+                                <p:outputLabel value="Charme(0 - 100)" for="charm" styleClass="p-d-block"/>
+                                <p:inputText converterMessage="Só números" id="charm" value="#{editSheetController.sheet.skill.charm}">
+                                    <f:validateLongRange maximum="100" minimum="0" />
+                                </p:inputText>
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <div class="p-field">
+                                <p:outputLabel value="Destreza(0 - 100)" for="dexterity" styleClass="p-d-block"/>
+                                <p:inputText converterMessage="Só números" id="dexterity" value="#{editSheetController.sheet.skill.dexterity}">
+                                    <f:validateLongRange maximum="100" minimum="0" />
+                                </p:inputText>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="r mt-2">
+                        <div class="col-5">
+                            <div class="p-field">
+                                <p:outputLabel value="Inteligência(0 - 100)" for="intelligence" styleClass="p-d-block"/>
+                                <p:inputText converterMessage="Só números" id="intelligence" value="#{editSheetController.sheet.skill.intelligence}">
+                                    <f:validateLongRange maximum="100" minimum="0" />
+                                </p:inputText>
+                            </div>
+                        </div>
+                        <div class="col-5">
+                            <div class="p-field">
+                                <p:outputLabel value="Força(0 - 100)" for="strength" styleClass="p-d-block"/>
+                                <p:inputText converterMessage="Só números" id="strength" value="#{editSheetController.sheet.skill.strong}">
+                                    <f:validateLongRange maximum="100" minimum="0" />
+                                </p:inputText>
+                            </div>
+                        </div>
+                    </div>
+                    <hr/>
+                    <h3>Armas</h3>
+                    <h:panelGroup id="toolsDiv">
+                        <ui:repeat var="tool"  value="#{editSheetController.sheet.tools}">
+                            <div class="r mt-2">
+                                <div class="col-4">
+                                    <div class="p-field">
+                                        <p:outputLabel value="Tipo" for="" styleClass="p-d-block"/>
+                                        <p:selectOneMenu value="#{tool.kind}">
+                                            <f:selectItem itemLabel="Escolha um tipo de arma" noSelectionOption="true"/>
+                                            <f:selectItems value="#{sheetBean.toolKinds}" />
+                                        </p:selectOneMenu>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="p-field">
+                                        <p:outputLabel value="Nome" for="" styleClass="p-d-block"/>
+                                        <p:inputText value="#{tool.name}"/>
+                                    </div>
+                                </div>
+                                <div class="col-3">
+                                    <div class="p-field">
+                                        <p:outputLabel value="Dano(0 - 100)" for="" styleClass="p-d-block"/>
+                                        <p:inputText converterMessage="Só números"  value="#{tool.damage}"> 
+                                            <f:validateLongRange maximum="100" minimum="0" />
+                                        </p:inputText>
+                                    </div>
+                                </div>
+                                <div class="col-1">
+                                    <div class="c">
+                                        <div class="jcc">
+                                            <p:commandButton 
+                                                icon="pi pi-times" 
+                                                styleClass="rounded-button ui-button-danger ui-button-flat" 
+                                                action="#{editSheetController.removeTool(tool)}" 
+                                                title="Deletar"
+                                                type="submit"
+                                                update="@form" 
+                                                
+                                                >
+                                                <param name="toolName" value="#{tool.name}" />
+                                            </p:commandButton>                                            
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </ui:repeat>
+                        
+                        <hr/>
+                        
+                        <h3>Nova Arma</h3>
+                        
+                        <div class="r mt-2">
+                            <div class="col-4">
+                                <div class="p-field">
+                                    <p:outputLabel value="Tipo" for="" styleClass="p-d-block"/>
+                                    <p:selectOneMenu value="#{editSheetController.newTool.kind}">
+                                        <f:selectItem itemLabel="Escolha um tipo de arma" noSelectionOption="true"/>
+                                        <f:selectItems value="#{sheetBean.toolKinds}" />
+                                    </p:selectOneMenu>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="p-field">
+                                    <p:outputLabel value="Nome" for="" styleClass="p-d-block"/>
+                                    <p:inputText value="#{editSheetController.newTool.name}"/>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="p-field">
+                                    <p:outputLabel value="Dano(0 - 100)" for="" styleClass="p-d-block"/>
+                                    <p:inputText converterMessage="Só números"  value="#{editSheetController.newTool.damage}"> 
+                                    </p:inputText>
+                                </div>
+                            </div>
+                        </div>
+                    </h:panelGroup>
+
+                    <div class="c">
+                        <div class="jcc">
+                            <p:commandButton 
+                                styleClass="ui-button-warning"
+                                value="Adicionar Nova Arma"
+                                action="#{editSheetController.addTool}" 
+                                title="Adicionar Nova Arma"
+                                update="toolsDiv"
+                                >
+                            </p:commandButton>
+                        </div>
+                    </div>
+
+                    <div class="r mt-2">
+                        <div class="jcc">
+                            <p:commandButton 
+                                icon="pi pi-check" 
+                                value="Salvar"
+                                action="#{editSheetController.update()}" 
+                                title="Salvar"
+                                >
+                            </p:commandButton>
+                        </div>
+                    </div>
+                    
+                </h:form>
+            </div>
+            <p:dialog id="updateSheetModal" widgetVar="updateSheetModal">
+                <h3>Ficha criada com sucesso!</h3>
+                <p:commandButton value="Ver minhas fichas" action="/docs/index.xhtml?faces-redirect=true" class="custom"></p:commandButton>
+            </p:dialog>
+
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="fade" responsive="true" width="350">
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no ui-button-flat"/>
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" />
+            </p:confirmDialog>
+        </div>
+    </h:body>
+
+</ui:decorate>

@@ -20,7 +20,7 @@
                         <f:facet name="header">
                             <div class="grid justify-content-between align-items-center">
                                 Suas fichas
-                                <p:button href="sheet/reg/createSheet.xhtml" value="Nova Ficha" class="btn"/>
+                                <p:button href="create.xhtml" value="Nova Ficha" class="btn"/>
                             </div>
 
                         </f:facet>
@@ -34,8 +34,11 @@
                             <h:outputText value="#{sheet.klass}" />
                         </p:column>
                         <p:column headerText="Ações">
-                            <p:button icon="pi pi-ellipsis-h" styleClass="rounded-button ui-button-secondary ui-button-flat" title="Visualizar"/>
-
+                            <p:button 
+                                icon="pi pi-ellipsis-h" 
+                                styleClass="rounded-button ui-button-danger ui-button-flat"
+                                href="view.xhtml?id=#{sheet.id}"
+                                title="Visualizar"></p:button>
                             <p:commandButton 
                                 icon="pi pi-times" 
                                 styleClass="rounded-button ui-button-danger ui-button-flat" 
@@ -57,7 +60,7 @@
                         <div class="ui-g-12 jcc">
                             
                             
-                            <a href="sheet/reg/createSheet.xhtml" class="btn" icon="pi pi-plus">
+                            <a href="create.xhtml" class="btn" icon="pi pi-plus">
                                 <i class="pi pi-plus"></i>
                                 Nova Ficha
                             </a>

@@ -37,7 +37,7 @@
       <listener-class>com.descorp.rpgdocs.connection.EntityManagerFactoryListener</listener-class>
     </listener>
 
-    <filter>
+<!--    <filter>
       <filter-name>interceptor</filter-name>
       <filter-class>com.descorp.rpgdocs.filters.EntityManagerInterceptor</filter-class>
     </filter>
@@ -45,6 +45,6 @@
     <filter-mapping>
       <filter-name>interceptor</filter-name>
       <url-pattern>/docs/*</url-pattern>
-    </filter-mapping>
+    </filter-mapping>-->
     
 </web-app>

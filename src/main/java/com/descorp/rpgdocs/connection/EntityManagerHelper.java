@@ -10,7 +10,7 @@ public class EntityManagerHelper {
     private static final ThreadLocal<EntityManager> threadLocal;
 
     static {
-        emf = Persistence.createEntityManagerFactory("BookStoreUnit");      
+        emf = Persistence.createEntityManagerFactory("rpg_docs");      
         threadLocal = new ThreadLocal<EntityManager>();
     }
 
