@@ -7,7 +7,6 @@ package com.descorp.rpgdocs.controllers;
 
 import com.descorp.rpgdocs.models.Sheet;
 import com.descorp.rpgdocs.models.Tool;
-import com.descorp.rpgdocs.repositories.SheetRepository;
 import com.descorp.rpgdocs.repositoriesImpl.SheetRepositoryImpl;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
@@ -22,7 +21,7 @@ import org.primefaces.PrimeFaces;
 @ManagedBean(name = "editSheetController")
 @ViewScoped
 public class EditSheetController {
-    private SheetRepository repo;
+    private SheetRepositoryImpl repo;
     private Sheet sheet;
     
     private Tool newTool;

@@ -7,7 +7,6 @@ package com.descorp.rpgdocs.controllers;
 
 import com.descorp.rpgdocs.models.Sheet;
 import com.descorp.rpgdocs.models.User;
-import com.descorp.rpgdocs.repositories.SheetRepository;
 import com.descorp.rpgdocs.repositoriesImpl.SheetRepositoryImpl;
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +26,7 @@ public class DocsListController {
 
     String name;
 
-    SheetRepository sheetRepository;
+    SheetRepositoryImpl sheetRepository;
     
     List<Sheet> sheets = new ArrayList<>();
     

@@ -4,8 +4,6 @@ import com.descorp.rpgdocs.models.Sheet;
 import com.descorp.rpgdocs.models.Skill;
 import com.descorp.rpgdocs.models.Tool;
 import com.descorp.rpgdocs.models.User;
-import com.descorp.rpgdocs.repositories.SheetRepository;
-import com.descorp.rpgdocs.repositories.UserRepository;
 import com.descorp.rpgdocs.repositoriesImpl.SheetRepositoryImpl;
 import com.descorp.rpgdocs.repositoriesImpl.UserRepositoryImpl;
 import enums.Klass;
@@ -24,6 +22,7 @@ public class TestJPA {
     
     public static void main(String[] args) {
         TestJPA testeJPA = new TestJPA();
+
 //        testeJPA.createData();
 //        UserRepository userRepo = UserRepositoryImpl.getInstance();
 //        User u = new User();

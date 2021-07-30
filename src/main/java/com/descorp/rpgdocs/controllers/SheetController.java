@@ -6,7 +6,6 @@ import com.descorp.rpgdocs.models.Sheet;
 import com.descorp.rpgdocs.models.Skill;
 import com.descorp.rpgdocs.models.Tool;
 import com.descorp.rpgdocs.models.User;
-import com.descorp.rpgdocs.repositories.SheetRepository;
 import com.descorp.rpgdocs.repositoriesImpl.SheetRepositoryImpl;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,12 +25,13 @@ import org.primefaces.PrimeFaces;
 @ViewScoped
 public class SheetController {
     
-    private SheetRepository repo;
+    private SheetRepositoryImpl repo;
     private Sheet sheet;
     private Tool newTool;
     
     public SheetController() {
         
+
         this.newTool = new Tool();
         this.sheet = new Sheet();
         this.sheet.setSkill(new Skill());
@@ -83,7 +83,6 @@ public class SheetController {
             PrimeFaces current = PrimeFaces.current();
             current.executeScript("PF('createdSheetModal').show();");
         }
-        
         
     }
 }
