@@ -1,6 +1,7 @@
 package com.descorp.rpgdocs.repositoriesImpl;
 
 import com.descorp.rpgdocs.connection.DatabaseConnection;
+import com.descorp.rpgdocs.connection.EntityManagerHelper;
 import com.descorp.rpgdocs.models.User;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -23,12 +24,12 @@ public class UserRepositoryImpl {
     }
 
     public User getUserById(Long id) {
-        EntityManager em = DatabaseConnection.getCurrentInstance().createEntityManager();
+        EntityManager em = EntityManagerHelper.getEntityManager();
         return em.find(User.class, id);
     }
 
     public User getUserByEmailAndPassword(String email, Integer password) {
-        EntityManager em = DatabaseConnection.getCurrentInstance().createEntityManager();
+        EntityManager em = EntityManagerHelper.getEntityManager();
         Query q = em.createQuery("SELECT u FROM User u WHERE u.email = :email AND u.password = :password", User.class);
         q.setParameter("email", email);
         q.setParameter("password", password);
@@ -47,7 +48,7 @@ public class UserRepositoryImpl {
 
     public User saveUser(User user) {
         if (user.getId() == null) {
-            EntityManager em = DatabaseConnection.getCurrentInstance().createEntityManager();
+            EntityManager em = EntityManagerHelper.getEntityManager();
             em.getTransaction().begin();
             em.persist(user);
             em.getTransaction().commit();
@@ -59,7 +60,7 @@ public class UserRepositoryImpl {
 
 
     public User updateUser(User user) {
-        EntityManager em = DatabaseConnection.getCurrentInstance().createEntityManager();
+        EntityManager em = EntityManagerHelper.getEntityManager();
         if (user.getId() != null) {
             
             em.detach(user);
