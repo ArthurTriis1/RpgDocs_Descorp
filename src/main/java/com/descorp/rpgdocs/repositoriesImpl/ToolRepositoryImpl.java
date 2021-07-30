@@ -1,6 +1,7 @@
 package com.descorp.rpgdocs.repositoriesImpl;
 
 import com.descorp.rpgdocs.connection.DatabaseConnection;
+import com.descorp.rpgdocs.connection.EntityManagerHelper;
 import com.descorp.rpgdocs.models.Tool;
 import javax.persistence.EntityManager;
 
@@ -24,13 +25,15 @@ public class ToolRepositoryImpl {
     }
     
     public Tool getToolById(Long id) {
-        EntityManager em = DatabaseConnection.getCurrentInstance().createEntityManager();
+        EntityManager em = EntityManagerHelper.getEntityManager();
+        //EntityManager em = DatabaseConnection.getCurrentInstance().createEntityManager();
         return em.find(Tool.class, id);
     }
 
     public Tool saveTool(Tool tool) {
         if (tool.getId() == null) {
-            EntityManager em = DatabaseConnection.getCurrentInstance().createEntityManager();
+            EntityManager em = EntityManagerHelper.getEntityManager();
+            //EntityManager em = DatabaseConnection.getCurrentInstance().createEntityManager();
             em.getTransaction().begin();
             em.persist(tool);
             em.getTransaction().commit();
@@ -41,7 +44,8 @@ public class ToolRepositoryImpl {
 
 
     public Tool updateTool(Tool tool) {
-        EntityManager em = DatabaseConnection.getCurrentInstance().createEntityManager();
+        EntityManager em = EntityManagerHelper.getEntityManager();
+        //EntityManager em = DatabaseConnection.getCurrentInstance().createEntityManager();
         if (tool.getId() != null) {
             
             em.detach(tool);
@@ -55,7 +59,8 @@ public class ToolRepositoryImpl {
     
     
     public void deleteTool(Tool tool) { 
-        EntityManager em = DatabaseConnection.getCurrentInstance().createEntityManager();
+        EntityManager em = EntityManagerHelper.getEntityManager();
+        //EntityManager em = DatabaseConnection.getCurrentInstance().createEntityManager();
         if (tool.getId() != null) {
             em.getTransaction().begin();
             em.remove(tool);

@@ -22,9 +22,7 @@ public class EntityManagerInterceptor implements Filter {
             FilterChain chain) throws IOException, ServletException {
 
             try {
-                EntityManagerHelper.beginTransaction();
                 chain.doFilter(req, res);
-                EntityManagerHelper.commit();
             } catch (RuntimeException e) {
 
                 if ( EntityManagerHelper.getEntityManager() != null && EntityManagerHelper.getEntityManager().isOpen()) 
