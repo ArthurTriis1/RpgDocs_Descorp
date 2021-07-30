@@ -88,7 +88,6 @@ public class RpgTableRepositoryImpl {
             em.getTransaction().begin();
             em.merge(table);
             em.getTransaction().commit();
-            EntityManagerHelper.closeEntityManager();
             return table;
         }
         return null;
