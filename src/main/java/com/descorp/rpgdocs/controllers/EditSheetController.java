@@ -24,11 +24,7 @@ public class EditSheetController {
     private SheetRepositoryImpl repo;
     private Sheet sheet;
     
-    private Tool newTool;
-    
     public EditSheetController() {
-        
-        this.newTool = new Tool();
         
         this.repo = SheetRepositoryImpl.getInstance();
         FacesContext context = FacesContext.getCurrentInstance();
@@ -50,20 +46,11 @@ public class EditSheetController {
     }
     
     public void addTool(){
-        this.sheet.addTools(newTool);
-        this.newTool = new Tool();
+        this.sheet.addTools(new Tool());
     }
     
     public void removeTool(Tool tool){
         this.sheet.removeTools(tool);
-    }
-
-    public Tool getNewTool() {
-        return newTool;
-    }
-
-    public void setNewTool(Tool newTool) {
-        this.newTool = newTool;
     }
     
     public void update() {    

@@ -155,7 +155,9 @@
                                 <div class="col-4">
                                     <div class="p-field">
                                         <p:outputLabel value="Tipo da Arma" for="toolKind" styleClass="p-d-block"/>
-                                        <p:selectOneMenu required="true" value="#{tool.kind}" id="toolKind" requiredMessage="Insira o tipo da nova arma">
+                                        <p:selectOneMenu required="true" value="#{tool.kind}" 
+                                                         id="toolKind" 
+                                                         requiredMessage="Insira o tipo da nova arma">
                                             <f:selectItem itemLabel="Escolha um tipo de arma" noSelectionOption="true"/>
                                             <f:selectItems value="#{sheetBean.toolKinds}" />
                                         </p:selectOneMenu>
@@ -196,38 +198,6 @@
                         </ui:repeat>
 
                         <hr/>
-
-                        <h3>Nova Arma</h3>
-
-                        <div class="r mt-2">
-                            <div class="col-4">
-                                <div class="p-field">
-                                    <p:outputLabel value="Tipo da nova Arma" for="selectKindNewTool" styleClass="p-d-block"/>
-                                    <p:selectOneMenu value="#{sheetController.newTool.kind}" id="selectKindNewTool" required="true" requiredMessage="Insira o tipo da nova arma">
-                                        <f:selectItem itemLabel="Escolha um tipo de arma" noSelectionOption="true"/>
-                                        <f:selectItems value="#{sheetBean.toolKinds}" />
-                                    </p:selectOneMenu>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="p-field">
-                                    <p:outputLabel value="Nome da nova Arma" for="nameNewTool" styleClass="p-d-block"/>
-                                    <p:inputText value="#{sheetController.newTool.name}" id="nameNewTool" required="true" requiredMessage="Insira o nome da nova arma"/>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="p-field">
-                                    <p:outputLabel value="Dano(0 - 100) da nova Arma" for="damageNewTool" styleClass="p-d-block"/>
-                                    <p:inputText 
-                                        converterMessage="Só números" 
-                                        value="#{sheetController.newTool.damage}" 
-                                        required="true"
-                                        id="damageNewTool"
-                                        requiredMessage="Insira o dano da nova arma"> 
-                                    </p:inputText>
-                                </div>
-                            </div>
-                        </div>
                         
                     </h:panelGroup>
 
@@ -244,7 +214,18 @@
                         </div>
                     </div>
 
-
+                    <div class="r mt-2">
+                        <div class="jcc">
+                            <p:commandButton 
+                                icon="pi pi-check" 
+                                value="Salvar"
+                                action="#{sheetController.save()}" 
+                                title="Salvar"
+                                update="@all"
+                                >
+                            </p:commandButton>
+                        </div>
+                    </div>
 
                 </h:form>
             </div>
