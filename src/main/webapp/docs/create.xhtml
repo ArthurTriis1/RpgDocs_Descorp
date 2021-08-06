@@ -14,21 +14,35 @@
                 <h2>Criação de Personagem 🧙</h2>
             </div>
             <div class="card">
+                <p:tooltip/>
+
                 <h:form id="formRegSheet">
+                    <p:messages id="messages" closable="true">
+                        <p:autoUpdate/>
+                    </p:messages>
+
 
                     <div class="row mt-2">
                         <div class="col">
                             <div class="p-field p-col-12 p-md-4">
                                 <p:outputLabel value="Nome" for="nameSheet" />
-                                <p:inputText id="nameSheet" value="#{sheetController.sheet.name}"/>
+                                <p:inputText 
+                                    id="nameSheet" 
+                                    value="#{sheetController.sheet.name}" 
+                                    required="true" 
+                                    requiredMessage="Insira nome do personagem"
+                                />
                             </div>
                         </div>
                     </div>
                     <div class="r mt-2">
                         <div class="col-5">
                             <div class="p-field">
-                                <p:outputLabel value="Raça" for="" />
-                                <p:selectOneMenu value="#{sheetController.sheet.race}">
+                                <p:outputLabel value="Raça" for="selectRace" />
+                                <p:selectOneMenu 
+                                    value="#{sheetController.sheet.race}" 
+                                    id="selectRace" required="true" 
+                                    requiredMessage="Insira a raça do personagem">
                                     <f:selectItem itemLabel="Escolha uma raça" noSelectionOption="true"/>
                                     <f:selectItems value="#{sheetBean.races}" />
                                 </p:selectOneMenu>
@@ -37,24 +51,41 @@
                         <div class="col-5">
                             <div class="p-field">
                                 <p:outputLabel value="Idade" for="age" styleClass="p-d-block"/>
-                                <p:inputText id="age" maxlength="5" value="#{sheetController.sheet.age}" converterMessage="Só números"/>       
+                                <p:inputText 
+                                    id="age" maxlength="5" 
+                                    required="true" 
+                                    value="#{sheetController.sheet.age}" 
+                                    converterMessage="Só números"
+                                    requiredMessage="Insira a idade do personagem até 99999"
+                                    />       
+                                <p:message for="age"/>
                             </div>
                         </div>
                     </div>
                     <div class="r mt-2">
                         <div class="col-5">
                             <div class="p-field">
-                                <p:outputLabel value="Classe" for="" styleClass="p-d-block"/>
-                                <p:selectOneMenu value="#{sheetController.sheet.klass}">
-                                    <f:selectItem itemLabel="Escolha uma raça" noSelectionOption="true"/>
+                                <p:outputLabel value="Classe" for="selectClasse" styleClass="p-d-block"/>
+                                <p:selectOneMenu 
+                                    value="#{sheetController.sheet.klass}" 
+                                    id="selectClasse" 
+                                    required="true"
+                                    requiredMessage="Insira a classe do seu personagem"
+                                >
+                                    <f:selectItem itemLabel="Escolha uma raça"  noSelectionOption="true"/>
                                     <f:selectItems value="#{sheetBean.klasses}" />
                                 </p:selectOneMenu>
                             </div>
                         </div>
                         <div class="col-5">
                             <div class="p-field">
-                                <p:outputLabel value="Descrição" for="desc" styleClass="p-d-block"/>
-                                <p:inputText id="desc" value="#{sheetController.sheet.description}"/>
+                                <p:outputLabel value="Descrição" for="desc" styleClass="p-d-block" />
+                                <p:inputText 
+                                    id="desc" 
+                                    value="#{sheetController.sheet.description}" 
+                                    required="true"
+                                    requiredMessage="Insira uma descrição para seu personagem"
+                                />
                             </div>
                         </div>
                     </div>
@@ -62,7 +93,13 @@
                         <div class="col-5">
                             <div class="p-field">
                                 <p:outputLabel value="Charme(0 - 100)" for="charm" styleClass="p-d-block"/>
-                                <p:inputText converterMessage="Só números" id="charm" value="#{sheetController.sheet.skill.charm}">
+                                <p:inputText 
+                                    converterMessage="Só números" 
+                                    required="true" 
+                                    id="charm" 
+                                    value="#{sheetController.sheet.skill.charm}"
+                                    requiredMessage="Insira o charme do seu personagem (0 - 100)"
+                                    >
                                     <f:validateLongRange maximum="100" minimum="0" />
                                 </p:inputText>
                             </div>
@@ -70,7 +107,13 @@
                         <div class="col-5">
                             <div class="p-field">
                                 <p:outputLabel value="Destreza(0 - 100)" for="dexterity" styleClass="p-d-block"/>
-                                <p:inputText converterMessage="Só números" id="dexterity" value="#{sheetController.sheet.skill.dexterity}">
+                                <p:inputText 
+                                    converterMessage="Só números" 
+                                    required="true" 
+                                    id="dexterity" 
+                                    value="#{sheetController.sheet.skill.dexterity}"
+                                    requiredMessage="Insira a destreza do seu personagem (0 - 100)"
+                                    >
                                     <f:validateLongRange maximum="100" minimum="0" />
                                 </p:inputText>
                             </div>
@@ -80,7 +123,12 @@
                         <div class="col-5">
                             <div class="p-field">
                                 <p:outputLabel value="Inteligência(0 - 100)" for="intelligence" styleClass="p-d-block"/>
-                                <p:inputText converterMessage="Só números" id="intelligence" value="#{sheetController.sheet.skill.intelligence}">
+                                <p:inputText 
+                                    converterMessage="Só números" 
+                                    required="true" 
+                                    id="intelligence" 
+                                    value="#{sheetController.sheet.skill.intelligence}"
+                                    requiredMessage="Insira a inteligência do seu personagem (0 - 100)">
                                     <f:validateLongRange maximum="100" minimum="0" />
                                 </p:inputText>
                             </div>
@@ -88,7 +136,12 @@
                         <div class="col-5">
                             <div class="p-field">
                                 <p:outputLabel value="Força(0 - 100)" for="strength" styleClass="p-d-block"/>
-                                <p:inputText converterMessage="Só números" id="strength" value="#{sheetController.sheet.skill.strong}">
+                                <p:inputText 
+                                    converterMessage="Só números" 
+                                    required="true" 
+                                    id="strength" 
+                                    value="#{sheetController.sheet.skill.strong}"
+                                    requiredMessage="Insira a força do seu personagem (0 - 100)">
                                     <f:validateLongRange maximum="100" minimum="0" />
                                 </p:inputText>
                             </div>
@@ -101,8 +154,10 @@
                             <div class="r mt-2">
                                 <div class="col-4">
                                     <div class="p-field">
-                                        <p:outputLabel value="Tipo" for="" styleClass="p-d-block"/>
-                                        <p:selectOneMenu value="#{tool.kind}">
+                                        <p:outputLabel value="Tipo da Arma" for="toolKind" styleClass="p-d-block"/>
+                                        <p:selectOneMenu required="true" value="#{tool.kind}" 
+                                                         id="toolKind" 
+                                                         requiredMessage="Insira o tipo da nova arma">
                                             <f:selectItem itemLabel="Escolha um tipo de arma" noSelectionOption="true"/>
                                             <f:selectItems value="#{sheetBean.toolKinds}" />
                                         </p:selectOneMenu>
@@ -110,19 +165,19 @@
                                 </div>
                                 <div class="col-4">
                                     <div class="p-field">
-                                        <p:outputLabel value="Nome" for="" styleClass="p-d-block"/>
-                                        <p:inputText value="#{tool.name}"/>
+                                        <p:outputLabel value="Nome da Arma" for="toolName" styleClass="p-d-block"/>
+                                        <p:inputText value="#{tool.name}" required="true" id="toolName"  requiredMessage="Insira o nome da nova arma"/>
                                     </div>
                                 </div>
                                 <div class="col-3">
                                     <div class="p-field">
-                                        <p:outputLabel value="Dano(0 - 100)" for="" styleClass="p-d-block"/>
-                                        <p:inputText converterMessage="Só números"  value="#{tool.damage}"> 
+                                        <p:outputLabel value="Dano(0 - 100) da Arma" for="toolDamage" styleClass="p-d-block"/>
+                                        <p:inputText converterMessage="Só números" required="true" id="toolDamage" value="#{tool.damage}" requiredMessage="Insira o dano da nova arma"> 
                                             <f:validateLongRange maximum="100" minimum="0" />
                                         </p:inputText>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-1">
                                     <div class="c">
                                         <div class="jcc">
@@ -133,45 +188,17 @@
                                                 title="Deletar"
                                                 type="submit"
                                                 update="@form" 
-                                                
                                                 >
-                                                <param name="toolName" value="#{tool.name}" />
-                                            </p:commandButton>                                            
+                                            </p:commandButton>                                          
                                         </div>
                                     </div>
                                 </div>
-                                
+
                             </div>
                         </ui:repeat>
-                        
+
                         <hr/>
                         
-                        <h3>Nova Arma</h3>
-                        
-                        <div class="r mt-2">
-                            <div class="col-4">
-                                <div class="p-field">
-                                    <p:outputLabel value="Tipo" for="" styleClass="p-d-block"/>
-                                    <p:selectOneMenu value="#{sheetController.newTool.kind}">
-                                        <f:selectItem itemLabel="Escolha um tipo de arma" noSelectionOption="true"/>
-                                        <f:selectItems value="#{sheetBean.toolKinds}" />
-                                    </p:selectOneMenu>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="p-field">
-                                    <p:outputLabel value="Nome" for="" styleClass="p-d-block"/>
-                                    <p:inputText value="#{sheetController.newTool.name}"/>
-                                </div>
-                            </div>
-                            <div class="col-4">
-                                <div class="p-field">
-                                    <p:outputLabel value="Dano(0 - 100)" for="" styleClass="p-d-block"/>
-                                    <p:inputText converterMessage="Só números"  value="#{sheetController.newTool.damage}"> 
-                                    </p:inputText>
-                                </div>
-                            </div>
-                        </div>
                     </h:panelGroup>
 
                     <div class="c">
@@ -192,13 +219,14 @@
                             <p:commandButton 
                                 icon="pi pi-check" 
                                 value="Salvar"
-                                action="#{sheetController.save}" 
+                                action="#{sheetController.save()}" 
                                 title="Salvar"
+                                update="@all"
                                 >
                             </p:commandButton>
                         </div>
                     </div>
-                    
+
                 </h:form>
             </div>
             <p:dialog id="createdSheetModal" widgetVar="createdSheetModal">

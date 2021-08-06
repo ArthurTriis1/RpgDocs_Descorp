@@ -27,12 +27,9 @@ public class SheetController {
     
     private SheetRepositoryImpl repo;
     private Sheet sheet;
-    private Tool newTool;
     
     public SheetController() {
         
-
-        this.newTool = new Tool();
         this.sheet = new Sheet();
         this.sheet.setSkill(new Skill());
         this.sheet.setTools(new ArrayList<>());
@@ -56,21 +53,13 @@ public class SheetController {
     }
     
     public void addTool(){
-        this.sheet.addTools(newTool);
-        this.newTool = new Tool();
+        this.sheet.addTools(new Tool());
     }
     
     public void removeTool(Tool tool){
         this.sheet.removeTools(tool);
     }
 
-    public Tool getNewTool() {
-        return newTool;
-    }
-
-    public void setNewTool(Tool newTool) {
-        this.newTool = newTool;
-    }
     
     public void save() {
         
