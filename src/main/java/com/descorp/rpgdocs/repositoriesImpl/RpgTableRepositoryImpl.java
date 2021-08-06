@@ -46,7 +46,7 @@ public class RpgTableRepositoryImpl {
     
     public List<RpgTable> getRpgTablesByPlayer(User player) {
         EntityManager em = EntityManagerHelper.getEntityManager();
-        TypedQuery<RpgTable> q = em.createQuery("SELECT T FROM RpgTable T WHERE T.players.id = :player", RpgTable.class);
+        TypedQuery<RpgTable> q = em.createQuery("SELECT T FROM RpgTable T JOIN T.players p WHERE P.id = :player", RpgTable.class);
         q.setParameter("player", player.getId());
         List<RpgTable> resp = q.getResultList();
         return resp;

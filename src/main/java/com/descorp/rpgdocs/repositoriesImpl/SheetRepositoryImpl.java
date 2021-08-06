@@ -77,10 +77,12 @@ public class SheetRepositoryImpl {
     public void deleteSheet(Sheet sheet) {
         EntityManager em = EntityManagerHelper.getEntityManager();
         if (sheet.getId() != null) {
+            if (!em.contains(sheet)) {
+                sheet = em.merge(sheet);
+            }
             em.getTransaction().begin();
             em.remove(sheet);
             em.getTransaction().commit();
-            EntityManagerHelper.closeEntityManager();
         }
     }
 }

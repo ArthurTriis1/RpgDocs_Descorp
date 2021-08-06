@@ -84,15 +84,15 @@ public class TableListController {
     private void initTablesList(){
         
         List<RpgTable> ownerTables = this.tableRepository.getRpgTablesByMaster(this.user);
-//        List<RpgTable> playerTables = this.tableRepository.getRpgTablesByPlayer(this.user);
+        List<RpgTable> playerTables = this.tableRepository.getRpgTablesByPlayer(this.user);
         
         if(ownerTables != null){
             this.myTables.addAll(ownerTables);
         }
         
-//        if(playerTables != null){
-//            this.myTables.addAll(playerTables);
-//        }
+        if(playerTables != null){
+            this.myTables.addAll(playerTables);
+        }
         
         this.emptyMyTablesList = this.myTables.size() <= 0;
     }

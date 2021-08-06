@@ -1,9 +1,11 @@
 package main;
 
+import com.descorp.rpgdocs.models.RpgTable;
 import com.descorp.rpgdocs.models.Sheet;
 import com.descorp.rpgdocs.models.Skill;
 import com.descorp.rpgdocs.models.Tool;
 import com.descorp.rpgdocs.models.User;
+import com.descorp.rpgdocs.repositoriesImpl.RpgTableRepositoryImpl;
 import com.descorp.rpgdocs.repositoriesImpl.SheetRepositoryImpl;
 import com.descorp.rpgdocs.repositoriesImpl.UserRepositoryImpl;
 import enums.Klass;
@@ -22,18 +24,30 @@ public class TestJPA {
     
     public static void main(String[] args) {
         TestJPA testeJPA = new TestJPA();
-
+//
 //        testeJPA.createData();
-//        UserRepository userRepo = UserRepositoryImpl.getInstance();
-//        User u = new User();
-//        
-//        testeJPA.createUser(u);
-//        userRepo.saveUser(u);
+//            UserRepositoryImpl userRepo = UserRepositoryImpl.getInstance();
+//            User u = new User();
+////        
+//            testeJPA.createUser(u);
+//            userRepo.saveUser(u);
         
 //        SheetRepository sr = SheetRepositoryImpl.getInstance();
 //        sr.saveSheet(testeJPA.createSheet());
 //        Sheet s = sr.getSheetById(8L);
 //        sr.deleteSheet(s);
+
+// Adiciona player numa mesa
+//        RpgTableRepositoryImpl rpgRep = RpgTableRepositoryImpl.getInstance();
+//        RpgTable table =  rpgRep.getRpgTableById(1L);
+//        
+//        UserRepositoryImpl usRep = UserRepositoryImpl.getInstance();
+//        
+//        table.addPlayer(usRep.getUserById(2L));
+//        
+//        rpgRep.updateRpgTable(table);
+        
+        
     }
     
     public void createData() {
