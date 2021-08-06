@@ -50,11 +50,11 @@ public class TableOwnerView {
         
         Sheet sheet1 = new Sheet();
         sheet1.setAge(11);
-        sheet1.setDescription("jkjlkjlkj");
+        sheet1.setDescription("Guerreiro ancestral do fogo");
         sheet1.setId(1L);
-        sheet1.setKlass(Klass.MAGE);
-        sheet1.setName("lalala");
-        sheet1.setRace(Race.Fate);
+        sheet1.setKlass(Klass.WARRIOR);
+        sheet1.setName("Hebert Richards");
+        sheet1.setRace(Race.Dragon);
         
         Skill skill = new Skill();
         skill.setCharm(11);
@@ -66,16 +66,21 @@ public class TableOwnerView {
         sheet1.setTools(new ArrayList<>());
         
         Tool tool = new Tool();
-        tool.setDamage("22");
+        tool.setDamage("1D20");
         tool.setId(1L);
-        tool.setKind(ToolKind.Fire);
+        tool.setKind(ToolKind.Cut);
         tool.setSheet(sheet1);
-        tool.setName("Nome da arma");
+        tool.setName("Faca poderosa");
+        
+        Tool tool2 = new Tool();
+        tool2.setDamage("2D20");
+        tool2.setId(3L);
+        tool2.setKind(ToolKind.Cut);
+        tool2.setSheet(sheet1);
+        tool2.setName("Espada samurai");
         
         sheet1.getTools().add(tool);
-        sheet1.getTools().add(tool);
-        sheet1.getTools().add(tool);
-        
+        sheet1.getTools().add(tool2);
         
         sheets.add(sheet1);
         sheets.add(sheet1);

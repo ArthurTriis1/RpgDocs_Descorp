@@ -9,7 +9,16 @@
 
         <main style="display: flex; justify-content: center;">
             <div style="width: 80%">
-                <h1>Basic</h1>
+                <h1><p:outputLabel style="font-size: 30px" value="#{tableOwnerView.table.name}"/></h1>
+                <p><p:outputLabel value="#{tableOwnerView.table.description}"/></p>
+                
+                <hr/>
+                <h3>Mestre: <p:outputLabel value="#{tableOwnerView.table.master.name}"/></h3>
+                
+                <hr/>
+                
+                <h2>Personagens:</h2>
+                
                 <p:accordionPanel widgetVar="basic" var="sheet"  value="#{tableOwnerView.sheets}">
                     <p:tab title="#{sheet.name}">
 
