@@ -8,6 +8,7 @@ package com.descorp.rpgdocs.controllers;
 import com.descorp.rpgdocs.models.Sheet;
 import com.descorp.rpgdocs.models.Tool;
 import com.descorp.rpgdocs.repositoriesImpl.SheetRepositoryImpl;
+import java.util.ArrayList;
 import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -30,6 +31,8 @@ public class EditSheetController {
         FacesContext context = FacesContext.getCurrentInstance();
         Map requestParams = context.getExternalContext().getRequestParameterMap();
         String id = (String) requestParams.get("id");
+        this.sheet = new Sheet();
+        this.sheet.setTools(new ArrayList<>());
         
         if (id != null) {
             Sheet findedSheet = this.repo.getSheetById(Long.valueOf(id));
@@ -51,6 +54,10 @@ public class EditSheetController {
     
     public void removeTool(Tool tool){
         this.sheet.removeTools(tool);
+    }
+    
+    public void removeTool(int index){
+        this.sheet.removeToolByIndex(index);
     }
     
     public void update() {    

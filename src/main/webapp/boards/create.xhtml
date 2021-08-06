@@ -57,7 +57,6 @@
                                 value="Salvar"
                                 action="#{createNewTableController.save()}" 
                                 title="Salvar"
-                                update="@all"
                                 >
                             </p:commandButton>
                         </div>
@@ -66,7 +65,7 @@
                 </h:form>
             </div>
             <p:dialog id="createdSheetModal" widgetVar="createdTableModal">
-                <h3>Mesa criada com sucesso!</h3>
+                <h3>Mesa criada com sucesso! Envie o código da mesa para convidar seus amigos para participar dela!</h3>
                 <p:commandButton value="Ver minhas mesas" action="/boards/index.xhtml?faces-redirect=true" class="custom"></p:commandButton>
             </p:dialog>
         </div>

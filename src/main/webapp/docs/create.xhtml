@@ -150,7 +150,7 @@
                     <hr/>
                     <h3>Minhas Armas</h3>
                     <h:panelGroup id="toolsDiv">
-                        <ui:repeat var="tool"  value="#{sheetController.sheet.tools}">
+                        <ui:repeat var="tool"  value="#{sheetController.sheet.tools}" varStatus="toolStatus">
                             <div class="r mt-2">
                                 <div class="col-4">
                                     <div class="p-field">
@@ -184,7 +184,7 @@
                                             <p:commandButton 
                                                 icon="pi pi-times" 
                                                 styleClass="rounded-button ui-button-danger ui-button-flat" 
-                                                action="#{editSheetController.removeTool(tool)}" 
+                                                action="#{editSheetController.removeTool(toolStatus.index)}" 
                                                 title="Deletar"
                                                 type="submit"
                                                 update="@form" 
