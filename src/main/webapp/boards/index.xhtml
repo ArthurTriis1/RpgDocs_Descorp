@@ -35,6 +35,20 @@
                         </p:column>
                     </p:dataTable>
                 </h:form>
+                
+                <p:card rendered="#{docsListController.emptySheetList == true}">
+                    <div class="ui-g">
+                        <div class="ui-g-12 jcc">
+                            <h2 class="text-center">Oi, #{docsListController.name} você ainda não faz parte de nenhuma mesa, que tal criar uma? <br></br> clique abaixo para criar uma mesa:️</h2>
+                        </div>
+                       <div class="ui-g-12 jcc">
+                            <a href="create.xhtml" class="btn" icon="pi pi-plus">
+                                <i class="pi pi-plus"></i>
+                                Nova Mesa
+                            </a>
+                       </div>
+                    </div>
+                </p:card>
             </div>
         </main>
     </h:body>

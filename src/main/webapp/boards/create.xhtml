@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="/templates/docsBar.xhtml"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+    <h:outputStylesheet name="sheet/createSheet.css"></h:outputStylesheet>
+
+    <h:body>
+        <div class="container">
+            <div class="jcc">
+                <h2>Nova Mesa</h2>
+            </div>
+            <div class="card">
+                <p:tooltip/>
+
+                <h:form id="formNewBoard">
+                    <p:messages id="messages" closable="true">
+                        <p:autoUpdate/>
+                    </p:messages>
+
+
+                    <div class="row mt-2">
+                        <div class="col">
+                            <div class="p-field p-col-12 p-md-4">
+                                <p:outputLabel value="Nome da mesa" for="boardName" />
+                                <p:inputText 
+                                    id="boardName" 
+                                    value="#{createNewTableController.table.name}" 
+                                    required="true" 
+                                    requiredMessage="Insira nome da nova mesa"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row mt-2">
+                        <div class="col">
+                            <div class="p-field p-col-12 p-md-4">
+                                <p:outputLabel value="Descrição da mesa" for="boardDescription" />
+                                <p:inputText 
+                                    id="boardDescription" 
+                                    value="#{createNewTableController.table.description}" 
+                                    required="true" 
+                                    requiredMessage="Insira uma descrição para a nova mesa"
+                                />
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="r mt-2">
+                        <div class="jcc">
+                            <p:commandButton 
+                                icon="pi pi-check" 
+                                value="Salvar"
+                                action="#{createNewTableController.save()}" 
+                                title="Salvar"
+                                update="@all"
+                                >
+                            </p:commandButton>
+                        </div>
+                    </div>
+
+                </h:form>
+            </div>
+            <p:dialog id="createdSheetModal" widgetVar="createdTableModal">
+                <h3>Mesa criada com sucesso!</h3>
+                <p:commandButton value="Ver minhas mesas" action="/boards/index.xhtml?faces-redirect=true" class="custom"></p:commandButton>
+            </p:dialog>
+        </div>
+    </h:body>
+
+</ui:decorate>

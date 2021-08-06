@@ -70,6 +70,11 @@ public class RpgTableRepositoryImpl {
     @Transactional
     public RpgTable saveRpgTable(RpgTable table) {
         if (table.getId() == null) {
+            
+            Double hash = (Math.random()+table.getName().hashCode());
+            
+            table.setIdentifier(hash.toString());
+            
             EntityManager em = EntityManagerHelper.getEntityManager();
             em.getTransaction().begin();
             em.persist(table);

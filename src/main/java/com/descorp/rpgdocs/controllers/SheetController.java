@@ -1,15 +1,11 @@
 package com.descorp.rpgdocs.controllers;
 
-
-import com.descorp.rpgdocs.beans.SheetBean;
 import com.descorp.rpgdocs.models.Sheet;
 import com.descorp.rpgdocs.models.Skill;
 import com.descorp.rpgdocs.models.Tool;
 import com.descorp.rpgdocs.models.User;
 import com.descorp.rpgdocs.repositoriesImpl.SheetRepositoryImpl;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -35,13 +31,6 @@ public class SheetController {
         this.sheet.setTools(new ArrayList<>());
         
         this.repo = SheetRepositoryImpl.getInstance();
-//        FacesContext context = FacesContext.getCurrentInstance();
-//        Map requestParams = context.getExternalContext().getRequestParameterMap();
-//        String id = (String) requestParams.get("id");
-//        
-//        if (id != null) {
-//            this.sheetView = this.repo.getSheetById(Long.valueOf(id));
-//        }
     }
 
     public Sheet getSheet() {
@@ -62,7 +51,6 @@ public class SheetController {
 
     
     public void save() {
-        
         FacesContext context = FacesContext.getCurrentInstance();
         HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
         User owner = (User) request.getSession().getAttribute("user");
@@ -71,7 +59,6 @@ public class SheetController {
         if(this.repo.saveSheet(this.sheet) != null) {
             PrimeFaces current = PrimeFaces.current();
             current.executeScript("PF('createdSheetModal').show();");
-        }
-        
+        }   
     }
 }

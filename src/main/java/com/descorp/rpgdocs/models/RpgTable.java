@@ -30,8 +30,8 @@ public class RpgTable implements Serializable{
     @Column(name = "NAME", nullable = false)
     private String name;
     
-    @Column(name = "HASH", nullable = false)
-    private String hash;
+    @Column(name = "IDENTIFIER", nullable = false)
+    private String identifier;
     
     @Column(name = "DESCRIPTION", nullable = true)
     private String description;
@@ -52,13 +52,14 @@ public class RpgTable implements Serializable{
         this.name = name;
     }
 
-    public String getHash() {
-        return hash;
+    public String getIdentifier() {
+        return identifier;
     }
 
-    public void setHash(String hash) {
-        this.hash = hash;
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
+
 
     public String getDescription() {
         return description;
