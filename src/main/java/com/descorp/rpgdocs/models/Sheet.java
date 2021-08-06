@@ -129,6 +129,10 @@ public class Sheet implements Serializable{
         
         this.tools.remove(tool);
     }
+    
+    public void removeToolByIndex(int toolIndex) { 
+        this.tools.remove(toolIndex);
+    }
 
    
     public String getDescription() {

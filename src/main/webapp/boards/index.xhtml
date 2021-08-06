@@ -38,25 +38,32 @@
                         </p:column>
                         <p:column headerText="Entrar">
                             <p:button 
+                                rendered="#{tableListController.user.id == table.master.id}"
                                 icon="pi pi-ellipsis-h" 
                                 styleClass="rounded-button ui-button-danger ui-button-flat"
                                 href="ownerView.xhtml?id=#{table.id}"
-                                title="Visualizar"></p:button>
+                                title="Visualizar">Gerenciar mesa</p:button>
+                            <p:button 
+                                rendered="#{tableListController.user.id != table.master.id}"
+                                icon="pi pi-ellipsis-h" 
+                                styleClass="rounded-button ui-button-danger ui-button-flat"
+                                href="playerView.xhtml?id=#{table.id}"
+                                title="Visualizar">Ver mesa</p:button>
                         </p:column>
                     </p:dataTable>
                 </h:form>
-                
+
                 <p:card rendered="#{tableListController.emptyMyTablesList == true}">
                     <div class="ui-g">
                         <div class="ui-g-12 jcc">
                             <h2 class="text-center">Oi, #{tableListController.user.name} você ainda não faz parte de nenhuma mesa, que tal criar uma? <br></br> clique abaixo para criar uma mesa:️</h2>
                         </div>
-                       <div class="ui-g-12 jcc">
+                        <div class="ui-g-12 jcc">
                             <a href="create.xhtml" class="btn" icon="pi pi-plus">
                                 <i class="pi pi-plus"></i>
                                 Nova Mesa
                             </a>
-                       </div>
+                        </div>
                     </div>
                 </p:card>
             </div>
