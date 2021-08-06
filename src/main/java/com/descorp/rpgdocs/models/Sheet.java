@@ -185,4 +185,11 @@ public class Sheet implements Serializable{
         }
         return true;
     }
+
+    @Override
+    public String toString() {
+        return id + " - " + name;
+    }
+    
+    
 }

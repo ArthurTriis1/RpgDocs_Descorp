@@ -9,6 +9,7 @@ import com.descorp.rpgdocs.connection.EntityManagerHelper;
 import com.descorp.rpgdocs.models.RpgTable;
 import com.descorp.rpgdocs.models.User;
 import java.util.List;
+import java.util.Random;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
@@ -54,7 +55,7 @@ public class RpgTableRepositoryImpl {
     
     public RpgTable getRpgTableByHash(String hash) {
         EntityManager em = EntityManagerHelper.getEntityManager();
-        TypedQuery<RpgTable> q = em.createQuery("SELECT T FROM RpgTable T WHERE T.hash = :hash", RpgTable.class);
+        TypedQuery<RpgTable> q = em.createQuery("SELECT T FROM RpgTable T WHERE T.identifier = :hash", RpgTable.class);
         q.setParameter("hash", hash);
         return q.getSingleResult(); 
     }
@@ -71,9 +72,10 @@ public class RpgTableRepositoryImpl {
     public RpgTable saveRpgTable(RpgTable table) {
         if (table.getId() == null) {
             
-            Double hash = (Math.random()+table.getName().hashCode());
+            Random aleatorio = new Random();
+            Integer hash = aleatorio.nextInt(1000) + 1;
             
-            table.setIdentifier(hash.toString());
+            table.setIdentifier(table.getName().replaceAll(" ","_").toLowerCase() + "-" + hash.toString());
             
             EntityManager em = EntityManagerHelper.getEntityManager();
             em.getTransaction().begin();

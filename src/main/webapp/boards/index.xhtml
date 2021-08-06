@@ -8,38 +8,48 @@
     <h:body style="background-color: #e8e8e8">
         <main class="docs-main">
             <div>                    
-                <h:form id="form" rendered="#{docsListController.emptySheetList == false}">
+                <h:form id="form" rendered="#{tableListController.emptyMyTablesList == false}">
                     <h1 class="docs-header">Olá, 
-                        <h:outputText value="#{docsListController.name}" /> veja suas mesas: </h1>
-                    <p:dataTable id="sheets" var="sheet" 
-                                 value="#{docsListController.sheets}" 
-                                 rowKey="#{sheet.id}"
+                        <h:outputText value="#{tableListController.user.name}" /> veja suas mesas: </h1>
+                    <p:dataTable id="sheets" var="table" 
+                                 value="#{tableListController.myTables}" 
+                                 rowKey="#{table.id}"
                                  selectionMode="single"
                                  rowIndexVar="index"
                                  >
                         <f:facet name="header">
                             <div class="grid justify-content-between align-items-center">
-                                Mesas que você faz parte:
-                                <p:button href="create.xhtml" value="Criar Mesa" class="btn"/>
+                                Minhas mesas:
+                                <p:button href="create.xhtml" value="Criar mesa" class="btn"/>
+                                <p:button href="enter.xhtml" value="Entrar em uma mesa" class="btn"/>
                             </div>
-
                         </f:facet>
                         <p:column headerText="Nome">
-                            <h:outputText value="#{sheet.name}" />
+                            <h:outputText value="#{table.name}" />
                         </p:column>
-                        <p:column headerText="Raça">
-                            <h:outputText value="#{sheet.race}" />
+                        <p:column headerText="Código de convite">
+                            <h:outputText value="#{table.identifier}" rendered="#{tableListController.user.id == table.master.id}" />
                         </p:column>
-                        <p:column headerText="Classe">
-                            <h:outputText value="#{sheet.klass}" />
+                        <p:column headerText="Dono">
+                            <h:outputText value="#{table.master.name}" />
+                        </p:column>
+                        <p:column headerText="Players">
+                            <h:outputText  rendered="#{(table.players != null)}" value="#{table.players.size()}"/>
+                        </p:column>
+                        <p:column headerText="Entrar">
+                            <p:button 
+                                icon="pi pi-ellipsis-h" 
+                                styleClass="rounded-button ui-button-danger ui-button-flat"
+                                href="ownerView.xhtml?id=#{table.id}"
+                                title="Visualizar"></p:button>
                         </p:column>
                     </p:dataTable>
                 </h:form>
                 
-                <p:card rendered="#{docsListController.emptySheetList == true}">
+                <p:card rendered="#{tableListController.emptyMyTablesList == true}">
                     <div class="ui-g">
                         <div class="ui-g-12 jcc">
-                            <h2 class="text-center">Oi, #{docsListController.name} você ainda não faz parte de nenhuma mesa, que tal criar uma? <br></br> clique abaixo para criar uma mesa:️</h2>
+                            <h2 class="text-center">Oi, #{tableListController.user.name} você ainda não faz parte de nenhuma mesa, que tal criar uma? <br></br> clique abaixo para criar uma mesa:️</h2>
                         </div>
                        <div class="ui-g-12 jcc">
                             <a href="create.xhtml" class="btn" icon="pi pi-plus">
