@@ -60,8 +60,10 @@ public class ToolRepositoryImpl {
     
     public void deleteTool(Tool tool) { 
         EntityManager em = EntityManagerHelper.getEntityManager();
-        //EntityManager em = DatabaseConnection.getCurrentInstance().createEntityManager();
         if (tool.getId() != null) {
+            if (!em.contains(tool)) {
+                tool = em.merge(tool);
+            }
             em.getTransaction().begin();
             em.remove(tool);
             em.getTransaction().commit();

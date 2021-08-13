@@ -47,8 +47,8 @@ public class UserRepositoryImpl {
     }
 
     public User saveUser(User user) {
+        EntityManager em = EntityManagerHelper.getEntityManager();
         if (user.getId() == null) {
-            EntityManager em = EntityManagerHelper.getEntityManager();
             em.getTransaction().begin();
             em.persist(user);
             em.getTransaction().commit();
@@ -75,7 +75,10 @@ public class UserRepositoryImpl {
 
     public void deleteUser(User user) {
         EntityManager em = DatabaseConnection.getCurrentInstance().createEntityManager();
-        if (user.getId() != null) {
+        if (user.getId() != null) { 
+            if (!em.contains(user)) {
+                user = em.merge(user);
+            }
             em.getTransaction().begin();
             em.remove(user);
             em.getTransaction().commit();

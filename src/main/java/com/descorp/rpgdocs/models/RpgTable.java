@@ -41,10 +41,6 @@ public class RpgTable implements Serializable{
     private User master;
     
     @ManyToMany(fetch = FetchType.LAZY)
-    //    @JoinTable(name = "TB_PRODUCT_CATEGORY", joinColumns = {
-//        @JoinColumn(name = "ID_PRODUCT")},
-//            inverseJoinColumns = {
-//                @JoinColumn(name = "ID_CATEGORY")})
     @JoinColumn(name = "ID_PLAYERS", referencedColumnName = "ID")
     private ArrayList<User> players;
     

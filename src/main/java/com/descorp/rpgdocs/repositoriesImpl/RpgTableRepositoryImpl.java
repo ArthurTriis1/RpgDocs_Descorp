@@ -14,10 +14,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
 
-/**
- *
- * @author eletr
- */
+
 public class RpgTableRepositoryImpl {
     
     private static RpgTableRepositoryImpl rpgTableRepositoryImpl;
@@ -81,7 +78,6 @@ public class RpgTableRepositoryImpl {
             em.getTransaction().begin();
             em.persist(table);
             em.getTransaction().commit();
-            EntityManagerHelper.closeEntityManager();
             return table;
         }
         return null;
@@ -103,10 +99,12 @@ public class RpgTableRepositoryImpl {
     public void deleteRpgTable(RpgTable table) {
         EntityManager em = EntityManagerHelper.getEntityManager();
         if (table.getId() != null) {
+            if (!em.contains(table)) {
+                table = em.merge(table);
+            }
             em.getTransaction().begin();
             em.remove(table);
             em.getTransaction().commit();
-            EntityManagerHelper.closeEntityManager();
         }
     }
 }

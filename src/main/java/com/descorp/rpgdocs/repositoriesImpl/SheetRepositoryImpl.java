@@ -45,14 +45,11 @@ public class SheetRepositoryImpl {
     
     @Transactional
     public Sheet saveSheet(Sheet sheet) {
-        
-       
         if (sheet.getId() == null) {
             EntityManager em = EntityManagerHelper.getEntityManager();
             em.getTransaction().begin();
             em.persist(sheet);
             em.getTransaction().commit();
-            //EntityManagerHelper.closeEntityManager();
             return sheet;
         }
         return null;
@@ -68,7 +65,6 @@ public class SheetRepositoryImpl {
             em.getTransaction().begin();
             em.merge(sheet);
             em.getTransaction().commit();
-            EntityManagerHelper.closeEntityManager();
             return sheet;
         }
         return null;
