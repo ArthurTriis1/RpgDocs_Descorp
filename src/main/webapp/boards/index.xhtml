@@ -42,15 +42,36 @@
                                 icon="pi pi-ellipsis-h" 
                                 styleClass="rounded-button ui-button-danger ui-button-flat"
                                 href="ownerView.xhtml?id=#{table.id}"
-                                title="Visualizar">Gerenciar mesa</p:button>
+                                title="Visualizar"></p:button>
                             <p:button 
                                 rendered="#{tableListController.user.id != table.master.id}"
                                 icon="pi pi-ellipsis-h" 
                                 styleClass="rounded-button ui-button-danger ui-button-flat"
                                 href="playerView.xhtml?id=#{table.id}"
                                 title="Visualizar">Ver mesa</p:button>
+                            <p:commandButton
+                                type="button"
+                                onclick="PF('myDialogVar').show();"
+                                icon="pi pi-send"
+                                styleClass="rounded-button ui-button-danger ui-button-flat"
+                                title="Compartilhar">
+                            </p:commandButton>
                         </p:column>
                     </p:dataTable>
+                     
+                    <p:dialog id="myDialogID" widgetVar="myDialogVar" modal="true" >
+                        <label>E-mail</label><br/>
+                        <p:inputText value="#{tableListController.inviteEmail}"></p:inputText>
+                        <p:commandButton onclick="PF('myDialogVar').hide();" value="Enviar!" class="custom" action="#{tableListController.sendInvite(table.identifier)}"></p:commandButton>
+                    </p:dialog>
+                    
+                    <p:dialog id="inviteSaved" widgetVar="inviteSaved" modal="true" >
+                        <h2>Convite criado com sucesso!</h2>
+                    </p:dialog>
+                    
+                     <p:dialog id="inviteFail" widgetVar="inviteFail" modal="true" >
+                        <h2>Usuário não foi encontrado :(</h2>
+                    </p:dialog>
                 </h:form>
 
                 <p:card rendered="#{tableListController.emptyMyTablesList == true}">

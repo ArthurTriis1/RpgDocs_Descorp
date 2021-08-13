@@ -10,6 +10,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
 @Entity
@@ -20,10 +21,11 @@ public class Invite {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(name = "FROM_USER", nullable = false)
+    //@Column(name = "FROM_USER", nullable = false)
+    @JoinColumn(name = "FROM_USER", referencedColumnName = "ID")
     private User fromUser;
     
-    @Column(name = "TO_USER", nullable = false)
+    @JoinColumn(name = "TO_USER", referencedColumnName = "ID")
     private User toUser;
     
     @Column(name = "TABLE_IDENTIFIER", nullable = false)

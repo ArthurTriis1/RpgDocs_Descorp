@@ -45,6 +45,21 @@ public class UserRepositoryImpl {
         return findUser;
          
     }
+    
+    public User getUserByEmail(String email) {
+        EntityManager em = EntityManagerHelper.getEntityManager();
+        Query q = em.createQuery("SELECT u FROM User u WHERE u.email = :email", User.class);
+        q.setParameter("email", email);   
+        List<User> listUsers = q.getResultList();
+        
+        if(listUsers.isEmpty()){
+            return null;
+        }
+        
+        User findUser = (User) listUsers.get(0);
+        
+        return findUser;
+    }
 
     public User saveUser(User user) {
         EntityManager em = EntityManagerHelper.getEntityManager();

@@ -5,17 +5,19 @@
  */
 package com.descorp.rpgdocs.controllers;
 
+import com.descorp.rpgdocs.models.Invite;
 import com.descorp.rpgdocs.models.RpgTable;
-import com.descorp.rpgdocs.models.Sheet;
 import com.descorp.rpgdocs.models.User;
+import com.descorp.rpgdocs.repositoriesImpl.InviteRepositoryImpl;
 import com.descorp.rpgdocs.repositoriesImpl.RpgTableRepositoryImpl;
-import com.descorp.rpgdocs.repositoriesImpl.SheetRepositoryImpl;
+import com.descorp.rpgdocs.repositoriesImpl.UserRepositoryImpl;
 import java.util.ArrayList;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
+import org.primefaces.PrimeFaces;
 
 /**
  *
@@ -31,6 +33,8 @@ public class TableListController {
     List<RpgTable> myTables = new ArrayList<>();
     
     Boolean emptyMyTablesList;
+    
+    String inviteEmail;
 
     public TableListController() {
         this.tableRepository = RpgTableRepositoryImpl.getInstance();
@@ -78,6 +82,14 @@ public class TableListController {
     public void setEmptyMyTablesList(Boolean emptyMyTablesList) {
         this.emptyMyTablesList = emptyMyTablesList;
     }
+
+    public String getInviteEmail() {
+        return inviteEmail;
+    }
+
+    public void setInviteEmail(String inviteEmail) {
+        this.inviteEmail = inviteEmail;
+    }
     
     
     
@@ -97,5 +109,30 @@ public class TableListController {
         this.emptyMyTablesList = this.myTables.size() <= 0;
     }
     
-    
+    public void sendInvite(String identifier){
+        
+        UserRepositoryImpl ur = UserRepositoryImpl.getInstance();
+        
+        User aux = ur.getUserByEmail(inviteEmail);
+        
+        if(aux != null) {
+         
+            Invite i = new Invite();
+            
+            i.setToUser(aux);
+            i.setFromUser(user);
+            i.setTableIdentifier(identifier);
+            
+            Invite inviteSaved = InviteRepositoryImpl.getInstance().saveInvite(i);
+            
+            if(inviteSaved != null) {
+                PrimeFaces current = PrimeFaces.current();
+                current.executeScript("PF('inviteSaved').show();");
+                return;
+            } 
+            
+        }
+         PrimeFaces current = PrimeFaces.current();
+         current.executeScript("PF('inviteFail').show();");
+    }
 }
