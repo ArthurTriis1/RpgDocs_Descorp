@@ -226,13 +226,13 @@
                             </p:commandButton>
                         </div>
                     </div>
-
+                
+                    <p:dialog id="createdSheetModal" modal="true" widgetVar="createdSheetModal" closable="false">
+                        <h3>Ficha criada com sucesso!</h3>
+                        <p:commandButton value="Ver minhas fichas" action="/docs/index.xhtml?faces-redirect=true" class="custom"></p:commandButton>
+                    </p:dialog>
                 </h:form>
             </div>
-            <p:dialog id="createdSheetModal" widgetVar="createdSheetModal">
-                <h3>Ficha criada com sucesso!</h3>
-                <p:commandButton value="Ver minhas fichas" action="/docs/index.xhtml?faces-redirect=true" class="custom"></p:commandButton>
-            </p:dialog>
         </div>
     </h:body>
 

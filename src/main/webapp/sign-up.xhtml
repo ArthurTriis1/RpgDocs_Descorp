@@ -30,7 +30,7 @@
 
                     <p:commandButton value="Cadastrar" action="#{signUpController.signUP()}" class="custom"></p:commandButton>
 
-                    <p:dialog id="myDialogID" widgetVar="myDialogVar">
+                    <p:dialog id="myDialogID" widgetVar="myDialogVar" modal="true" closable="false">
                         <h3>Usuario criado com sucesso!</h3>
                         <p:commandButton value="Faça login para continuar!" action="sign-in?faces-redirect=true" class="custom"></p:commandButton>
                     </p:dialog>
