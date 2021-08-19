@@ -39,7 +39,7 @@
                                 id="boardSheet" required="true" 
                                 requiredMessage="Escolha o personagem">
                                 <f:selectItem itemLabel="Escolha o personagem" noSelectionOption="true"/>
-                                <f:selectItems value="#{enterTableController.user.sheets}" var="sheet" itemLabel="#{sheet.name}" itemValue="#{sheet.id}" />
+                                <f:selectItems value="#{enterTableController.freeSheets}" var="sheet" itemLabel="#{sheet.name}" itemValue="#{sheet.id}" />
                             </p:selectOneMenu>
                         </div>
                     </div>

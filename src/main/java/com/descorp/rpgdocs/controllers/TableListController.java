@@ -90,8 +90,7 @@ public class TableListController {
     public void setInviteEmail(String inviteEmail) {
         this.inviteEmail = inviteEmail;
     }
-    
-    
+
     
     private void initTablesList(){
         
