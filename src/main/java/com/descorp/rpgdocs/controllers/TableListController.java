@@ -112,7 +112,8 @@ public class TableListController {
         
         UserRepositoryImpl ur = UserRepositoryImpl.getInstance();
         
-        User aux = ur.getUserByEmail(inviteEmail);
+        RpgTable table = tableRepository.getRpgTableByIdentifier(identifier);
+        User aux = ur.getUserByEmail(inviteEmail); 
         
         if(aux != null) {
          
@@ -120,7 +121,7 @@ public class TableListController {
             
             i.setToUser(aux);
             i.setFromUser(user);
-            i.setTableIdentifier(identifier);
+            i.setTable(table);
             
             Invite inviteSaved = InviteRepositoryImpl.getInstance().saveInvite(i);
             
@@ -128,8 +129,7 @@ public class TableListController {
                 PrimeFaces current = PrimeFaces.current();
                 current.executeScript("PF('inviteSaved').show();");
                 return;
-            } 
-            
+            }
         }
          PrimeFaces current = PrimeFaces.current();
          current.executeScript("PF('inviteFail').show();");

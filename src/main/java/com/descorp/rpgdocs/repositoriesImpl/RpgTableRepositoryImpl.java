@@ -51,10 +51,10 @@ public class RpgTableRepositoryImpl {
     }
     
     
-    public RpgTable getRpgTableByHash(String hash) {
+    public RpgTable getRpgTableByIdentifier(String identifier) {
         EntityManager em = EntityManagerHelper.getEntityManager();
-        TypedQuery<RpgTable> q = em.createQuery("SELECT T FROM RpgTable T WHERE T.identifier = :hash", RpgTable.class);
-        q.setParameter("hash", hash);
+        TypedQuery<RpgTable> q = em.createQuery("SELECT T FROM RpgTable T WHERE T.identifier = :identifier", RpgTable.class);
+        q.setParameter("identifier", identifier);
         return q.getSingleResult(); 
     }
 

@@ -33,7 +33,7 @@ public class EnterBoardController {
     
     SheetRepositoryImpl sheetRepo;
     
-    String code;
+    String identifier;
     
     Long sheetId;
     
@@ -55,7 +55,7 @@ public class EnterBoardController {
     }
     
     public void save(){
-        RpgTable table = this.tableRepo.getRpgTableByHash(code);
+        RpgTable table = this.tableRepo.getRpgTableByIdentifier(identifier);
         Sheet sheet = this.sheetRepo.getSheetById(sheetId);
         
         if(table != null && sheet != null){
@@ -98,12 +98,12 @@ public class EnterBoardController {
     
     
 
-    public String getCode() {
-        return code;
+    public String getIdentifier() {
+        return identifier;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 
     public Long getSheetId() {
