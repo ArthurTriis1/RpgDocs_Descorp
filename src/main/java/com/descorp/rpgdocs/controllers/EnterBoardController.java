@@ -12,6 +12,7 @@ import com.descorp.rpgdocs.repositoriesImpl.RpgTableRepositoryImpl;
 import com.descorp.rpgdocs.repositoriesImpl.SheetRepositoryImpl;
 import com.descorp.rpgdocs.services.AuthService;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -51,6 +52,14 @@ public class EnterBoardController {
         if (actualUser != null) {
             this.user = actualUser;
             this.freeSheets = actualUser.getSheets().stream().filter(s -> s.getRpgTable() == null).collect(Collectors.toList());
+        }
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map requestParams = context.getExternalContext().getRequestParameterMap();
+        String id = (String) requestParams.get("id");
+        
+        if(id != null){
+            this.identifier = id;
         }
     }
     

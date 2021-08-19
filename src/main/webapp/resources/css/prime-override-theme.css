@@ -1,6 +1,7 @@
 body .ui-menu.ui-menubar {
     background: #293240 !important;
     border-radius: 0px !important;
+
 }
 
 body .ui-menu {
@@ -32,4 +33,8 @@ body .ui-button.custom {
 
 body .ui-button.ui-state-hover.custom span {
     color: #FFF !important;
+}
+
+body .ui-menu.ui-shadow.custom { 
+    background-color: #293240 !important;
 }
