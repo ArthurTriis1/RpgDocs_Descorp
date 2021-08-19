@@ -1,0 +1,47 @@
+<ui:decorate xmlns="http://www.w3.org/1999/xhtml"
+             xmlns:h="http://xmlns.jcp.org/jsf/html"
+             xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+             template="/templates/docsBar.xhtml"
+             xmlns:p="http://primefaces.org/ui"
+             xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:outputStylesheet name="index.css"></h:outputStylesheet>
+    <h:body style="background-color: #e8e8e8">
+
+        <main style="display: flex; justify-content: center;">
+            <div style="width: 80%">
+                <h1>Mesa: <p:outputLabel style="font-size: 30px" value="#{tableOwnerView.table.name}"/></h1>
+                <p>Historia: <p:outputLabel value="#{tableOwnerView.table.description}"/></p>
+                
+                <hr/>
+                <h3>Mestre: <p:outputLabel value="#{tableOwnerView.table.master.name}"/></h3>
+                
+                <hr/>
+                
+                <h2>Personagens:</h2>
+                
+                <p:accordionPanel widgetVar="basic" var="sheet"  value="#{tableOwnerView.table.sheets}">
+                    <p:tab title="#{sheet.name}">
+                        
+                        <h4>Descrição</h4>
+                        <p:outputLabel value="#{sheet.description}"  styleClass="p-d-block"/>
+
+                        <div class="grid">
+                            <div class="col">
+                                <h4>Raça</h4>
+                                <p:outputLabel value="#{sheet.race}" />
+                            </div>
+                            <div class="col">
+                                <h4>Idade</h4>
+                                <p:outputLabel value="#{sheet.age}"  styleClass="p-d-block"/>    
+                            </div>
+                            <div class="col">
+                                <h4>Classe</h4>
+                                <p:outputLabel value="#{sheet.klass}" styleClass="p-d-block"/>
+                            </div>
+                        </div>
+                    </p:tab>
+                </p:accordionPanel>
+            </div>
+        </main>
+    </h:body>
+</ui:decorate>

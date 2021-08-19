@@ -39,16 +39,16 @@
                         <p:column headerText="Entrar">
                             <p:button 
                                 rendered="#{tableListController.user.id == table.master.id}"
-                                icon="pi pi-ellipsis-h" 
+                                icon="pi pi-map" 
                                 styleClass="rounded-button ui-button-danger ui-button-flat"
                                 href="ownerView.xhtml?id=#{table.id}"
-                                title="Visualizar"></p:button>
+                                title="Ver fichas"></p:button>
                             <p:button 
                                 rendered="#{tableListController.user.id != table.master.id}"
-                                icon="pi pi-ellipsis-h" 
+                                icon="pi pi-table" 
                                 styleClass="rounded-button ui-button-danger ui-button-flat"
                                 href="playerView.xhtml?id=#{table.id}"
-                                title="Visualizar">Ver mesa</p:button>
+                                title="Entrar na mesa"></p:button>
                             <p:commandButton
                                 type="button"
                                 onclick="PF('myDialogVar').show();"
@@ -80,9 +80,16 @@
                             <h2 class="text-center">Oi, #{tableListController.user.name} você ainda não faz parte de nenhuma mesa, que tal criar uma? <br></br> clique abaixo para criar uma mesa:️</h2>
                         </div>
                         <div class="ui-g-12 jcc">
-                            <a href="create.xhtml" class="btn" icon="pi pi-plus">
-                                <i class="pi pi-plus"></i>
+                            <a href="create.xhtml" class="btn" icon="pi pi-plus" style="width: fit-content">
+                                <i class="pi pi-plus  mr-2"></i>
                                 Nova Mesa
+                            </a>
+                        </div>
+                        <div class="ui-g-12 jcc">
+                            
+                            <a href="enter.xhtml" class="btn" style="width: fit-content">
+                                <i class="pi pi-sign-in mr-2"></i>
+                                Entrar em uma mesa
                             </a>
                         </div>
                     </div>
