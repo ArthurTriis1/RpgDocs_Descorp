@@ -6,6 +6,7 @@ import com.descorp.rpgdocs.models.User;
 import com.descorp.rpgdocs.repositoriesImpl.UserRepositoryImpl;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 
 public class AuthService {
@@ -57,5 +58,17 @@ public class AuthService {
     
     public void deleteUser(User user){
         userRepo.deleteUser(user);
+    }
+    
+    public User getLoggedUser(){
+        FacesContext facesContext = FacesContext.getCurrentInstance();
+        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
+        User actualUser = (User) session.getAttribute("user");
+        
+        if(actualUser == null){
+            return null;
+        }
+        
+        return this.userRepo.getUserById(actualUser.getId());
     }
 }

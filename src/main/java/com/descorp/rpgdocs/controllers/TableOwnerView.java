@@ -32,10 +32,6 @@ public class TableOwnerView {
     RpgTableRepositoryImpl repo;
     
     RpgTable table;
-    
-    List<Sheet> sheets = new ArrayList<>();
-    
-    
 
     public TableOwnerView() {
         this.repo = RpgTableRepositoryImpl.getInstance();
@@ -47,44 +43,6 @@ public class TableOwnerView {
             RpgTable findedTable = this.repo.getRpgTableById(Long.valueOf(id));
             this.table = findedTable;
         }
-        
-        Sheet sheet1 = new Sheet();
-        sheet1.setAge(11);
-        sheet1.setDescription("Guerreiro ancestral do fogo");
-        sheet1.setId(1L);
-        sheet1.setKlass(Klass.WARRIOR);
-        sheet1.setName("Hebert Richards");
-        sheet1.setRace(Race.Dragon);
-        
-        Skill skill = new Skill();
-        skill.setCharm(11);
-        skill.setDexterity(44);
-        skill.setIntelligence(77);
-        skill.setStrong(88);
-        
-        sheet1.setSkill(skill);
-        sheet1.setTools(new ArrayList<>());
-        
-        Tool tool = new Tool();
-        tool.setDamage("1D20");
-        tool.setId(1L);
-        tool.setKind(ToolKind.Cut);
-        tool.setSheet(sheet1);
-        tool.setName("Faca poderosa");
-        
-        Tool tool2 = new Tool();
-        tool2.setDamage("2D20");
-        tool2.setId(3L);
-        tool2.setKind(ToolKind.Cut);
-        tool2.setSheet(sheet1);
-        tool2.setName("Espada samurai");
-        
-        sheet1.getTools().add(tool);
-        sheet1.getTools().add(tool2);
-        
-        sheets.add(sheet1);
-        sheets.add(sheet1);
-        sheets.add(sheet1);
     }
 
     public RpgTableRepositoryImpl getRepo() {
@@ -101,13 +59,5 @@ public class TableOwnerView {
 
     public void setTable(RpgTable table) {
         this.table = table;
-    }
-
-    public List<Sheet> getSheets() {
-        return sheets;
-    }
-
-    public void setSheets(List<Sheet> sheets) {
-        this.sheets = sheets;
     }
 }

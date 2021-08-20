@@ -21,15 +21,14 @@ public class Invite {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    //@Column(name = "FROM_USER", nullable = false)
     @JoinColumn(name = "FROM_USER", referencedColumnName = "ID")
     private User fromUser;
     
     @JoinColumn(name = "TO_USER", referencedColumnName = "ID")
     private User toUser;
     
-    @Column(name = "TABLE_IDENTIFIER", nullable = false)
-    private String tableIdentifier;
+    @JoinColumn(name = "RPG_TABLE", referencedColumnName = "ID")
+    private RpgTable table;
 
     public Long getId() {
         return id;
@@ -55,11 +54,11 @@ public class Invite {
         this.toUser = toUser;
     }
 
-    public String getTableIdentifier() {
-        return tableIdentifier;
+    public RpgTable getTable() {
+        return table;
     }
 
-    public void setTableIdentifier(String tableIdentifier) {
-        this.tableIdentifier = tableIdentifier;
-    }    
+    public void setTable(RpgTable table) {
+        this.table = table;
+    }
 }

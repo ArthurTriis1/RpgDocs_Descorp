@@ -30,6 +30,8 @@ public class TableListController {
     Boolean emptyMyTablesList;
     
     String inviteEmail;
+    
+    RpgTable inviteTable;
 
     public TableListController() {
         this.tableRepository = RpgTableRepositoryImpl.getInstance();
@@ -85,8 +87,7 @@ public class TableListController {
     public void setInviteEmail(String inviteEmail) {
         this.inviteEmail = inviteEmail;
     }
-    
-    
+
     
     private void initTablesList(){
         
@@ -104,11 +105,11 @@ public class TableListController {
         this.emptyMyTablesList = this.myTables.size() <= 0;
     }
     
-    public void sendInvite(String identifier){
+    public void sendInvite(){
         
         UserRepositoryImpl ur = UserRepositoryImpl.getInstance();
         
-        User aux = ur.getUserByEmail(inviteEmail);
+        User aux = ur.getUserByEmail(inviteEmail); 
         
         if(aux != null) {
          
@@ -116,7 +117,7 @@ public class TableListController {
             
             i.setToUser(aux);
             i.setFromUser(user);
-            i.setTableIdentifier(identifier);
+            i.setTable(this.inviteTable);
             
             Invite inviteSaved = InviteRepositoryImpl.getInstance().saveInvite(i);
             
@@ -124,10 +125,15 @@ public class TableListController {
                 PrimeFaces current = PrimeFaces.current();
                 current.executeScript("PF('inviteSaved').show();");
                 return;
-            } 
-            
+            }
         }
          PrimeFaces current = PrimeFaces.current();
          current.executeScript("PF('inviteFail').show();");
+    }
+    
+    public void setInviteTable(RpgTable table){
+        this.inviteTable = table;
+        PrimeFaces current = PrimeFaces.current();
+        current.executeScript("PF('myDialogVar').show();");
     }
 }

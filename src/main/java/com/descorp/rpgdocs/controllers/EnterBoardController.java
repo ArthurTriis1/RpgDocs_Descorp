@@ -9,7 +9,11 @@ import com.descorp.rpgdocs.models.RpgTable;
 import com.descorp.rpgdocs.models.Sheet;
 import com.descorp.rpgdocs.models.User;
 import com.descorp.rpgdocs.repositoriesImpl.RpgTableRepositoryImpl;
-import java.util.ArrayList;
+import com.descorp.rpgdocs.repositoriesImpl.SheetRepositoryImpl;
+import com.descorp.rpgdocs.services.AuthService;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
@@ -26,29 +30,49 @@ public class EnterBoardController {
 
     User user;
     
-    RpgTableRepositoryImpl repo;
+    RpgTableRepositoryImpl tableRepo;
     
-    String code;
+    SheetRepositoryImpl sheetRepo;
+    
+    String identifier;
     
     Long sheetId;
+    
+    List<Sheet> freeSheets;
+    
+    AuthService authService;
 
     public EnterBoardController() {
-        this.repo = RpgTableRepositoryImpl.getInstance();
+        tableRepo = RpgTableRepositoryImpl.getInstance();
+        sheetRepo = SheetRepositoryImpl.getInstance();
+        this.authService = AuthService.getInstance();
 
-        FacesContext facesContext = FacesContext.getCurrentInstance();
-        HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
-        User actualUser = (User) session.getAttribute("user");
-
+        User actualUser = this.authService.getLoggedUser();
+        
         if (actualUser != null) {
             this.user = actualUser;
+            this.freeSheets = actualUser.getSheets().stream().filter(s -> s.getRpgTable() == null).collect(Collectors.toList());
+        }
+        
+        FacesContext context = FacesContext.getCurrentInstance();
+        Map requestParams = context.getExternalContext().getRequestParameterMap();
+        String id = (String) requestParams.get("id");
+        
+        if(id != null){
+            this.identifier = id;
         }
     }
     
     public void save(){
-        RpgTable table = this.repo.getRpgTableByHash(code);
+        RpgTable table = this.tableRepo.getRpgTableByIdentifier(identifier);
+        Sheet sheet = this.sheetRepo.getSheetById(sheetId);
         
-        if(table != null){
+        if(table != null && sheet != null){
             //Add player on table
+            
+            sheet.setRpgTable(table);
+            this.sheetRepo.updateSheet(sheet);
+
             PrimeFaces current = PrimeFaces.current();
             current.executeScript("PF('enterTableSuccess').show();");
         }else {
@@ -65,20 +89,30 @@ public class EnterBoardController {
         this.user = user;
     }
 
-    public RpgTableRepositoryImpl getRepo() {
-        return repo;
+    public RpgTableRepositoryImpl getTableRepo() {
+        return tableRepo;
     }
 
-    public void setRepo(RpgTableRepositoryImpl repo) {
-        this.repo = repo;
+    public void setTableRepo(RpgTableRepositoryImpl tableRepo) {
+        this.tableRepo = tableRepo;
     }
 
-    public String getCode() {
-        return code;
+    public SheetRepositoryImpl getSheetRepo() {
+        return sheetRepo;
     }
 
-    public void setCode(String code) {
-        this.code = code;
+    public void setSheetRepo(SheetRepositoryImpl sheetRepo) {
+        this.sheetRepo = sheetRepo;
+    }
+    
+    
+
+    public String getIdentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 
     public Long getSheetId() {
@@ -89,5 +123,11 @@ public class EnterBoardController {
         this.sheetId = sheetId;
     }
 
-    
+    public List<Sheet> getFreeSheets() {
+        return freeSheets;
+    }
+
+    public void setFreeSheets(List<Sheet> freeSheets) {
+        this.freeSheets = freeSheets;
+    }
 }

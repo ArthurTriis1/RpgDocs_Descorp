@@ -7,6 +7,8 @@ package com.descorp.rpgdocs.models;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -16,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 
@@ -40,9 +43,9 @@ public class RpgTable implements Serializable{
     @JoinColumn(name = "ID_MASTER", referencedColumnName = "ID")
     private User master;
     
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinColumn(name = "ID_PLAYERS", referencedColumnName = "ID")
-    private ArrayList<User> players;
+    @OneToMany(mappedBy = "rpgTable", fetch = FetchType.LAZY,
+            cascade = CascadeType.ALL, orphanRemoval = false)
+    private List<Sheet> sheets;
     
     public String getName() {
         return name;
@@ -77,12 +80,12 @@ public class RpgTable implements Serializable{
         this.master = master;
     }
 
-    public ArrayList<User> getPlayers() {
-        return players;
+    public List<Sheet> getSheets() {
+        return sheets;
     }
 
-    public void setPlayers(ArrayList<User> players) {
-        this.players = players;
+    public void setPlayers(ArrayList<Sheet> sheets) {
+        this.sheets = sheets;
     }
     
     public Long getId() {
@@ -93,20 +96,20 @@ public class RpgTable implements Serializable{
         this.id = id;
     }
     
-    public void addPlayer(User user) {
-        if (this.players == null){
-            this.players = new ArrayList<>();
+    public void addCheet(Sheet sheet) {
+        if (this.sheets == null){
+            this.sheets = new ArrayList<>();
         }
         
-        this.players.add(user);
+        this.sheets.add(sheet);
     }  
     
-    public void removePlayer(User user) {
-        if (this.players == null){
-            this.players = new ArrayList<>();
+    public void removeSheet(Sheet sheet) {
+        if (this.sheets == null){
+            this.sheets = new ArrayList<>();
         }
         
-        this.players.remove(user);
+        this.sheets.remove(sheet);
     }
     
 }

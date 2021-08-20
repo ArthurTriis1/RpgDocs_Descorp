@@ -27,7 +27,7 @@
                             <p:outputLabel value="Código da mesa" for="boardCode" />
                             <p:inputText 
                                 id="boardCode" 
-                                value="#{enterTableController.code}" 
+                                value="#{enterTableController.identifier}" 
                                 required="true" 
                                 requiredMessage="Insira código da nova mesa"
                                 />
@@ -39,7 +39,7 @@
                                 id="boardSheet" required="true" 
                                 requiredMessage="Escolha o personagem">
                                 <f:selectItem itemLabel="Escolha o personagem" noSelectionOption="true"/>
-                                <f:selectItems value="#{enterTableController.user.sheets}" var="sheet" itemLabel="#{sheet.name}" itemValue="#{sheet.id}" />
+                                <f:selectItems value="#{enterTableController.freeSheets}" var="sheet" itemLabel="#{sheet.name}" itemValue="#{sheet.id}" />
                             </p:selectOneMenu>
                         </div>
                     </div>

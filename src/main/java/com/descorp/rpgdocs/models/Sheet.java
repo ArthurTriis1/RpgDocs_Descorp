@@ -68,6 +68,18 @@ public class Sheet implements Serializable{
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "ID_OWNER", referencedColumnName = "ID")
     private User owner;
+    
+    @ManyToOne(fetch = FetchType.LAZY, optional = true)
+    @JoinColumn(name = "ID_RPG_TABLE", referencedColumnName = "ID")
+    private RpgTable rpgTable;
+
+    public RpgTable getRpgTable() {
+        return rpgTable;
+    }
+
+    public void setRpgTable(RpgTable rpgTable) {
+        this.rpgTable = rpgTable;
+    }
 
     public Long getId() {
         return id;
