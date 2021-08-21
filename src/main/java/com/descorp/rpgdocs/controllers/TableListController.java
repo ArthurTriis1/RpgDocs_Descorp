@@ -4,6 +4,7 @@ import com.descorp.rpgdocs.models.Invite;
 import com.descorp.rpgdocs.models.RpgTable;
 import com.descorp.rpgdocs.models.User;
 import com.descorp.rpgdocs.modules.EmailSenderModule;
+import com.descorp.rpgdocs.modules.EmailTemplateBean;
 import com.descorp.rpgdocs.repositoriesImpl.InviteRepositoryImpl;
 import com.descorp.rpgdocs.repositoriesImpl.RpgTableRepositoryImpl;
 import com.descorp.rpgdocs.repositoriesImpl.UserRepositoryImpl;
@@ -89,6 +90,11 @@ public class TableListController {
         this.inviteEmail = inviteEmail;
     }
 
+    public RpgTable getInviteTable() {
+        return inviteTable;
+    }
+    
+
     
     private void initTablesList(){
         
@@ -126,9 +132,7 @@ public class TableListController {
                 
                 EmailSenderModule esm = EmailSenderModule.getInstance();
                 
-                esm.sendNotification(inviteEmail, "Você recebeu um convite de "
-                        + ""+user.getName()+" para entrar na mesa "+ inviteTable.getName()+
-                        " no RPGDocs! Não deixe seus amigos esperando");
+                esm.sendNotification(inviteEmail, EmailTemplateBean.format(user.getName(), inviteTable.getName(), inviteTable.getIdentifier()));
                 
                 PrimeFaces current = PrimeFaces.current();
                 current.executeScript("PF('inviteSaved').show();");

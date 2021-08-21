@@ -60,7 +60,7 @@ public class EmailSenderModule {
 
             message.setRecipients(Message.RecipientType.TO, toUser);
             message.setSubject("Convite chegando! -  RPGDocs");//Assunto
-            message.setText(msg);
+            message.setContent(msg, "text/html");
            
             Transport.send(message);
 

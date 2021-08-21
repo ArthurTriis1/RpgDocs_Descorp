@@ -47,7 +47,7 @@ public class NotificationsController {
        this.notifications = this.inviteRepositoryImpl.getInvitesByToUser(actualUser).stream().map(invite -> {
            Notification n = new Notification();
            n.setInviteId(invite.getId());
-           n.setTarget("enter.xhtml?id="+ invite.getTable().getIdentifier());
+           n.setTarget("http://localhost:8080/RpgDocs_Descorp/boards/enter.xhtml?id="+ invite.getTable().getIdentifier());
            n.setText(invite.getFromUser().getName() + " convidou você para a mesa " + invite.getTable().getName() + ".");
            return n;
        }).collect(Collectors.toList());
