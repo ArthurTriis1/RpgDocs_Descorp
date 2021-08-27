@@ -10,11 +10,26 @@ import enums.ConnectionType;
 
 public class Message {
     private ConnectionType connectionType;
+    private int dice;
             
     public Message(ConnectionType connectionType) {
         this.connectionType = connectionType;
     }
 
+    public Message(ConnectionType connectionType, int dice) {
+        this.connectionType = connectionType;
+        this.dice = dice;
+        
+    }
+
+    public int getDice() {
+        return dice;
+    }
+
+    public void setDice(int dice) {
+        this.dice = dice;
+    }   
+    
     public ConnectionType getConnectionType() {
         return connectionType;
     }

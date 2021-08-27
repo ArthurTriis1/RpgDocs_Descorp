@@ -9,6 +9,7 @@ import com.descorp.rpgdocs.models.Message;
 import enums.ConnectionType;
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 import javax.websocket.CloseReason;
 import javax.websocket.EncodeException;
 import javax.websocket.OnClose;
@@ -22,7 +23,7 @@ import javax.websocket.server.ServerEndpoint;
 public class DicesEndPoint {
     
     private List<Session> sessions;
-    private Session masterSession;
+    private int dice;
     
     @OnOpen
     public void onOpen(Session session) throws IOException, EncodeException {
@@ -31,18 +32,21 @@ public class DicesEndPoint {
     }
     
     @OnMessage
-    public void onMessage(Session session, FrontMessage message) throws EncodeException, IOException {
+    public void onMessage(Session session, FrontMessage message) throws EncodeException, IOException { 
+        Random r = new Random();
+        dice = r.nextInt(6) + 1;
 
+        session.getBasicRemote().sendObject(new Message(ConnectionType.MESSAGE, dice));
     }
     
         @OnClose
     public void onClose(Session session, CloseReason reason) throws IOException, EncodeException {
+        sessions.remove(session);
     }    
 
     private void sendMessage(Message msg) throws EncodeException, IOException {
         for (Session session : sessions) {
             session.getBasicRemote().sendObject(msg);
         }
-        masterSession.getBasicRemote().sendObject(msg);
     }
 }
