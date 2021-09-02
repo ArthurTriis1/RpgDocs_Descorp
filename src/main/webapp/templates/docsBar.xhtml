@@ -3,12 +3,15 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
-      xmlns:p="http://primefaces.org/ui">
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
     <h:head>
         <title>Documentos | Rpg Docs</title>
         <h:outputStylesheet name="css/style.css"></h:outputStylesheet>
         <h:outputStylesheet name="css/primeflex.css"></h:outputStylesheet>
         <h:outputStylesheet name="css/prime-override-theme.css"></h:outputStylesheet>
+
     </h:head>
     <h:body>
         <h:form>
@@ -16,9 +19,35 @@
                 <p:menuitem value="Documentos" outcome="/docs/index.xhtml"></p:menuitem>
                 <p:menuitem value="Mesas" outcome="/boards/index.xhtml"></p:menuitem>
                 <p:menuitem value="Logout" action="#{docsBarController.logout()}" ajax="false"></p:menuitem>
+
+                <f:facet name="options">
+                    <p:badge value="#{notificationsController.notifications.size()}" styleClass="mt-2 mr-2"  severity="danger">
+                        <p:commandButton id="dynaButton" type="button" icon="pi pi-bell"/>
+
+                    </p:badge>    
+                    <p:menu overlay="true" trigger="dynaButton" my="left top" at="left bottom" styleClass="custom">
+
+                        <c:forEach var="noti" items="#{notificationsController.notifications}">
+                            <p:menuitem value="#{noti.text}"  action="#{notificationsController.confirmInvite(noti)}" update="acceptInviteModal"/>
+                        </c:forEach>
+
+                    </p:menu>
+
+                </f:facet>
+
             </p:menubar>
         </h:form>
         <ui:insert></ui:insert>
+
+        <p:dialog header="Convite" id="acceptInviteModal" widgetVar="acceptInviteModal" minHeight="40" width="350" showEffect="fade">
+            <p class="p-m-0">
+                <h:outputText value="#{notificationsController.confirmNotification.text}"/>
+            </p>
+            <f:facet name="footer">
+                <p:commandButton type="submit" value="Recusar" styleClass="ui-button-flat p-mr-2" style="width: 6rem" action="#{notificationsController.rejectInvite()}"/>
+                <p:commandButton type="submit" value="Aceitar" style="width: 5rem" action="#{notificationsController.acceptInvite()}"/>
+            </f:facet>
+        </p:dialog>
     </h:body>
 </html>
 

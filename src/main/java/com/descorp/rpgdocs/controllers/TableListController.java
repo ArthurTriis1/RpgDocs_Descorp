@@ -1,13 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package com.descorp.rpgdocs.controllers;
 
 import com.descorp.rpgdocs.models.Invite;
 import com.descorp.rpgdocs.models.RpgTable;
 import com.descorp.rpgdocs.models.User;
+import com.descorp.rpgdocs.modules.EmailSenderModule;
+import com.descorp.rpgdocs.modules.EmailTemplateBean;
 import com.descorp.rpgdocs.repositoriesImpl.InviteRepositoryImpl;
 import com.descorp.rpgdocs.repositoriesImpl.RpgTableRepositoryImpl;
 import com.descorp.rpgdocs.repositoriesImpl.UserRepositoryImpl;
@@ -35,6 +32,8 @@ public class TableListController {
     Boolean emptyMyTablesList;
     
     String inviteEmail;
+    
+    RpgTable inviteTable;
 
     public TableListController() {
         this.tableRepository = RpgTableRepositoryImpl.getInstance();
@@ -91,6 +90,11 @@ public class TableListController {
         this.inviteEmail = inviteEmail;
     }
 
+    public RpgTable getInviteTable() {
+        return inviteTable;
+    }
+    
+
     
     private void initTablesList(){
         
@@ -108,11 +112,10 @@ public class TableListController {
         this.emptyMyTablesList = this.myTables.size() <= 0;
     }
     
-    public void sendInvite(String identifier){
+    public void sendInvite(){
         
         UserRepositoryImpl ur = UserRepositoryImpl.getInstance();
         
-        RpgTable table = tableRepository.getRpgTableByIdentifier(identifier);
         User aux = ur.getUserByEmail(inviteEmail); 
         
         if(aux != null) {
@@ -121,11 +124,16 @@ public class TableListController {
             
             i.setToUser(aux);
             i.setFromUser(user);
-            i.setTable(table);
+            i.setTable(this.inviteTable);
             
             Invite inviteSaved = InviteRepositoryImpl.getInstance().saveInvite(i);
             
             if(inviteSaved != null) {
+                
+                EmailSenderModule esm = EmailSenderModule.getInstance();
+                
+                esm.sendNotification(inviteEmail, EmailTemplateBean.format(user.getName(), inviteTable.getName(), inviteTable.getIdentifier()));
+                
                 PrimeFaces current = PrimeFaces.current();
                 current.executeScript("PF('inviteSaved').show();");
                 return;
@@ -133,5 +141,11 @@ public class TableListController {
         }
          PrimeFaces current = PrimeFaces.current();
          current.executeScript("PF('inviteFail').show();");
+    }
+    
+    public void setInviteTable(RpgTable table){
+        this.inviteTable = table;
+        PrimeFaces current = PrimeFaces.current();
+        current.executeScript("PF('myDialogVar').show();");
     }
 }

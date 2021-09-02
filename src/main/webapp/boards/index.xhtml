@@ -50,8 +50,8 @@
                                 href="playerView.xhtml?id=#{table.id}"
                                 title="Entrar na mesa"></p:button>
                             <p:commandButton
-                                type="button"
-                                onclick="PF('myDialogVar').show();"
+                                type="submit"
+                                action="#{tableListController.setInviteTable(table)}"
                                 icon="pi pi-send"
                                 styleClass="rounded-button ui-button-danger ui-button-flat"
                                 title="Compartilhar">
@@ -62,7 +62,7 @@
                     <p:dialog id="myDialogID" widgetVar="myDialogVar" modal="true" >
                         <label>E-mail</label><br/>
                         <p:inputText value="#{tableListController.inviteEmail}"></p:inputText>
-                        <p:commandButton onclick="PF('myDialogVar').hide();" value="Enviar!" class="custom" action="#{tableListController.sendInvite(table.identifier)}"></p:commandButton>
+                        <p:commandButton onclick="PF('myDialogVar').hide();" value="Enviar!" class="custom" action="#{tableListController.sendInvite()}"></p:commandButton>
                     </p:dialog>
                     
                     <p:dialog id="inviteSaved" widgetVar="inviteSaved" modal="true" >
