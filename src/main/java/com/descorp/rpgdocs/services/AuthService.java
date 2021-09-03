@@ -2,8 +2,11 @@ package com.descorp.rpgdocs.services;
 
 import com.descorp.rpgdocs.beans.SignInBean;
 import com.descorp.rpgdocs.connection.DatabaseConnection;
+import com.descorp.rpgdocs.models.Sheet;
 import com.descorp.rpgdocs.models.User;
 import com.descorp.rpgdocs.repositoriesImpl.UserRepositoryImpl;
+import java.util.ArrayList;
+import java.util.List;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -69,6 +72,10 @@ public class AuthService {
             return null;
         }
         
-        return this.userRepo.getUserById(actualUser.getId());
+        User findedUser = this.userRepo.getUserById(actualUser.getId());
+        
+        List<Sheet> sheets = findedUser.getSheets();
+        
+        return findedUser;
     }
 }

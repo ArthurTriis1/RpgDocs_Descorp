@@ -31,10 +31,17 @@ public class TableOwnerView {
     
     RpgTableRepositoryImpl repo;
     
+    SheetRepositoryImpl sheetRepo;
+    
     RpgTable table;
+    
+    List<Sheet> sheetsList;
 
     public TableOwnerView() {
         this.repo = RpgTableRepositoryImpl.getInstance();
+        
+        this.sheetRepo = SheetRepositoryImpl.getInstance();
+        
         FacesContext context = FacesContext.getCurrentInstance();
         Map requestParams = context.getExternalContext().getRequestParameterMap();
         String id = (String) requestParams.get("id");
@@ -42,6 +49,7 @@ public class TableOwnerView {
         if (id != null) {
             RpgTable findedTable = this.repo.getRpgTableById(Long.valueOf(id));
             this.table = findedTable;
+            this.sheetsList = this.sheetRepo.getSheetsByRpgTable(findedTable);
         }
     }
 
@@ -60,4 +68,14 @@ public class TableOwnerView {
     public void setTable(RpgTable table) {
         this.table = table;
     }
+
+    public List<Sheet> getSheetsList() {
+        return sheetsList;
+    }
+
+    public void setSheetsList(List<Sheet> sheetsList) {
+        this.sheetsList = sheetsList;
+    }
+    
+    
 }

@@ -39,7 +39,9 @@ public class EnterBoardController {
     Long sheetId;
     
     List<Sheet> freeSheets;
-    
+
+    List<Sheet> findedSheets;
+
     AuthService authService;
 
     public EnterBoardController() {
@@ -51,7 +53,8 @@ public class EnterBoardController {
         
         if (actualUser != null) {
             this.user = actualUser;
-            this.freeSheets = actualUser.getSheets().stream().filter(s -> s.getRpgTable() == null).collect(Collectors.toList());
+            this.findedSheets = this.sheetRepo.getSheetsByOwner(actualUser);
+            this.freeSheets = findedSheets.stream().filter(s -> s.getRpgTable() == null).collect(Collectors.toList());
         }
         
         FacesContext context = FacesContext.getCurrentInstance();
