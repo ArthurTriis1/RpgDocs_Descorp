@@ -5,6 +5,7 @@
  */
 package com.descorp.rpgdocs.controllers;
 
+import com.descorp.rpgdocs.connection.EntityManagerHelper;
 import com.descorp.rpgdocs.models.RpgTable;
 import com.descorp.rpgdocs.models.Sheet;
 import com.descorp.rpgdocs.models.User;
@@ -17,7 +18,8 @@ import java.util.stream.Collectors;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpSession;
+import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 import org.primefaces.PrimeFaces;
 
 /**
@@ -46,15 +48,18 @@ public class EnterBoardController {
         tableRepo = RpgTableRepositoryImpl.getInstance();
         sheetRepo = SheetRepositoryImpl.getInstance();
         this.authService = AuthService.getInstance();
-
+        
         User actualUser = this.authService.getLoggedUser();
+        EntityManager em = EntityManagerHelper.getEntityManager();
+        TypedQuery<Sheet> q = em.createQuery("SELECT * FROM Sheet s WHERE s.owner.id :id and s.rpgTable IS NULL", Sheet.class);
+        q.setParameter("id", actualUser.getId());
         
         if (actualUser != null) {
             this.user = actualUser;
-            this.freeSheets = actualUser.getSheets().stream().filter(s -> s.getRpgTable() == null).collect(Collectors.toList());
+            this.freeSheets = q.getResultList();
         }
         
-        FacesContext context = FacesContext.getCurrentInstance();
+       FacesContext context = FacesContext.getCurrentInstance();
         Map requestParams = context.getExternalContext().getRequestParameterMap();
         String id = (String) requestParams.get("id");
         

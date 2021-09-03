@@ -5,6 +5,7 @@ import com.descorp.rpgdocs.models.Skill;
 import com.descorp.rpgdocs.models.Tool;
 import com.descorp.rpgdocs.models.User;
 import com.descorp.rpgdocs.repositoriesImpl.SheetRepositoryImpl;
+import com.descorp.rpgdocs.services.AuthService;
 import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
@@ -23,6 +24,7 @@ public class SheetController {
     
     private SheetRepositoryImpl repo;
     private Sheet sheet;
+    private AuthService authService;
     
     public SheetController() {
         
@@ -51,10 +53,16 @@ public class SheetController {
 
     
     public void save() {
-        FacesContext context = FacesContext.getCurrentInstance();
-        HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
-        User owner = (User) request.getSession().getAttribute("user");
-        sheet.setOwner(owner);
+        
+         this.authService = AuthService.getInstance();
+        
+     
+        User actualUser = this.authService.getLoggedUser();
+        
+        //FacesContext context = FacesContext.getCurrentInstance();
+        //HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
+        //User owner = (User) request.getSession().getAttribute("user");
+        sheet.setOwner(actualUser);
         
         if(this.repo.saveSheet(this.sheet) != null) {
             PrimeFaces current = PrimeFaces.current();
