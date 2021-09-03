@@ -1,9 +1,15 @@
+//class FrontMessage {
+//    constructor(msg) {
+//        this.msg = msg;
+//    }
+//}
+
 function GUI() {
     var ws = null;
 
-    function setMessage(msg) {
-        let message = document.getElementById("message");
-        message.innerHTML = msg;
+    function setMessage(value) {
+        let message = document.getElementById("H2dado");
+        message.innerHTML = "Rasultado do dado: "+value;
     }
 
 //    function init() {
@@ -20,7 +26,7 @@ function GUI() {
         if (ws) {
 
         } else {
-            ws = new WebSocket(`ws://localhost:8080/RpgDocs_Descorpdices/Dices`);
+            ws = new WebSocket(`ws://localhost:8080/RpgDocs_Descorp/dices`);
             ws.onmessage = readData;
         }
     }
@@ -31,12 +37,18 @@ function GUI() {
 
     function readData(evt) {
         let data = JSON.parse(evt.data);
-        switch (data.type) {
+        switch (data.connectionType) {
             case "OPEN":
+                document.getElementById("rollDices").addEventListener("click", () => {
+                    sendMessage();
+                    console.log("a")
+                });
+                console.log(data);
                 break;
                 
             case "MESSAGE":
                 console.log(data);
+                setMessage(data.dice);
                 break;
 
             case "CLOSE":
@@ -47,9 +59,10 @@ function GUI() {
         }
     }
 
-    function sendMessage(board, piece, type, queue) {
-        var msg = new FrontMessage(board, piece, type, queue);
+    function sendMessage() {
+        var msg = {"msg" : "teste"};
         ws.send(JSON.stringify(msg));
+        console.log(msg);
     }
 
     function gameOver() {

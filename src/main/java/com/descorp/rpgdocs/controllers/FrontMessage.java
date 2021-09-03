@@ -9,6 +9,21 @@ package com.descorp.rpgdocs.controllers;
  *
  * @author Heber
  */
-class FrontMessage {
+public class FrontMessage {
+    private String msg;
+
+    public FrontMessage() {
+    }
     
+    public FrontMessage(String msg) {
+        this.msg = msg;
+    }
+    
+    public String getMsg() {
+        return msg;
+    }
+
+    public void setMsg(String msg) {
+        this.msg = msg;
+    }
 }

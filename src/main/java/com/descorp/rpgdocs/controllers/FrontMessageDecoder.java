@@ -33,6 +33,7 @@ public class FrontMessageDecoder implements Decoder.Text<FrontMessage> {
             JsonbBuilder.create().fromJson(s, FrontMessage.class);
             return true;
         } catch (JsonbException ex) {
+            ex.printStackTrace();
             return false;
         }
     }

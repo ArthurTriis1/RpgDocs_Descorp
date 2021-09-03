@@ -8,6 +8,7 @@ package com.descorp.rpgdocs.controllers;
 import com.descorp.rpgdocs.models.Message;
 import enums.ConnectionType;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 import javax.websocket.CloseReason;
@@ -27,6 +28,9 @@ public class DicesEndPoint {
     
     @OnOpen
     public void onOpen(Session session) throws IOException, EncodeException {
+        if (sessions == null) {
+            sessions = new ArrayList<>();
+        }
         sessions.add(session);
         session.getBasicRemote().sendObject(new Message(ConnectionType.OPEN));
     }
