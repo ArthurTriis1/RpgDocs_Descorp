@@ -2,6 +2,7 @@ package com.descorp.rpgdocs.repositoriesImpl;
 
 import com.descorp.rpgdocs.connection.DatabaseConnection;
 import com.descorp.rpgdocs.connection.EntityManagerHelper;
+import com.descorp.rpgdocs.models.RpgTable;
 import com.descorp.rpgdocs.models.Sheet;
 import com.descorp.rpgdocs.models.User;
 import java.util.List;
@@ -39,6 +40,14 @@ public class SheetRepositoryImpl {
         EntityManager em = EntityManagerHelper.getEntityManager();
         TypedQuery<Sheet> q = em.createQuery("SELECT s FROM Sheet s WHERE s.owner = :owner_id", Sheet.class);
         q.setParameter("owner_id", owner);
+        List<Sheet> resp = q.getResultList();
+        return resp;
+    }
+    
+    public List<Sheet> getSheetsByRpgTable(RpgTable rpgTable) {
+        EntityManager em = EntityManagerHelper.getEntityManager();
+        TypedQuery<Sheet> q = em.createQuery("SELECT s FROM Sheet s WHERE s.rpgTable = :rpgTable", Sheet.class);
+        q.setParameter("rpgTable", rpgTable);
         List<Sheet> resp = q.getResultList();
         return resp;
     }

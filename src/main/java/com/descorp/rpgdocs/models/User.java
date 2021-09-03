@@ -40,7 +40,7 @@ public class User implements Serializable{
     @Column(name = "EMAIL", nullable = false, unique = true)
     private String email;
     
-    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY,
+    @OneToMany(mappedBy = "owner", fetch = FetchType.EAGER,
             cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Sheet> sheets = new ArrayList<>();
 

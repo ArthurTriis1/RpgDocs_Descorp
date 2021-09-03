@@ -41,7 +41,9 @@ public class EnterBoardController {
     Long sheetId;
     
     List<Sheet> freeSheets;
-    
+
+    List<Sheet> findedSheets;
+
     AuthService authService;
 
     public EnterBoardController() {
@@ -50,13 +52,16 @@ public class EnterBoardController {
         this.authService = AuthService.getInstance();
         
         User actualUser = this.authService.getLoggedUser();
-        EntityManager em = EntityManagerHelper.getEntityManager();
-        TypedQuery<Sheet> q = em.createQuery("SELECT * FROM Sheet s WHERE s.owner.id :id and s.rpgTable IS NULL", Sheet.class);
-        q.setParameter("id", actualUser.getId());
+//        EntityManager em = EntityManagerHelper.getEntityManager();
+//        TypedQuery<Sheet> q = em.createQuery("SELECT * FROM Sheet s WHERE s.owner.id :id and s.rpgTable IS NULL", Sheet.class);
+//        q.setParameter("id", actualUser.getId());
         
         if (actualUser != null) {
             this.user = actualUser;
-            this.freeSheets = q.getResultList();
+
+            this.findedSheets = this.sheetRepo.getSheetsByOwner(actualUser);
+            this.freeSheets = findedSheets.stream().filter(s -> s.getRpgTable() == null).collect(Collectors.toList());
+
         }
         
        FacesContext context = FacesContext.getCurrentInstance();

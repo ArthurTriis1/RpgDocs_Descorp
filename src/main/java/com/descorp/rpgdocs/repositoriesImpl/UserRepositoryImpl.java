@@ -25,7 +25,17 @@ public class UserRepositoryImpl {
 
     public User getUserById(Long id) {
         EntityManager em = EntityManagerHelper.getEntityManager();
-        return em.find(User.class, id);
+        Query q = em.createQuery("SELECT u FROM User u WHERE u.id = :identifier", User.class);
+        q.setParameter("identifier", id);   
+        List<User> listUsers = q.getResultList();
+        
+        if(listUsers.isEmpty()){
+            return null;
+        }
+        
+        User findUser = (User) listUsers.get(0);
+        
+        return findUser;
     }
 
     public User getUserByEmailAndPassword(String email, Integer password) {
