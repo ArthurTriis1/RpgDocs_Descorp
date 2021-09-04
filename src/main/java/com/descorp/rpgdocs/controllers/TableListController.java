@@ -10,9 +10,12 @@ import com.descorp.rpgdocs.repositoriesImpl.RpgTableRepositoryImpl;
 import com.descorp.rpgdocs.repositoriesImpl.UserRepositoryImpl;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import org.primefaces.PrimeFaces;
 
@@ -22,10 +25,16 @@ import org.primefaces.PrimeFaces;
  */
 @ManagedBean(name = "tableListController")
 @ViewScoped
+@Named
+@RequestScoped
 public class TableListController {
     User user;
 
     RpgTableRepositoryImpl tableRepository;
+    
+    UserRepositoryImpl userRepositoryImpl;
+    
+    User chosenLogin;
     
     List<RpgTable> myTables = new ArrayList<>();
     
@@ -34,9 +43,12 @@ public class TableListController {
     String inviteEmail;
     
     RpgTable inviteTable;
+    
+    
 
     public TableListController() {
         this.tableRepository = RpgTableRepositoryImpl.getInstance();
+        this.userRepositoryImpl = UserRepositoryImpl.getInstance();
 
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
@@ -94,6 +106,23 @@ public class TableListController {
         return inviteTable;
     }
     
+    
+    public List<User> getLogins(String query) {
+        String queryLowerCase = query.toLowerCase();
+        
+        List<String> logins = new ArrayList<>();
+        List<User> users = userRepositoryImpl.getAllUsersLogins();
+        
+        logins = users.stream().map(u -> u.getName()).collect(Collectors.toList());
+
+        
+        List<User> response =  users.stream()
+                .filter(u -> u.getName().toLowerCase().startsWith(queryLowerCase))
+                .collect(Collectors.toList());
+        
+        return response;
+    }
+    
 
     
     private void initTablesList(){
@@ -147,5 +176,15 @@ public class TableListController {
         this.inviteTable = table;
         PrimeFaces current = PrimeFaces.current();
         current.executeScript("PF('myDialogVar').show();");
+    }
+
+    
+    
+    public User getChosenLogin() {
+        return chosenLogin;
+    }
+
+    public void setChosenLogin(User chosenLogin) {
+        this.chosenLogin = chosenLogin;
     }
 }

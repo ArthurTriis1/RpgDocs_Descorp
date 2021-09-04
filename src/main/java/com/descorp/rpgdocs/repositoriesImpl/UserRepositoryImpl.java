@@ -70,6 +70,19 @@ public class UserRepositoryImpl {
         
         return findUser;
     }
+    
+    public  List<User> getAllUsersLogins() {
+        EntityManager em = EntityManagerHelper.getEntityManager();
+        Query q = em.createQuery("SELECT u FROM User u", User.class);
+       
+        List<User> listUsers = q.getResultList();
+        
+        if(listUsers.isEmpty()){
+            return null;
+        }
+        
+        return listUsers;
+    }
 
     public User saveUser(User user) {
         EntityManager em = EntityManagerHelper.getEntityManager();
