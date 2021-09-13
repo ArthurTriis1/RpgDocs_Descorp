@@ -5,7 +5,7 @@
              xmlns:p="http://primefaces.org/ui"
              xmlns:f="http://xmlns.jcp.org/jsf/core">
     <h:outputStylesheet name="index.css"></h:outputStylesheet>
-    <h:body style="background-color: #e8e8e8">
+    <h:body style="background-color: #e8e8e8; width: 100vw; overflow-x: hidden;">
 
         <main style="display: flex; justify-content: center;">
             <div style="width: 80%">
@@ -13,7 +13,11 @@
                 <p>Historia: <p:outputLabel value="#{tableOwnerView.table.description}"/></p>
                 
                 <hr/>
-                <h3>Mestre: <p:outputLabel value="#{tableOwnerView.table.master.name}"/></h3>
+                <h3>
+                    Mestre: <p:outputLabel value="#{tableOwnerView.table.master.name}"/>
+                            <br></br>
+                    Usuario: <p:outputLabel value="#{tableOwnerView.user.name}" id="user-name"/>
+                </h3>
                 
                 <hr/>
                 
@@ -43,5 +47,71 @@
                 </p:accordionPanel>
             </div>
         </main>
+        <button class="chat-button" onclick="showChat()">💬</button>
+        <section class="chat hide-chat">
+          <span class="close-messages" onclick="hideChat()">X</span>
+          <div class="messages">
+            
+          </div>
+          <div class="send-section">
+            <input type="text" id="input-message"></input>
+            <button onclick="sendMessage()">Enviar</button>
+          </div>
+        </section>
+        <script>
+            const boardId = (new URLSearchParams(window.location.search)).get("id");
+            const chat = document.querySelector(".chat");
+            const inputMessage = document.querySelector("#input-message");
+            const messagesContainer = document.querySelector(".messages");
+            const chatSocket = new WebSocket("ws://localhost:8080/RpgDocs_Descorp/chat/"+boardId);
+            const userName = document.querySelector("#user-name").innerText;
+    
+    
+            inputMessage.addEventListener("keypress", (e) => {
+                if(e.charCode === 13){
+                    sendMessage();
+                }
+            })
+    
+            // Associa os “listeners”
+            chatSocket.onopen = function(evt) {
+                chatSocket.send(userName + " entrou na mesa.");
+            };
+            chatSocket.onmessage = function(evt) {
+              addMessage(evt.data)
+            };
+            chatSocket.onclose = function(evt) {
+                alert(userName + " saiu da mesa.");
+            };
+            chatSocket.onerror = function(evt) {
+                alert("Erro ao conectar ao chat.");
+            };
+    
+            const showChat = () => {
+                chat.classList.remove("hide-chat")
+                chat.classList.add("show-chat")
+                setTimeout(() => {
+                    inputMessage.focus();
+                }, 500)
+            }
+    
+            const hideChat = () => {
+                chat.classList.add("hide-chat")
+                chat.classList.remove("show-chat")
+            }
+    
+            const sendMessage = () => {
+              chatSocket.send(userName + ": " + inputMessage.value);
+              inputMessage.value = "";
+              inputMessage.focus()
+            }
+    
+            const addMessage = (message) => {
+                const newMessage = document.createElement("p");
+                newMessage.innerText = message;
+                messagesContainer.appendChild(newMessage);
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }
+        </script>
     </h:body>
 </ui:decorate>

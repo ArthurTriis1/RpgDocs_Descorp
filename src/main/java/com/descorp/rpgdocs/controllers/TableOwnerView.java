@@ -9,8 +9,10 @@ import com.descorp.rpgdocs.models.RpgTable;
 import com.descorp.rpgdocs.models.Sheet;
 import com.descorp.rpgdocs.models.Skill;
 import com.descorp.rpgdocs.models.Tool;
+import com.descorp.rpgdocs.models.User;
 import com.descorp.rpgdocs.repositoriesImpl.RpgTableRepositoryImpl;
 import com.descorp.rpgdocs.repositoriesImpl.SheetRepositoryImpl;
+import com.descorp.rpgdocs.services.AuthService;
 import enums.Klass;
 import enums.Race;
 import enums.ToolKind;
@@ -36,15 +38,22 @@ public class TableOwnerView {
     RpgTable table;
     
     List<Sheet> sheetsList;
+    
+    User user;
+    
+    AuthService authService;
 
     public TableOwnerView() {
         this.repo = RpgTableRepositoryImpl.getInstance();
         
         this.sheetRepo = SheetRepositoryImpl.getInstance();
         
+        this.authService = AuthService.getInstance();
+        
         FacesContext context = FacesContext.getCurrentInstance();
         Map requestParams = context.getExternalContext().getRequestParameterMap();
         String id = (String) requestParams.get("id");
+        this.user = this.authService.getLoggedUser();
         
         if (id != null) {
             RpgTable findedTable = this.repo.getRpgTableById(Long.valueOf(id));
@@ -75,6 +84,14 @@ public class TableOwnerView {
 
     public void setSheetsList(List<Sheet> sheetsList) {
         this.sheetsList = sheetsList;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
     
     
