@@ -63,13 +63,16 @@
                         
                         <p:outputLabel value="Login" for="@next"/>
                         <p:autoComplete 
-                            id="acSimple"
-                            value="#{tableListController.chosenLogin}"
+
                             completeMethod="#{tableListController.getLogins}"
                             scrollHeight="250"
-                            var="user" itemLabel="#{user.name}" itemValue="#{user}"
+                            immediate="true"
+                           
+                            var="user" itemLabel="#{user.name}" itemValue="#{user.email}" >
+                            <p:ajax event="itemSelect" listener="#{tableListController.onItemSelect}"/>
+                        </p:autoComplete>
                             
-                            />
+                       
                         
 <!--                    <label>Login</label><br/>
                         <p:inputText value=""></p:inputText>-->

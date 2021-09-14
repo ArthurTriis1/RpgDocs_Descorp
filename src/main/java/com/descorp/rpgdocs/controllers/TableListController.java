@@ -12,21 +12,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.ViewScoped;
+import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.inject.Named;
 import javax.servlet.http.HttpSession;
 import org.primefaces.PrimeFaces;
+import org.primefaces.event.SelectEvent;
 
 /**
  *
  * @author arthur
  */
 @ManagedBean(name = "tableListController")
-@ViewScoped
-@Named
-@RequestScoped
+@SessionScoped
 public class TableListController {
     User user;
 
@@ -41,6 +38,7 @@ public class TableListController {
     Boolean emptyMyTablesList;
     
     String inviteEmail;
+    String asd = "";
     
     RpgTable inviteTable;
     
@@ -145,7 +143,7 @@ public class TableListController {
         
         UserRepositoryImpl ur = UserRepositoryImpl.getInstance();
         
-        User aux = ur.getUserByEmail(inviteEmail); 
+        User aux = ur.getUserByEmail(this.getAsd()); 
         
         if(aux != null) {
          
@@ -161,7 +159,7 @@ public class TableListController {
                 
                 EmailSenderModule esm = EmailSenderModule.getInstance();
                 
-                esm.sendNotification(inviteEmail, EmailTemplateBean.format(user.getName(), inviteTable.getName(), inviteTable.getIdentifier()));
+                esm.sendNotification(asd, EmailTemplateBean.format(user.getName(), inviteTable.getName(), inviteTable.getIdentifier()));
                 
                 PrimeFaces current = PrimeFaces.current();
                 current.executeScript("PF('inviteSaved').show();");
@@ -187,4 +185,20 @@ public class TableListController {
     public void setChosenLogin(User chosenLogin) {
         this.chosenLogin = chosenLogin;
     }
+
+    public String getAsd() {
+        return asd;
+    }
+
+    public void setAsd(String asd) {
+        this.asd = asd;
+    }
+    
+    public void onItemSelect(SelectEvent<String> event) {
+        //FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Country Selected", event.getObject()));
+        String a = event.getObject();
+        this.setAsd(a);
+        
+    }
+    
 }
