@@ -29,6 +29,7 @@
     <filter-mapping>
         <filter-name>AuthFilter</filter-name>
         <url-pattern>/docs/*</url-pattern>
+        <url-pattern>/boards/*</url-pattern>       
     </filter-mapping>
     
     
@@ -45,6 +46,7 @@
     <filter-mapping>
       <filter-name>interceptor</filter-name>
       <url-pattern>/docs/*</url-pattern>
+      <url-pattern>/boards/*</url-pattern>
     </filter-mapping>
     
 </web-app>

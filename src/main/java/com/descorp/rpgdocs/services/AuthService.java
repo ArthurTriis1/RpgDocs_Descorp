@@ -5,10 +5,14 @@ import com.descorp.rpgdocs.connection.DatabaseConnection;
 import com.descorp.rpgdocs.models.Sheet;
 import com.descorp.rpgdocs.models.User;
 import com.descorp.rpgdocs.repositoriesImpl.UserRepositoryImpl;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 
@@ -38,6 +42,7 @@ public class AuthService {
             HttpServletRequest request = (HttpServletRequest) context.getExternalContext().getRequest();
             request.getSession().removeAttribute("user");
             request.getSession().setAttribute("user", loggedUser);
+            
         }
         
         return loggedUser;
@@ -66,6 +71,7 @@ public class AuthService {
     public User getLoggedUser(){
         FacesContext facesContext = FacesContext.getCurrentInstance();
         HttpSession session = (HttpSession) facesContext.getExternalContext().getSession(true);
+        
         User actualUser = (User) session.getAttribute("user");
         
         if(actualUser == null){

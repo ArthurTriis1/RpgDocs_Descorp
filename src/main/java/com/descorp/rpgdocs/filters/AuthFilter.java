@@ -12,7 +12,7 @@ import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebFilter(urlPatterns = "/docs/*" ,servletNames = "{Faces Servlet}")
+@WebFilter(urlPatterns = {"/RpgDocs_Descorp/*","/docs/*", "/boards/*"} ,servletNames = "{Faces Servlet}")
 public class AuthFilter implements Filter{
 
     public void init(FilterConfig fc) throws ServletException {
@@ -26,11 +26,32 @@ public class AuthFilter implements Filter{
         
         User user = (User) request.getSession(true).getAttribute("user");
         
+        StringBuilder requestURL = new StringBuilder(request.getRequestURL().toString());
+        String queryString = request.getQueryString() != null ? request.getQueryString() : "";
+        String completeUrl = "";
+        String enterBoardUrl = "/boards/enter.xhtml";
+        
+        
+         if (queryString != null) {
+            completeUrl  = requestURL.append('?').append(queryString).toString();
+         }
+         
+        
         if(user == null){
-            response.sendRedirect(request.getContextPath() + "/sign-in.xhtml?faces-redirect=true");
+            
+            String ul = "/sign-in.xhtml?faces-redirect=true";
+            
+            
+            if(completeUrl.contains(enterBoardUrl)) {
+                ul = ul+"&magic="+queryString.split("=")[1];
+            }
+            
+            
+            response.sendRedirect(request.getContextPath() + ul);
             return;
         }
-        fc.doFilter(servletRequest, servletResponse);
+
+        fc.doFilter(servletRequest, servletResponse);        
     }
 
     public void destroy() {

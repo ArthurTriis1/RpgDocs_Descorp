@@ -9,17 +9,21 @@ import com.descorp.rpgdocs.connection.EntityManagerHelper;
 import com.descorp.rpgdocs.models.RpgTable;
 import com.descorp.rpgdocs.models.Sheet;
 import com.descorp.rpgdocs.models.User;
+import com.descorp.rpgdocs.repositoriesImpl.InviteRepositoryImpl;
 import com.descorp.rpgdocs.repositoriesImpl.RpgTableRepositoryImpl;
 import com.descorp.rpgdocs.repositoriesImpl.SheetRepositoryImpl;
 import com.descorp.rpgdocs.services.AuthService;
+import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ViewScoped;
+import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
+import javax.servlet.http.HttpServletResponse;
 import org.primefaces.PrimeFaces;
 
 /**
@@ -52,10 +56,7 @@ public class EnterBoardController {
         this.authService = AuthService.getInstance();
         
         User actualUser = this.authService.getLoggedUser();
-//        EntityManager em = EntityManagerHelper.getEntityManager();
-//        TypedQuery<Sheet> q = em.createQuery("SELECT * FROM Sheet s WHERE s.owner.id :id and s.rpgTable IS NULL", Sheet.class);
-//        q.setParameter("id", actualUser.getId());
-        
+
         if (actualUser != null) {
             this.user = actualUser;
 
@@ -67,6 +68,21 @@ public class EnterBoardController {
        FacesContext context = FacesContext.getCurrentInstance();
         Map requestParams = context.getExternalContext().getRequestParameterMap();
         String id = (String) requestParams.get("id");
+        
+        if(InviteRepositoryImpl
+                    .getInstance()
+                    .getInvitesByToUser(user)
+                    .stream().filter(i -> i.getTable().getIdentifier()
+                            .equals(id))
+                    .collect(Collectors.toList()).size() == 0){
+            
+            ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+                    try {
+                        ec.redirect(ec.getRequestContextPath() + "/docs/index.xhtml");
+                    } catch (IOException e) {
+                    }
+            
+        }
         
         if(id != null){
             this.identifier = id;
