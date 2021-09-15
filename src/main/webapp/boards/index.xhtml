@@ -60,8 +60,22 @@
                     </p:dataTable>
                      
                     <p:dialog id="myDialogID" widgetVar="myDialogVar" modal="true" >
-                        <label>E-mail</label><br/>
-                        <p:inputText value="#{tableListController.inviteEmail}"></p:inputText>
+                        
+                        <p:outputLabel value="Login" for="@next"/>
+                        <p:autoComplete 
+
+                            completeMethod="#{tableListController.getLogins}"
+                            scrollHeight="250"
+                            immediate="true"
+                           
+                            var="user" itemLabel="#{user.name}" itemValue="#{user.email}" >
+                            <p:ajax event="itemSelect" listener="#{tableListController.onItemSelect}"/>
+                        </p:autoComplete>
+                            
+                       
+                        
+<!--                    <label>Login</label><br/>
+                        <p:inputText value=""></p:inputText>-->
                         <p:commandButton onclick="PF('myDialogVar').hide();" value="Enviar!" class="custom" action="#{tableListController.sendInvite()}"></p:commandButton>
                     </p:dialog>
                     
