@@ -21,6 +21,10 @@
                 
                 <hr/>
                 
+                <input type="hidden" id="identifier" value="#{tableOwnerView.table.identifier}"/>
+                <h2 id="H2dado">Rasultado do dado: </h2>
+                <button id="rollDices" type="button">Jogar Dados</button>
+                
                 <h2>Personagens:</h2>
                 
                 <p:accordionPanel widgetVar="basic" var="sheet"  value="#{tableOwnerView.sheetsList}">
@@ -113,5 +117,6 @@
                 messagesContainer.scrollTop = messagesContainer.scrollHeight;
             }
         </script>
+        <script src="../resources/js/dicesController.js"></script>
     </h:body>
 </ui:decorate>
