@@ -1,28 +1,13 @@
-//class FrontMessage {
-//    constructor(msg) {
-//        this.msg = msg;
-//    }
-//}
-
-function GUI() {
+function Init() {
     var ws = null;
-
+    var tableIdentifier = document.getElementById("identifier").value;
+    
     function setMessage(value) {
         let message = document.getElementById("H2dado");
         message.innerHTML = "Rasultado do dado: "+value;
     }
-
-//    function init() {
-//        let button = document.querySelector("input[type='button']");
-//        button.onclick = startGame;
-//    }
-//    
-    function setButtonText(txt) {
-        let button = document.querySelector("input[type='button']");
-        button.value = txt;
-    }
     
-    function startGame() {
+    function startDice() {
         if (ws) {
 
         } else {
@@ -39,8 +24,9 @@ function GUI() {
         let data = JSON.parse(evt.data);
         switch (data.connectionType) {
             case "OPEN":
+                sendMessage(tableIdentifier, "OPEN");
                 document.getElementById("rollDices").addEventListener("click", () => {
-                    sendMessage();
+                    sendMessage(tableIdentifier, "MESSAGE");
                     console.log("a")
                 });
                 console.log(data);
@@ -53,29 +39,25 @@ function GUI() {
 
             case "CLOSE":
                 console.log(data);
-                //setMessage("You Win!");
                 closeConnection(1000);
                 break;
         }
     }
 
-    function sendMessage() {
-        var msg = {"msg" : "teste"};
+    function sendMessage(identifier, type) {
+        var msg = {
+                    "identifier" : identifier,
+                    "connectionType" : type
+                    };
         ws.send(JSON.stringify(msg));
         console.log(msg);
     }
 
-    function gameOver() {
-        closeConnection(4000);
-//        setMessage("Game Over.");
-//        setButtonText("Restart");
-    }
-    return {startGame};
+    return {startDice};
 }
 
-
 onload = function () {
-    let gui = new GUI();
-    gui. startGame();
+    let init = new Init();
+    init.startDice();
 };
 

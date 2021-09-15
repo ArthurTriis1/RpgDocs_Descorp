@@ -5,25 +5,37 @@
  */
 package com.descorp.rpgdocs.controllers;
 
+import enums.ConnectionType;
+
 /**
  *
  * @author Heber
  */
 public class FrontMessage {
-    private String msg;
+    private String identifier;
+    private ConnectionType connectionType;
 
     public FrontMessage() {
     }
     
-    public FrontMessage(String msg) {
-        this.msg = msg;
-    }
-    
-    public String getMsg() {
-        return msg;
+    public FrontMessage(String identifier, ConnectionType connectionType) {
+        this.connectionType = connectionType;
+        this.identifier = identifier;
     }
 
-    public void setMsg(String msg) {
-        this.msg = msg;
+    public ConnectionType getConnectionType() {
+        return connectionType;
+    }
+
+    public void setConnectionType(ConnectionType connectionType) {
+        this.connectionType = connectionType;
+    }
+    
+    public String getidentifier() {
+        return identifier;
+    }
+
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
     }
 }

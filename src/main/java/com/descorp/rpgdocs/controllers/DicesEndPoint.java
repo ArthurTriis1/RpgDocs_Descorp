@@ -6,6 +6,7 @@
 package com.descorp.rpgdocs.controllers;
 
 import com.descorp.rpgdocs.models.Message;
+import com.descorp.rpgdocs.repositoriesImpl.SessionRepositoryImpl;
 import enums.ConnectionType;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -22,9 +23,9 @@ import javax.websocket.server.ServerEndpoint;
 
 @ServerEndpoint(value = "/dices", encoders = MessageEncoder.class,decoders = FrontMessageDecoder.class)
 public class DicesEndPoint {
-    
-    private List<Session> sessions;
+    private SessionRepositoryImpl sessionsRep = SessionRepositoryImpl.getInstance();
     private int dice;
+    List<Session> sessions;
     
     @OnOpen
     public void onOpen(Session session) throws IOException, EncodeException {
@@ -36,20 +37,25 @@ public class DicesEndPoint {
     }
     
     @OnMessage
-    public void onMessage(Session session, FrontMessage message) throws EncodeException, IOException { 
-        Random r = new Random();
-        dice = r.nextInt(6) + 1;
-
-        session.getBasicRemote().sendObject(new Message(ConnectionType.MESSAGE, dice));
+    public void onMessage(Session session, FrontMessage message) throws EncodeException, IOException {
+        if (message.getConnectionType().equals(ConnectionType.OPEN)){
+            sessionsRep.addSession(session, message.getidentifier());
+            sessions.remove(session);
+        }
+        else if (message.getConnectionType().equals(ConnectionType.MESSAGE)){
+            Random r = new Random();
+            dice = r.nextInt(6) + 1;
+            sendMessage(message.getidentifier(), new Message(ConnectionType.MESSAGE, dice));
+        }
     }
     
         @OnClose
     public void onClose(Session session, CloseReason reason) throws IOException, EncodeException {
-        sessions.remove(session);
+        sessionsRep.removeOneSession(session);
     }    
 
-    private void sendMessage(Message msg) throws EncodeException, IOException {
-        for (Session session : sessions) {
+    private void sendMessage(String identifier, Message msg) throws EncodeException, IOException {
+        for (Session session : sessionsRep.getSessions(identifier)) {
             session.getBasicRemote().sendObject(msg);
         }
     }
