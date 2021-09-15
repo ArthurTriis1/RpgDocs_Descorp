@@ -4,7 +4,7 @@ function Init() {
     
     function setMessage(value) {
         let message = document.getElementById("H2dado");
-        message.innerHTML = "Rasultado do dado: "+value;
+        message.innerHTML = value;
     }
     
     function startDice() {

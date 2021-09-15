@@ -44,7 +44,7 @@ public class DicesEndPoint {
         }
         else if (message.getConnectionType().equals(ConnectionType.MESSAGE)){
             Random r = new Random();
-            dice = r.nextInt(6) + 1;
+            dice = r.nextInt(20) + 1;
             sendMessage(message.getidentifier(), new Message(ConnectionType.MESSAGE, dice));
         }
     }
